@@ -1,0 +1,7 @@
+<?php
+
+Route::group(array('module' => '{{ucname}}', 'namespace' => '{{namespace}}\Controllers'), function() {
+
+    Route::resource('{{name}}', '{{ucname}}Controller');
+    
+});	
