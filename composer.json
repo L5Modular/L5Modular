@@ -2,6 +2,7 @@
     "name": "artem-schander/l5-modular",
     "description": "Modular pattern generator for Laravel 5",
     "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Artem Schander",
