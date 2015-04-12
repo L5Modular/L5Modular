@@ -37,6 +37,7 @@ Once this operation is complete, simply add the service provider to your project
 Modules follow the same app structure adopted with the latest version of Laravel, ensuring that modules feel like a natural part of your application.
 
 The built in Artisan command `php artisan make:module foobar [--no-migration]` generates a ready to use module in the `app` folder and a migration if necessary.
+
 This is how the generated module would look like:
 ```
 laravel-project/
@@ -72,6 +73,7 @@ return [
 ];
 ```
 In this case L5Modular would only load this three modules `customer` `contract` `reporting`. Every other module in the `app/Modules` folder would not be loaded.
+
 L5Modular will load all modules if there is no modules.php file in the config folder.
 
 
