@@ -5,9 +5,9 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
 This Package gives you the possibility to use Laravel 5 in a modular way.
-You can simply drop modules with their own `controllers`, `models`, `views` and a `routes.php` file into the `app/modules` folder and go on working with them.
+You can simply drop modules with their own controllers, models, views and a routes.php file into the `app/modules` folder and go on working with them.
 
-Thanks to zyhn for the [tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
+Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
 
 ## Documentation
 
