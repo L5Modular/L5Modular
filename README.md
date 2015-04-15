@@ -1,7 +1,7 @@
 # L5Modular
 [![Laravel](https://img.shields.io/badge/laravel-5-orange.svg?style=flat-square)](http://laravel.com)
 [![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular)
-[![Release](https://img.shields.io/github/release/qubyte/rubidium.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular/releases)
+[![Release](https://img.shields.io/github/release/Artem-Schander/L5Modular.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular/releases)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
 This package gives you the possibility to use Laravel 5 in a modular way.
