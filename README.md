@@ -20,7 +20,16 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
 ## Installation
 
 The best way to install this package is through your terminal via Composer.
-You can fire this command in your Laravel project:
+
+Add the following line to the `composer.json` file
+
+```
+"artem-schander/l5-modular": "dev-master"
+```
+and run `composer update`
+
+
+Or fire this command in your Laravel project:
 
 ```
 composer require artem-schander/l5-modular
