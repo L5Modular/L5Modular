@@ -12,20 +12,21 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot()
-	{
-		// $this->package('ArtemSchander\L5Modular');
-		
-		$modules = (config("modules.list")) ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
+	public function boot() {
 
-		foreach($modules as $module) 
-		{
-			$routes = app_path().'/Modules/'.$module.'/routes.php';
-			$views  = app_path().'/Modules/'.$module.'/Views';
+		if(is_dir(app_path().'/Modules/')) {
 
-			if($this->files->exists($routes)) include $routes;
-			if($this->files->isDirectory($views)) $this->loadViewsFrom($views, $module);
+			$modules = (config("modules.list")) ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
+			foreach($modules as $module)  {
+				
+				$routes = app_path().'/Modules/'.$module.'/routes.php';
+				$views  = app_path().'/Modules/'.$module.'/Views';
+
+				if($this->files->exists($routes)) include $routes;
+				if($this->files->isDirectory($views)) $this->loadViewsFrom($views, $module);
+			}
 		}
+
 	}
 
 	/**
@@ -33,7 +34,8 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register(){
+	public function register() {
+
 		$this->files = new Filesystem;
 		$this->registerMakeCommand();
 	}
@@ -43,8 +45,8 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return Console\ModuleMakeCommand
 	 */
-	protected function registerMakeCommand()
-	{
+	protected function registerMakeCommand() {
+
 		$this->commands('modules.make');
 		
 		$this->app->bindShared('modules.make', function($app) {
