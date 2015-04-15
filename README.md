@@ -36,7 +36,7 @@ Once this operation is complete, simply add the service provider to your project
 <a name="getting-started"></a>
 ## Getting started
 
-The built in Artisan command `php artisan make:module name [--no-migration]` generates a ready to use module in the `app` folder and a migration if necessary.
+The built in Artisan command `php artisan make:module name [--no-migration]` generates a ready to use module in the `app/Modules` folder and a migration if necessary.
 
 This is how the generated module would look like:
 ```
