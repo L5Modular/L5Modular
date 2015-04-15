@@ -26,7 +26,7 @@ Add the following line to the `composer.json` file and fire `composer update`
 ```
 "artem-schander/l5-modular": "dev-master"
 ```
-Once this operation is complete, simply add the service provider to your project's `config/app.php` file:
+Once this operation is complete, simply add the service provider to your project's `config/app.php`
 
 #### Service Provider
 ```
