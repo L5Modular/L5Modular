@@ -36,8 +36,6 @@ Once this operation is complete, simply add the service provider to your project
 <a name="getting-started"></a>
 ## Getting started
 
-Modules follow the same app structure adopted with the latest version of Laravel, ensuring that modules feel like a natural part of your application.
-
 The built in Artisan command `php artisan make:module foobar [--no-migration]` generates a ready to use module in the `app` folder and a migration if necessary.
 
 This is how the generated module would look like:
