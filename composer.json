@@ -1,7 +1,7 @@
 {
     "name": "artem-schander/l5-modular",
     "description": "Modular pattern generator for Laravel 5",
-    "keywords": ["laravel", "pattarn", "modular", "artisan", "generator"],
+    "keywords": ["laravel", "pattern", "modular", "Artem", "Schander", "l5modular", "artisan", "generator"],
     "homepage": "https://github.com/Artem-Schander/L5Modular",
     "license": "MIT",
     "version": "1.0.0",
