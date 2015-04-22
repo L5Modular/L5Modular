@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/release/Artem-Schander/L5Modular.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular/releases)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
-This package gives you the possibility to use Laravel 5 in a modular way.
+This package gives you the ability to use Laravel 5 in a modular way.
 You can simply drop or generate modules with their own controllers, models, views and a routes file into the `app/modules` folder and go on working with them.
 
 Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
