@@ -4,7 +4,7 @@
     "keywords": ["laravel", "pattern", "modular", "Artem", "Schander", "l5modular", "artisan", "generator"],
     "homepage": "https://github.com/Artem-Schander/L5Modular",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "Artem Schander",
@@ -13,12 +13,12 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "5.*"
+        "laravel/framework": ">=5.1.6"
     },
     "autoload": {
         "psr-0": {
-            "ArtemSchander\\L5Modular": "src/"
+            "ArtemSchander\\L5Modular\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

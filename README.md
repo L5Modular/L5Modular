@@ -30,7 +30,7 @@ Once this operation is complete, simply add the service provider to your project
 
 #### Service Provider
 ```
-ArtemSchander\L5Modular\ModuleServiceProvider::class,
+'ArtemSchander\L5Modular\ModuleServiceProvider',
 ```
 
 <a name="getting-started"></a>

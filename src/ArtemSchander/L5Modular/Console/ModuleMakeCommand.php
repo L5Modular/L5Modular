@@ -46,7 +46,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 		if($this->files->exists(app_path().'/Modules/'.$this->getNameInput())) 
 			return $this->error($this->type.' already exists!');
 
-		// // Create Controller
+		// Create Controller
 		$this->generate('controller');
 
 		// Create Model
@@ -54,8 +54,6 @@ class ModuleMakeCommand extends GeneratorCommand {
 
 		// Create Views folder
 		$this->generate('view');
-		// if ($this->files->exists($path = app_path().'/Modules/'.$this->getNameInput().'/Views')) return $this->error($this->type.' already exists!');
-		// $this->files->makeDirectory($path, 0777, true, true);
 
 		// Create Routes file
 		$this->generate('routes');
@@ -94,7 +92,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 				break;
 		}
 
-		$suffix = ($type == 'controller') ? ucfirst($type) : '';
+		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
 		$folder = ($type != 'routes') ? ucfirst($type).'s\\' : '';
 
 		$name = $this->parseName('Modules\\'.$this->getNameInput().'\\'.$folder.$filename);
@@ -139,8 +137,8 @@ class ModuleMakeCommand extends GeneratorCommand {
 	 */
 	protected function replaceName(&$stub, $name)
 	{
-		$stub = str_replace('{{name}}', $name, $stub);
-		$stub = str_replace('{{ucname}}', ucfirst($name), $stub);
+		$stub = str_replace('DummyTitle', $name, $stub);
+		$stub = str_replace('DummyUCtitle', ucfirst($name), $stub);
 		return $this;
 	}
 
@@ -154,7 +152,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	protected function replaceClass($stub, $name)
 	{
 		$class = str_ireplace($this->getNamespace($name).'\\', '', $name);
-		return str_replace('{{class}}', $class, $stub);
+		return str_replace('DummyClass', $class, $stub);
 	}
 
 	/**
