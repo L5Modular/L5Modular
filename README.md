@@ -1,7 +1,7 @@
 # L5Modular
 [![Laravel](https://img.shields.io/badge/laravel-5-orange.svg?style=flat-square)](http://laravel.com)
 [![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular)
-[![Contributor](https://img.shields.io/badge/source-Farhan Wazir-blue.svg?style=flat-square)](https://github.com/farhanwazir)
+[![Contributor](https://img.shields.io/badge/contributor-Farhan Wazir-blue.svg?style=flat-square)](https://github.com/farhanwazir)
 [![Release](https://img.shields.io/github/release/Artem-Schander/L5Modular.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular/releases)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
