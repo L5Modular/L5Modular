@@ -194,6 +194,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	{
 		return array(
 			['no-migration', null, InputOption::VALUE_NONE, 'Do not create new migration files.'],
+			['no-translation', null, InputOption::VALUE_NONE, 'Do not create module translation filesystem.'],
 		);
 	}
 
