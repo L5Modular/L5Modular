@@ -54,6 +54,10 @@ class ModuleMakeCommand extends GeneratorCommand {
 
 		// Create Views folder
 		$this->generate('view');
+		
+		//Flag for no translation
+		if ( ! $this->option('no-translation')) // Create Translations folder
+							$this->generate('translation');
 
 		// Create Routes file
 		$this->generate('routes');
@@ -86,6 +90,10 @@ class ModuleMakeCommand extends GeneratorCommand {
 			case 'view':
 				$filename = 'index.blade';
 				break;
+				
+			case 'translation':
+				$filename = 'example';
+				break;
 			
 			case 'routes':
 				$filename = 'routes';
@@ -93,14 +101,14 @@ class ModuleMakeCommand extends GeneratorCommand {
 		}
 
 		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
-		$folder = ($type != 'routes') ? ucfirst($type).'s\\' : '';
+		$folder = ($type != 'routes') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
 
 		$name = $this->parseName('Modules\\'.$this->getNameInput().'\\'.$folder.$filename);
 		if ($this->files->exists($path = $this->getPath($name))) 
 			return $this->error($this->type.' already exists!');
 
 		$this->currentStub = __DIR__.'/stubs/'.$type.'.stub';
-
+		
 		$this->makeDirectory($path);
 		$this->files->put($path, $this->buildClass($name));
 	}
@@ -186,6 +194,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	{
 		return array(
 			['no-migration', null, InputOption::VALUE_NONE, 'Do not create new migration files.'],
+			['no-translation', null, InputOption::VALUE_NONE, 'Do not create module translation filesystem.'],
 		);
 	}
 
