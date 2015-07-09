@@ -13,11 +13,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/database": "5.1.*",
-        "illuminate/support": "5.1.*",
-        "illuminate/filesystem": "5.1.*",
-        "illuminate/config": "5.1.*",
-        "illuminate/routing": "5.1.*"
+        "laravel/laravel": ">=5.1.6"
     },
     "autoload": {
         "psr-4": {
