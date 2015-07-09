@@ -13,11 +13,15 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "laravel/framework": ">=5.1.6"
+        "illuminate/database": "5.1.*",
+        "illuminate/support": "5.1.*",
+        "illuminate/filesystem": "5.1.*",
+        "illuminate/config": "5.1.*",
+        "illuminate/routing": "5.1.*"
     },
     "autoload": {
-        "psr-0": {
-            "ArtemSchander\\L5Modular\\": "src/"
+        "psr-4": {
+            "ArtemSchander\\L5Modular\\": "src/ArtemSchander/L5Modular/"
         }
     },
     "minimum-stability": "dev"
