@@ -55,8 +55,9 @@ class ModuleMakeCommand extends GeneratorCommand {
 		// Create Views folder
 		$this->generate('view');
 		
-		// Create Translations folder
-		$this->generate('translation');
+		//Flag for no translation
+		if ( ! $this->option('no-translation')) // Create Translations folder
+							$this->generate('translation');
 
 		// Create Routes file
 		$this->generate('routes');
