@@ -21,9 +21,11 @@ class ModuleServiceProvider extends ServiceProvider {
 				
 				$routes = app_path().'/Modules/'.$module.'/routes.php';
 				$views  = app_path().'/Modules/'.$module.'/Views';
+				$trans  = app_path().'/Modules/'.$module.'/Translations';
 
 				if($this->files->exists($routes)) include $routes;
 				if($this->files->isDirectory($views)) $this->loadViewsFrom($views, $module);
+				if($this->files->isDirectory($trans)) $this->loadTranslationsFrom($trans, $module);
 			}
 		}
 
