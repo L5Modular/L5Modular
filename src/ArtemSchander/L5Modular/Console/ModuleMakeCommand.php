@@ -91,7 +91,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 				break;
 				
 			case 'translation':
-				$filename = 'test';
+				$filename = 'example';
 				break;
 			
 			case 'routes':
