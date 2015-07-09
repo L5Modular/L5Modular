@@ -57,7 +57,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 		
 		//Flag for no translation
 		if ( ! $this->option('no-translation')) // Create Translations folder
-							$this->generate('translation');
+			$this->generate('translation');
 
 		// Create Routes file
 		$this->generate('routes');
