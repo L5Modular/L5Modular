@@ -1,8 +1,8 @@
 # L5Modular
 [![Laravel](https://img.shields.io/badge/laravel-5-orange.svg)](http://laravel.com)
+[![Release](https://poser.pugx.org/artem-schander/l5-modular/v/stable)](https://github.com/Artem-Schander/L5Modular/releases)
 [![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
 [![Contributor](https://img.shields.io/badge/contributor-Farhan Wazir-blue.svg)](https://github.com/farhanwazir)
-[![Release](https://poser.pugx.org/artem-schander/l5-modular/v/stable)](https://github.com/Artem-Schander/L5Modular/releases)
 [![Monthly Downloads](https://poser.pugx.org/artem-schander/l5-modular/d/monthly)](https://packagist.org/packages/artem-schander/l5-modular)
 [![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://packagist.org/packages/artem-schander/l5-modular)
 
