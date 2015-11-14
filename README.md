@@ -1,9 +1,11 @@
 # L5Modular
-[![Laravel](https://img.shields.io/badge/laravel-5-orange.svg?style=flat-square)](http://laravel.com)
-[![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular)
-[![Contributor](https://img.shields.io/badge/contributor-Farhan Wazir-blue.svg?style=flat-square)](https://github.com/farhanwazir)
-[![Release](https://img.shields.io/github/release/Artem-Schander/L5Modular.svg?style=flat-square)](https://github.com/Artem-Schander/L5Modular/releases)
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![Laravel](https://img.shields.io/badge/laravel-5-orange.svg)](http://laravel.com)
+[![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
+[![Contributor](https://img.shields.io/badge/contributor-Farhan Wazir-blue.svg)](https://github.com/farhanwazir)
+[![Release](https://poser.pugx.org/artem-schander/l5-modular/v/stable)](https://github.com/Artem-Schander/L5Modular/releases)
+[![Latest Unstable Version](https://poser.pugx.org/artem-schander/l5-modular/v/unstable)](https://packagist.org/packages/artem-schander/l5-modular)
+[![Monthly Downloads](https://poser.pugx.org/artem-schander/l5-modular/d/monthly)](https://packagist.org/packages/artem-schander/l5-modular)
+[![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://packagist.org/packages/artem-schander/l5-modular)
 
 This package gives you the ability to use Laravel 5 with module system.
 You can simply drop or generate modules with their own controllers, models, views, translations and a routes file into the `app/Modules` folder and go on working with them.
