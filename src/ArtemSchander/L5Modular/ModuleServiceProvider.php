@@ -20,10 +20,12 @@ class ModuleServiceProvider extends ServiceProvider {
 			foreach($modules as $module)  {
 				
 				$routes = app_path().'/Modules/'.$module.'/routes.php';
+				$helper = app_path().'/Modules/'.$module.'/helper.php';
 				$views  = app_path().'/Modules/'.$module.'/Views';
 				$trans  = app_path().'/Modules/'.$module.'/Translations';
 
 				if($this->files->exists($routes)) include $routes;
+				if($this->files->exists($helper)) include $helper;
 				if($this->files->isDirectory($views)) $this->loadViewsFrom($views, $module);
 				if($this->files->isDirectory($trans)) $this->loadTranslationsFrom($trans, $module);
 			}

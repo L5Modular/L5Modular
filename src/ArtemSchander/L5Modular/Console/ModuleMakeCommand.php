@@ -61,6 +61,9 @@ class ModuleMakeCommand extends GeneratorCommand {
 
 		// Create Routes file
 		$this->generate('routes');
+		
+		// Create Helper file
+		$this->generate('helper');
 
 
 
@@ -98,10 +101,14 @@ class ModuleMakeCommand extends GeneratorCommand {
 			case 'routes':
 				$filename = 'routes';
 				break;
+				
+			case 'helper':
+				$filename = 'helper';
+				break;
 		}
 
 		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
-		$folder = ($type != 'routes') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
+		$folder = ($type != 'routes' && $type != 'helper') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
 
 		$name = $this->parseName('Modules\\'.$this->getNameInput().'\\'.$folder.$filename);
 		if ($this->files->exists($path = $this->getPath($name))) 
