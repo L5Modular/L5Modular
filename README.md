@@ -55,6 +55,7 @@ laravel-project/
                 |-- en/
                     |-- example.php
             |-- routes.php
+            |-- helper.php
                 
 ```
 
