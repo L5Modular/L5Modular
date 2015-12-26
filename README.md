@@ -39,12 +39,14 @@ ArtemSchander\L5Modular\ModuleServiceProvider::class,
 
 The built in Artisan command `php artisan make:module name [--no-migration] [--no-translation]` generates a ready to use module in the `app/Modules` folder and a migration if necessary.
 
+Since version 1.3.0 you can generate modules like `foo-bar`.
+
 This is how the generated module would look like:
 ```
 laravel-project/
     app/
     |-- Modules/
-        |-- foobar/
+        |-- FooBar/
             |-- Controllers/
                 |-- FoobarController.php
             |-- Models/
@@ -70,7 +72,7 @@ In case you want to disable one ore more modules, you can add a `modules.php` in
 F.a:
 ```
 return [
-    'list' => array(
+    'disable' => array(
         "customer",
         "contract",
         "reporting",
@@ -80,6 +82,13 @@ return [
 In this case L5Modular would only load this three modules `customer` `contract` `reporting`. Every other module in the `app/Modules` folder would not be loaded.
 
 L5Modular will load all modules if there is no modules.php file in the config folder.
+
+
+#### Update to 1.3.0
+
+Since version 1.3.0 you have to follow the `upper camel case` name convention for the module folder. If you had a `Modules/foo` folder you have to rename it to `Modules/Foo`. 
+
+Also there are changes in the `app/config/modules.php` file. Now you have to return an array with the key `disable` instead of `list`.
 
 
 ## License

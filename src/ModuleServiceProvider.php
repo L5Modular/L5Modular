@@ -16,7 +16,7 @@ class ModuleServiceProvider extends ServiceProvider {
 
 		if(is_dir(app_path().'/Modules/')) {
 
-			$modules = config("modules.list") ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
+			$modules = config("modules.disable") ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
 			foreach($modules as $module)  {
 				
 				$routes = app_path().'/Modules/'.$module.'/routes.php';
