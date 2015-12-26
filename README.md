@@ -48,9 +48,9 @@ laravel-project/
     |-- Modules/
         |-- FooBar/
             |-- Controllers/
-                |-- FoobarController.php
+                |-- FooBarController.php
             |-- Models/
-                |-- Foobar.php
+                |-- FooBar.php
             |-- Views/
                 |-- index.blade.php
             |-- Translations/
