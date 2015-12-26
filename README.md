@@ -68,11 +68,11 @@ The generated `RESTful Resource Controller` and the corresponding `routes.php` m
 
 
 #### Disable modules
-In case you want to disable one ore more modules, you can add a `modules.php` into your projects `app/config` folder. This file should return an array with the module names that should be loaded.
+In case you want to disable one ore more modules, you can add a `modules.php` into your projects `app/config` folder. This file should return an array with the module names that should be **loaded**.
 F.a:
 ```
 return [
-    'disable' => array(
+    'enable' => array(
         "customer",
         "contract",
         "reporting",
@@ -88,7 +88,7 @@ L5Modular will load all modules if there is no modules.php file in the config fo
 
 Since version 1.3.0 you have to follow the `upper camel case` name convention for the module folder. If you had a `Modules/foo` folder you have to rename it to `Modules/Foo`. 
 
-Also there are changes in the `app/config/modules.php` file. Now you have to return an array with the key `disable` instead of `list`.
+Also there are changes in the `app/config/modules.php` file. Now you have to return an array with the key `enable` instead of `list`.
 
 
 ## License
