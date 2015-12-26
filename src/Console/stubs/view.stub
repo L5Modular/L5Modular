@@ -1,3 +1,3 @@
 <?php
 
-echo trans('DummyTitle::example.welcome');
+echo trans('DummyUCtitle::example.welcome');

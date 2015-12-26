@@ -110,12 +110,12 @@ class ModuleMakeCommand extends GeneratorCommand {
 		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
 		$folder = ($type != 'routes' && $type != 'helper') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
 
-		$name = $this->parseName('Modules\\'.$this->getNameInput().'\\'.$folder.$filename);
+		$name = $this->parseName('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
 		if ($this->files->exists($path = $this->getPath($name))) 
 			return $this->error($this->type.' already exists!');
 
 		$this->currentStub = __DIR__.'/stubs/'.$type.'.stub';
-		
+
 		$this->makeDirectory($path);
 		$this->files->put($path, $this->buildClass($name));
 	}
@@ -128,7 +128,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	 */
 	protected function getNamespace($name)
 	{
-		return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', $name), 0, -1))), '\\');
+		return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', studly_case($name)), 0, -1))), '\\');
 	}
 
 	/**
@@ -153,7 +153,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	protected function replaceName(&$stub, $name)
 	{
 		$stub = str_replace('DummyTitle', $name, $stub);
-		$stub = str_replace('DummyUCtitle', ucfirst($name), $stub);
+		$stub = str_replace('DummyUCtitle', ucfirst(studly_case($name)), $stub);
 		return $this;
 	}
 
@@ -166,7 +166,7 @@ class ModuleMakeCommand extends GeneratorCommand {
 	 */
 	protected function replaceClass($stub, $name)
 	{
-		$class = str_ireplace($this->getNamespace($name).'\\', '', $name);
+		$class = class_basename($name);
 		return str_replace('DummyClass', $class, $stub);
 	}
 
