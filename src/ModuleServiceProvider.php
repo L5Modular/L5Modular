@@ -53,7 +53,9 @@ class ModuleServiceProvider extends ServiceProvider {
 
 		$this->commands('modules.make');
 		
-		$this->app->bindShared('modules.make', function($app) {
+		$bind_method = method_exists($this->app, 'bindShared') ? 'bindShared' : 'singleton';
+
+		$this->app->{$bind_method}('modules.make', function($app) {
 			return new Console\ModuleMakeCommand($this->files);
 		});
 	}
