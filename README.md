@@ -64,7 +64,7 @@ laravel-project/
 <a name="usage"></a>
 ## Usage
 
-The generated `RESTful Resource Controller` and the corresponding `routes.php` make it easy to dive in. In my example you could see the output from the `Views/index.blade.php` when you open `laravel-project:8000/foobar` in your browser.
+The generated `RESTful Resource Controller` and the corresponding `routes.php` make it easy to dive in. In my example you could see the output from the `Views/index.blade.php` when you open `laravel-project:8000/foo-bar` in your browser.
 
 
 #### Disable modules
