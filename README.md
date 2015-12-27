@@ -39,7 +39,7 @@ ArtemSchander\L5Modular\ModuleServiceProvider::class,
 
 The built in Artisan command `php artisan make:module name [--no-migration] [--no-translation]` generates a ready to use module in the `app/Modules` folder and a migration if necessary.
 
-Since version 1.3.0 you can generate modules like `foo-bar`.
+Since version 1.3.0 you can generate modules named with more than one word, like `foo-bar`.
 
 This is how the generated module would look like:
 ```
