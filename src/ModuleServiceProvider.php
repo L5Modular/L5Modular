@@ -20,7 +20,7 @@ class ModuleServiceProvider extends ServiceProvider {
 				// Allow routes to be cached
 				if (!$this->app->routesAreCached()) {
 					$routes = app_path() . '/Modules/' . $module . '/routes.php';
-					if($this->files->exists($routes)) include_once $routes;
+					if($this->files->exists($routes)) include $routes;
 				}
 				$helper = app_path().'/Modules/'.$module.'/helper.php';
 				$views  = app_path().'/Modules/'.$module.'/Views';
