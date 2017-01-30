@@ -25,13 +25,10 @@ class ModuleServiceProvider extends ServiceProvider {
 				$helper = app_path().'/Modules/'.$module.'/helper.php';
 				$views  = app_path().'/Modules/'.$module.'/Views';
 				$trans  = app_path().'/Modules/'.$module.'/Translations';
-
-				$viewsTemplate = resource_path().'/themes/default/'.$module;
-				if($this->files->isDirectory($viewsTemplate)){
-					$views=$viewsTemplate;
-				}
+				$viewsTemplate = resource_path().'/themes/'.config('view.template').'/'.$module;
 				
 				if($this->files->exists($helper)) include_once $helper;
+				if($this->files->isDirectory($viewsTemplate)) $this->loadViewsFrom($viewsTemplate, $module);
 				if($this->files->isDirectory($views)) $this->loadViewsFrom($views, $module);
 				if($this->files->isDirectory($trans)) $this->loadTranslationsFrom($trans, $module);
 			}
