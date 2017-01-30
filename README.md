@@ -84,7 +84,7 @@ In this case L5Modular would only load this three modules `customer` `contract` 
 L5Modular will load all modules if there is no modules.php file in the config folder.
 
 #### Change template
-In case you want to change template, you can edit a `view.php` into your projects `app/config` folder and add key `template with` value template name.
+In case you want to change template, you can edit a `view.php` into your projects `app/config` folder and add key `template` with value template name.
 
 ```
 return [
@@ -104,6 +104,8 @@ laravel-project/
                 |-- index.blade.php
             |-- Module3/
                 |-- index.blade.php                
+```
+
 
 #### Update to 1.3.0
 
