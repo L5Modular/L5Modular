@@ -12,8 +12,8 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot() {
-
+	public function boot() 
+	{
 		if(is_dir(app_path().'/Modules/')) {
 			$modules = config("modules.enable") ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
 			foreach($modules as $module)  {
@@ -39,8 +39,8 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register() {
-
+	public function register() 
+	{
 		$this->files = new Filesystem;
 		$this->registerMakeCommand();
 	}
@@ -50,8 +50,8 @@ class ModuleServiceProvider extends ServiceProvider {
 	 *
 	 * @return Console\ModuleMakeCommand
 	 */
-	protected function registerMakeCommand() {
-
+	protected function registerMakeCommand() 
+	{
 		$this->commands('modules.make');
 		
 		$bind_method = method_exists($this->app, 'bindShared') ? 'bindShared' : 'singleton';

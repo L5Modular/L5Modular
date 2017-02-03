@@ -67,11 +67,11 @@ class ModuleMakeCommand extends GeneratorCommand {
 
 
 
-
-
 		if ( ! $this->option('no-migration'))
 		{
-			$table = str_plural(snake_case(class_basename($this->argument('name'))));
+			// without hacky studly_case function 
+			// foo-bar results in foo-bar and not in foo_bar
+			$table = str_plural(snake_case(studly_case($this->getNameInput())));
 			$this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
 		}
 
@@ -79,15 +79,15 @@ class ModuleMakeCommand extends GeneratorCommand {
 	}
 
 
-	protected function generate($type) {
-
+	protected function generate($type) 
+	{
 		switch ($type) {
 			case 'controller':
-				$filename = studly_case(class_basename($this->getNameInput()).ucfirst($type));
+				$filename = studly_case($this->getNameInput()).ucfirst($type);
 				break;
 
 			case 'model':
-				$filename = studly_case(class_basename($this->getNameInput()));
+				$filename = studly_case($this->getNameInput());
 				break;
 
 			case 'view':
@@ -110,11 +110,8 @@ class ModuleMakeCommand extends GeneratorCommand {
 		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
 		$folder = ($type != 'routes' && $type != 'helper') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
 
-
-        if (method_exists($this,'qualifyClass')) //5.4
-		    $name = $this->qualifyClass('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
-		else //Older versions
-            $name = $this->parseName('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
+		$qualifyClass = method_exists($this, 'qualifyClass') ? 'qualifyClass' : 'parseName';
+		$name = $this->$qualifyClass('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
 
 		if ($this->files->exists($path = $this->getPath($name)))
 			return $this->error($this->type.' already exists!');
