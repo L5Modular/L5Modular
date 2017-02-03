@@ -110,8 +110,13 @@ class ModuleMakeCommand extends GeneratorCommand {
 		// $suffix = ($type == 'controller') ? ucfirst($type) : '';
 		$folder = ($type != 'routes' && $type != 'helper') ? ucfirst($type).'s\\'. ($type === 'translation' ? 'en\\':'') : '';
 
-		$name = $this->parseName('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
-		if ($this->files->exists($path = $this->getPath($name))) 
+
+        if (method_exists($this,'qualifyClass')) //5.4
+		    $name = $this->qualifyClass('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
+		else //Older versions
+            $name = $this->parseName('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
+
+		if ($this->files->exists($path = $this->getPath($name)))
 			return $this->error($this->type.' already exists!');
 
 		$this->currentStub = __DIR__.'/stubs/'.$type.'.stub';
