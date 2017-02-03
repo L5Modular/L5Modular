@@ -22,12 +22,11 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
 
 The best way to install this package is through your terminal via Composer.
 
-Add the following line to the `composer.json` file and fire `composer update`
-
+Run the following command from your projects root
 ```
-"artem-schander/l5-modular": "dev-master"
+composer require artem-schander/l5-modular
 ```
-Once this operation is complete, simply add the service provider to your project's `config/app.php`
+Once this operation is complete, simply add the service provider to your project's `config/app.php` and you're done.
 
 #### Service Provider
 ```
