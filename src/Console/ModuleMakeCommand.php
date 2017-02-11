@@ -59,8 +59,11 @@ class ModuleMakeCommand extends GeneratorCommand {
 		if ( ! $this->option('no-translation')) // Create Translations folder
 			$this->generate('translation');
 
-		// Create Routes file
-		$this->generate('routes');
+		// Create WEB Routes file
+		$this->generate('web');
+		
+		// Create API Routes file
+		$this->generate('api');
 		
 		// Create Helper file
 		$this->generate('helper');
@@ -98,8 +101,12 @@ class ModuleMakeCommand extends GeneratorCommand {
 				$filename = 'example';
 				break;
 			
-			case 'routes':
-				$filename = 'routes';
+			case 'web':
+				$filename = 'web';
+				break;
+
+		    	case 'api':
+				$filename = 'api';
 				break;
 				
 			case 'helper':
