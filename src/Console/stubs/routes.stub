@@ -4,4 +4,4 @@ Route::group(array('module' => 'DummyUCtitle', 'namespace' => 'DummyNamespace\Co
 
     Route::resource('DummyTitle', 'DummyUCtitleController');
     
-});	
+}); 

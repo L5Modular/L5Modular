@@ -1,0 +1,7 @@
+<?php
+
+Route::group(array('module' => 'DummyUCtitle', 'middleware' => ['api'], 'namespace' => 'DummyNamespace\Controllers'), function() {
+
+    Route::resource('DummyTitle', 'DummyUCtitleController');
+    
+});	
