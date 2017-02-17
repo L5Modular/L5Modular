@@ -92,7 +92,7 @@ Since version 1.4.0 the module structure has slightly changed. Instead of using 
 
 In some cases there is a need to load different additional classes into a module. Since Laravel loads the app using the [PSR-4](http://www.php-fig.org/psr/psr-4/) autoloading standard, you can just add folders and files almost without limitations. The only thing you should keep in mind is to name the file exactly like the class name and to add the correct namespace.
 
-F.a. If you want to add the `App/Modules/FooBar/Services/FancyService.php` to your module, you can absolutely do so. The file could then look like this:
+F.a. If you want to add the `app/Modules/FooBar/Services/FancyService.php` to your module, you can absolutely do so. The file could then look like this:
 ```
 <?php 
 namespace App\Modules\FooBar\Services;
