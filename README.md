@@ -3,7 +3,7 @@
 [![Release](https://poser.pugx.org/artem-schander/l5-modular/v/stable)](https://github.com/Artem-Schander/L5Modular/releases)
 [![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
 [![Downloads](https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg)](https://packagist.org/packages/artem-schander/l5-modular)
-[![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://packagist.org/packages/artem-schander/l5-modular)
+[![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://opensource.org/licenses/MIT)
 <!-- is broken -->
 <!-- [![Contributor](https://img.shields.io/badge/contributor-Farhan Wazir-blue.svg)](https://github.com/farhanwazir) -->
 
