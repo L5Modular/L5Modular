@@ -25,13 +25,13 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
 The best way to install this package is through your terminal via Composer.
 
 Run the following command from your projects root
-```
+```shell
 composer require artem-schander/l5-modular
 ```
 Once this operation is complete, simply add the service provider to your project's `config/app.php` and you're done.
 
 #### Service Provider
-```
+```php
 ArtemSchander\L5Modular\ModuleServiceProvider::class,
 ```
 
@@ -73,7 +73,7 @@ The generated `RESTful Resource Controller` and the corresponding `routes/web.ph
 #### Disable modules
 In case you want to disable one ore more modules, you can add a `modules.php` into your projects `app/config` folder. This file should return an array with the module names that should be **loaded**.
 F.a:
-```
+```php
 return [
     'enable' => array(
         "customer",
@@ -95,7 +95,7 @@ Since version 1.4.0 the module structure has slightly changed. Instead of using 
 In some cases there is a need to load different additional classes into a module. Since Laravel loads the app using the [PSR-4](http://www.php-fig.org/psr/psr-4/) autoloading standard, you can just add folders and files almost without limitations. The only thing you should keep in mind is to name the file exactly like the class name and to add the correct namespace.
 
 F.a. If you want to add the `app/Modules/FooBar/Services/FancyService.php` to your module, you can absolutely do so. The file could then look like this:
-```
+```php
 <?php 
 namespace App\Modules\FooBar\Services;
 
