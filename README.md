@@ -75,11 +75,11 @@ In case you want to disable one ore more modules, you can add a `modules.php` in
 F.a:
 ```php
 return [
-    'enable' => array(
+    'enable' => [
         "customer",
         "contract",
         "reporting",
-    ),
+    ],
 ];
 ```
 In this case L5Modular would only load this three modules `customer` `contract` `reporting`. Every other module in the `app/Modules` folder would not be loaded.
