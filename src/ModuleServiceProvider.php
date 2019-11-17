@@ -68,7 +68,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function registerMakeCommand()
     {
         $this->commands('modules.make');
-        
+
         $bind_method = method_exists($this->app, 'bindShared') ? 'bindShared' : 'singleton';
 
         $this->app->{$bind_method}('modules.make', function ($app) {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'welcome' => 'Welcome, this is DummyUCtitle module.'

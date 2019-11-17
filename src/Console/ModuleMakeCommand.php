@@ -2,6 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -56,7 +57,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->version = (int) str_replace('.', '', $app->version());
 
         // check if module exists
-        if ($this->files->exists(app_path().'/Modules/'.studly_case($this->getNameInput()))) {
+        if ($this->files->exists(app_path().'/Modules/'.Str::studly($this->getNameInput()))) {
             return $this->error($this->type.' already exists!');
         }
 
@@ -82,11 +83,11 @@ class ModuleMakeCommand extends GeneratorCommand
 
             // Create WEB Routes file
             $this->generate('web');
-            
+
             // Create API Routes file
             $this->generate('api');
         }
-        
+
         // Create Helper file
         $this->generate('helper');
 
@@ -94,9 +95,9 @@ class ModuleMakeCommand extends GeneratorCommand
 
         if (! $this->option('no-migration')) {
 
-            // without hacky studly_case function
+            // without hacky Str::studly function
             // foo-bar results in foo-bar and not in foo_bar
-            $table = str_plural(snake_case(studly_case($this->getNameInput())));
+            $table = Str::plural(Str::snake(Str::studly($this->getNameInput())));
             $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
         }
 
@@ -113,21 +114,21 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         switch ($type) {
             case 'controller':
-                $filename = studly_case($this->getNameInput()).ucfirst($type);
+                $filename = Str::studly($this->getNameInput()).ucfirst($type);
                 break;
 
             case 'model':
-                $filename = studly_case($this->getNameInput());
+                $filename = Str::studly($this->getNameInput());
                 break;
 
             case 'view':
                 $filename = 'index.blade';
                 break;
-                
+
             case 'translation':
                 $filename = 'example';
                 break;
-            
+
             case 'routes':
                 $filename = 'routes';
                 break;
@@ -141,7 +142,7 @@ class ModuleMakeCommand extends GeneratorCommand
                 $filename = 'api';
                 $folder = 'routes\\';
                 break;
-                
+
             case 'helper':
                 $filename = 'helper';
                 break;
@@ -152,7 +153,7 @@ class ModuleMakeCommand extends GeneratorCommand
         }
 
         $qualifyClass = method_exists($this, 'qualifyClass') ? 'qualifyClass' : 'parseName';
-        $name = $this->$qualifyClass('Modules\\'.studly_case(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
+        $name = $this->$qualifyClass('Modules\\'.Str::studly(ucfirst($this->getNameInput())).'\\'.$folder.$filename);
 
         if ($this->files->exists($path = $this->getPath($name))) {
             return $this->error($this->type.' already exists!');
@@ -173,7 +174,7 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function getNamespace($name)
     {
         $name = str_replace('\\routes\\', '\\', $name);
-        return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', studly_case($name)), 0, -1))), '\\');
+        return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', Str::studly($name)), 0, -1))), '\\');
     }
 
     /**
@@ -198,7 +199,7 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function replaceName(&$stub, $name)
     {
         $stub = str_replace('DummyTitle', $name, $stub);
-        $stub = str_replace('DummyUCtitle', ucfirst(studly_case($name)), $stub);
+        $stub = str_replace('DummyUCtitle', ucfirst(Str::studly($name)), $stub);
         return $this;
     }
 
