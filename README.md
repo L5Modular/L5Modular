@@ -6,7 +6,7 @@
 [![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://opensource.org/licenses/MIT)
 
 This package gives you the ability to use Laravel with module system.
-You can simply drop or generate modules with their own controllers, models, views, translations and a routes file into the `app/Modules` folder and go on working with them.
+You can simply drop or generate modules with their own controllers, models, views, translations and routes files into the `app/Modules` folder and go on working with them.
 
 Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
 
