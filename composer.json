@@ -8,7 +8,7 @@
     "authors": [
         {
             "name": "Artem Schander",
-            "email": "a.schander@vanameland.de"
+            "email": "info@artekk.de"
         }
     ],
     "require": {
@@ -23,7 +23,7 @@
     "extra": {
          "laravel": {
               "providers": [
-                   "ArtemSchander\\L5Modular\\src\\ModuleServiceProvider"
+                   "ArtemSchander\\L5Modular\\ModuleServiceProvider"
               ]
          }
     },
