@@ -1,26 +1,30 @@
 <?php
 
-namespace Illuminate\Foundation\Console;
+namespace ArtemSchander\L5Modular\Console;
 
-use Illuminate\Console\GeneratorCommand;
+use Illuminate\Foundation\Console\NotificationMakeCommand as BaseNotificationMakeCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
-class NotificationMakeCommand extends GeneratorCommand
+class NotificationMakeCommand extends BaseNotificationMakeCommand
 {
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return bool|null
      */
     public function handle()
     {
-        if (parent::handle() === false && ! $this->option('force')) {
-            return;
+        $name = $this->qualifyClass($this->getNameInput());
+        $path = $this->getPath($name);
+
+        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
+            $this->error('Module doesn\'t exist.');
+            
+            return false;
         }
 
-        if ($this->option('markdown')) {
-            $this->writeMarkdownTemplate();
-        }
+        parent::handle();
     }
 
     /**
@@ -40,7 +44,11 @@ class NotificationMakeCommand extends GeneratorCommand
             $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        $this->files->put($path, file_get_contents(__DIR__.'/stubs/markdown.stub'));
+        $base_class = new ReflectionClass(BaseMailMakeCommand::class);
+        
+        $base_class_path = dirname($base_class->getFileName());
+
+        $this->files->put($path, file_get_contents($base_class_path.'/stubs/markdown.stub'));
     }
 
     /**

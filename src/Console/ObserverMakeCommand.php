@@ -1,13 +1,32 @@
 <?php
 
-namespace Illuminate\Foundation\Console;
+namespace ArtemSchander\L5Modular\Console;
 
+use Illuminate\Foundation\Console\ObserverMakeCommand as BaseObserverMakeCommand;
 use Illuminate\Support\Str;
-use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class ObserverMakeCommand extends GeneratorCommand
+class ObserverMakeCommand extends BaseObserverMakeCommand
 {
+    /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     */
+    public function handle()
+    {
+        $name = $this->qualifyClass($this->getNameInput());
+        $path = $this->getPath($name);
+
+        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
+            $this->error('Module doesn\'t exist.');
+            
+            return false;
+        }
+
+        parent::handle();
+    }
+    
     /**
      * Replace the model for the given stub.
      *
@@ -24,7 +43,6 @@ class ObserverMakeCommand extends GeneratorCommand
         } else {
             $namespaceModel = $this->laravel->getNamespace().$model;
         }
-        
 
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);

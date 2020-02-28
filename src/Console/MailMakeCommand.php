@@ -44,7 +44,11 @@ class MailMakeCommand extends BaseMailMakeCommand
             $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        $this->files->put($path, file_get_contents(__DIR__.'/stubs/markdown.stub'));
+        $base_class = new ReflectionClass(BaseMailMakeCommand::class);
+        
+        $base_class_path = dirname($base_class->getFileName());
+
+        $this->files->put($path, file_get_contents($base_class_path.'/stubs/markdown.stub'));
     }
 
     /**

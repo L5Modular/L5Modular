@@ -3,6 +3,7 @@
 namespace ArtemSchander\L5Modular\Console;
 
 use Illuminate\Foundation\Console\EventMakeCommand as BaseEventMakeCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class EventMakeCommand extends BaseEventMakeCommand
