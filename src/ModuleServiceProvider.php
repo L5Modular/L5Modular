@@ -74,5 +74,36 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->{$bind_method}('modules.make', function ($app) {
             return new Console\ModuleMakeCommand($this->files);
         });
+
+        $this->app->extend('command.make:controller', function () {
+            return new Console\ControllerMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:event', function () {
+            return new Console\EventMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:job', function () {
+            return new Console\JobMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:listener', function () {
+            return new Console\ListenerMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:mail', function () {
+            return new Console\MailMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:model', function () {
+            return new Console\ModelMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:notification', function () {
+            return new Console\NotificationMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:observer', function () {
+            return new Console\ObserverMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:request', function () {
+            return new Console\RequestMakeCommand($this->files);
+        });
+        $this->app->extend('command.make:resource', function () {
+            return new Console\ResourceMakeCommand($this->files);
+        });
     }
 }
