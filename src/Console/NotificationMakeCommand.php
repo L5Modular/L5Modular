@@ -2,12 +2,29 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\NotificationMakeCommand as BaseNotificationMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class NotificationMakeCommand extends BaseNotificationMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:notification';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new notification class in a module';
+
     /**
      * Execute the console command.
      *
@@ -15,16 +32,9 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
 
     /**
@@ -34,11 +44,7 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        if ($this->hasOption('module')) {
-            $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/views/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
-        } else {
-            $path = resource_path('views/'.str_replace('.', '/', $this->option('markdown'))).'.blade.php';
-        }
+        $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/views/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
@@ -59,11 +65,7 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Notifications';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Notifications';
     }
 
     /**
@@ -75,7 +77,7 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
     {
         $options = parent::getOptions();
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a contorller in a certain module.'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a contorller in a certain module'];
 
         return $options;
     }

@@ -2,12 +2,29 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\ObserverMakeCommand as BaseObserverMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ObserverMakeCommand extends BaseObserverMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:observer';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new observer class in a module';
+
     /**
      * Execute the console command.
      *
@@ -15,16 +32,9 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
     
     /**
@@ -38,11 +48,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
     {
         $model = str_replace('/', '\\', $model);
 
-        if ($this->hasOption('module')) {
-            $namespaceModel = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'\\'.$model;
-        } else {
-            $namespaceModel = $this->laravel->getNamespace().$model;
-        }
+        $namespaceModel = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'\\'.$model;
 
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);
@@ -71,11 +77,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Observers';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Observers';
     }
 
     /**

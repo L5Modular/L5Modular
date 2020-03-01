@@ -2,12 +2,29 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\ListenerMakeCommand as BaseListenerMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ListenerMakeCommand extends BaseListenerMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:listener';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new listener class in a module';
+
     /**
      * Execute the console command.
      *
@@ -15,16 +32,9 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))){
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
 
     /**
@@ -42,11 +52,7 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
             'Illuminate',
             '\\',
         ])) {
-            if ($this->hasOption('module')) {
-                $event = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'Events\\'.$event;
-            } else {
-                $event = $this->laravel->getNamespace().'Events\\'.$event;
-            }
+            $event = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'Events\\'.$event;
         }
 
         $stub = str_replace(
@@ -66,11 +72,7 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Listeners';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Listeners';
     }
 
     /**

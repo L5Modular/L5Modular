@@ -2,31 +2,41 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\MailMakeCommand as BaseMailMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class MailMakeCommand extends BaseMailMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:mail';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new mail class in a module';
+
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return bool|null
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
-    
+
     /**
      * Write the Markdown template for the mailable.
      *
@@ -34,11 +44,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        if ($this->hasOption('module')) {
-            $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/views/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
-        } else {
-            $path = resource_path('views/'.str_replace('.', '/', $this->option('markdown'))).'.blade.php';
-        }
+        $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/views/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
@@ -59,11 +65,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Mail';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Mail';
     }
 
     /**

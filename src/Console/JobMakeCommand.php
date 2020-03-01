@@ -2,12 +2,29 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\JobMakeCommand as BaseJobMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class JobMakeCommand extends BaseJobMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:job';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new job class in a module';
+
     /**
      * Execute the console command.
      *
@@ -15,16 +32,9 @@ class JobMakeCommand extends BaseJobMakeCommand
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
 
     /**
@@ -35,13 +45,9 @@ class JobMakeCommand extends BaseJobMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Jobs';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Jobs';
     }
-    
+
     /**
      * Get the console command options.
      *
@@ -51,7 +57,7 @@ class JobMakeCommand extends BaseJobMakeCommand
     {
         $options = parent::getOptions();
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate the job in a certain module'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a job in a certain module'];
 
         return $options;
     }

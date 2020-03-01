@@ -2,12 +2,29 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\ResourceMakeCommand as BaseResourceMakeCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ResourceMakeCommand extends BaseResourceMakeCommand
 {
+    use HasModuleOption;
+
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'make:module:resource';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a new resource class in a module';
+
     /**
      * Execute the console command.
      *
@@ -15,16 +32,9 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
      */
     public function handle()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        $this->initModuleOption();
 
-        if ($this->hasOption('module') && !$this->files->isDirectory(dirname($path, 2))) {
-            $this->error('Module doesn\'t exist.');
-            
-            return false;
-        }
-
-        parent::handle();
+        return $this->module ? parent::handle() : false;
     }
 
     /**
@@ -35,11 +45,7 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if ($this->hasOption('module')) {
-            return $rootNamespace.'\Modules\\'.Str::studly($this->option('module')).'\Resources';
-        } else {
-            return parent::getDefaultNamespace($rootNamespace);   
-        }
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Resources';
     }
 
     /**
@@ -51,7 +57,7 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
     {
         $options = parent::getOptions();
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a resource in a certain module.'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a resource in a certain module'];
 
         return $options;
     }

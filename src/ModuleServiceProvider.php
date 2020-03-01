@@ -7,7 +7,25 @@ use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    protected $files;
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        Console\ModuleListCommand::class,
+        Console\ModuleMakeCommand::class,
+        Console\ControllerMakeCommand::class,
+        Console\EventMakeCommand::class,
+        Console\JobMakeCommand::class,
+        Console\ListenerMakeCommand::class,
+        Console\MailMakeCommand::class,
+        Console\ModelMakeCommand::class,
+        Console\NotificationMakeCommand::class,
+        Console\ObserverMakeCommand::class,
+        Console\RequestMakeCommand::class,
+        Console\ResourceMakeCommand::class,
+    ];
 
     /**
      * Bootstrap the application services.
@@ -17,7 +35,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         if (is_dir(app_path().'/Modules/')) {
-            $modules = config("modules.enable") ?: array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
+            $modules = config("modules.enable") ?: array_map('class_basename', $this->app['files']->directories(app_path().'/Modules/'));
             foreach ($modules as $module) {
                 // Allow routes to be cached
                 if (!$this->app->routesAreCached()) {
@@ -27,7 +45,7 @@ class ModuleServiceProvider extends ServiceProvider
                         app_path() . '/Modules/' . $module . '/routes/api.php',
                     ];
                     foreach ($route_files as $route_file) {
-                        if ($this->files->exists($route_file)) {
+                        if ($this->app['files']->exists($route_file)) {
                             include $route_file;
                         }
                     }
@@ -36,13 +54,13 @@ class ModuleServiceProvider extends ServiceProvider
                 $views  = app_path().'/Modules/'.$module.'/Views';
                 $trans  = app_path().'/Modules/'.$module.'/Translations';
 
-                if ($this->files->exists($helper)) {
+                if ($this->app['files']->exists($helper)) {
                     include_once $helper;
                 }
-                if ($this->files->isDirectory($views)) {
+                if ($this->app['files']->isDirectory($views)) {
                     $this->loadViewsFrom($views, $module);
                 }
-                if ($this->files->isDirectory($trans)) {
+                if ($this->app['files']->isDirectory($trans)) {
                     $this->loadTranslationsFrom($trans, $module);
                 }
             }
@@ -56,29 +74,34 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->files = new Filesystem;
-        
-        $this->registerModuleMakeCommand();
+        $this->registerCommands($this->commands);
+    }
+    
+    /**
+     * Register the given commands.
+     *
+     * @param  array  $commands
+     * @return void
+     */
+    protected function registerCommands(array $commands)
+    {
+        // foreach (array_keys($commands) as $command) {
+        //     call_user_func_array([$this, "register{$command}Command"], []);
+        // }
 
-        $this->extendControllerMakeCommand();
-        
-        $this->extendEventMakeCommand();
-        
-        $this->extendJobMakeCommand();
-        
-        $this->extendListenerMakeCommand();
-        
-        $this->extendMailMakeCommand();
-        
-        $this->extendModelMakeCommand();
-        
-        $this->extendNotificationMakeCommand();
-        
-        $this->extendObserverMakeCommand();
-        
-        $this->extendRequestMakeCommand();
-        
-        $this->extendResourceMakeCommand();
+        $this->commands(array_values($commands));
+    }
+    
+    /**
+     * Register the "make:module" console command.
+     *
+     * @return void
+     */
+    protected function registerModuleListCommand()
+    {
+        $this->app->singleton('modules.list', function ($app) {
+            return new Console\ModuleListCommand($app['files']);
+        });
     }
 
     /**
@@ -88,12 +111,8 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerModuleMakeCommand()
     {
-        $this->commands('modules.make');
-
-        $bind_method = method_exists($this->app, 'bindShared') ? 'bindShared' : 'singleton';
-
-        $this->app->{$bind_method}('modules.make', function ($app) {
-            return new Console\ModuleMakeCommand($this->files);
+        $this->app->singleton('modules.make', function ($app) {
+            return new Console\ModuleMakeCommand($app['files']);
         });
     }
     
@@ -102,10 +121,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendControllerMakeCommand()
+    protected function registerControllerMakeCommand()
     {
-        $this->app->extend('command.controller.make', function ($app) {
-            return new Console\ControllerMakeCommand($this->files);
+        $this->app->singleton('modules.controller.make', function ($app) {
+            return new Console\ControllerMakeCommand($app['files']);
         });
     }
     
@@ -114,10 +133,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendEventMakeCommand()
+    protected function registerEventMakeCommand()
     {
-        $this->app->extend('command.event.make', function ($app) {
-            return new Console\EventMakeCommand($this->files);
+        $this->app->singleton('modules.event.make', function ($app) {
+            return new Console\EventMakeCommand($app['files']);
         });
     }
     
@@ -126,10 +145,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendJobMakeCommand()
+    protected function registerJobMakeCommand()
     {
-        $this->app->extend('command.job.make', function ($app) {
-            return new Console\JobMakeCommand($this->files);
+        $this->app->singleton('modules.job.make', function ($app) {
+            return new Console\JobMakeCommand($app['files']);
         });
     }
     
@@ -138,10 +157,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendListenerMakeCommand()
+    protected function registerListenerMakeCommand()
     {
-        $this->app->extend('command.listener.make', function ($app) {
-            return new Console\ListenerMakeCommand($this->files);
+        $this->app->singleton('modules.listener.make', function ($app) {
+            return new Console\ListenerMakeCommand($app['files']);
         });
     }
     
@@ -150,10 +169,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendMailMakeCommand()
+    protected function registerMailMakeCommand()
     {
-        $this->app->extend('command.mail.make', function ($app) {
-            return new Console\MailMakeCommand($this->files);
+        $this->app->singleton('modules.mail.make', function ($app) {
+            return new Console\MailMakeCommand($app['files']);
         });
     }
     
@@ -162,10 +181,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendModelMakeCommand()
+    protected function registerModelMakeCommand()
     {
-        $this->app->extend('command.model.make', function ($app) {
-            return new Console\ModelMakeCommand($this->files);
+        $this->app->singleton('modules.model.make', function ($app) {
+            return new Console\ModelMakeCommand($app['files']);
         });
     }
     
@@ -174,10 +193,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendNotificationMakeCommand()
+    protected function registerNotificationMakeCommand()
     {
-        $this->app->extend('command.notification.make', function ($app) {
-            return new Console\NotificationMakeCommand($this->files);
+        $this->app->singleton('modules.notification.make', function ($app) {
+            return new Console\NotificationMakeCommand($app['files']);
         });
     }
     
@@ -186,10 +205,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendObserverMakeCommand()
+    protected function registerObserverMakeCommand()
     {
-        $this->app->extend('command.observer.make', function ($app) {
-            return new Console\ObserverMakeCommand($this->files);
+        $this->app->singleton('modules.observer.make', function ($app) {
+            return new Console\ObserverMakeCommand($app['files']);
         });
     }
 
@@ -198,10 +217,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendRequestMakeCommand()
+    protected function registerRequestMakeCommand()
     {
-        $this->app->extend('command.request.make', function ($app) {
-            return new Console\RequestMakeCommand($this->files);
+        $this->app->singleton('modules.request.make', function ($app) {
+            return new Console\RequestMakeCommand($app['files']);
         });
     }
 
@@ -210,10 +229,10 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendResourceMakeCommand()
+    protected function registerResourceMakeCommand()
     {
-        $this->app->extend('command.resource.make', function ($app) {
-            return new Console\ResourceMakeCommand($this->files);
+        $this->app->singleton('modules.resource.make', function ($app) {
+            return new Console\ResourceMakeCommand($app['files']);
         });
     }
 }
