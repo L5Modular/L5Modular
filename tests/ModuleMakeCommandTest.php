@@ -37,28 +37,6 @@ class ModuleMakeCommandTest extends TestCase
         $this->assertSame(0, $code);
 
         $this->assertDirectoryExists($this->modulePath);
-
-        // // web routes exists
-        //
-        // // api routes exists
-        // $file = $this->modulePath . '/routes/api.php';
-        // $this->assertFileExists($file);
-        //
-        // // migration does not exist
-        // $dir = $this->modulePath . '/database/migrations';
-        // $this->assertDirectoryNotExists($dir);
-        //
-        // // seed does not exist
-        // $dir = $this->modulePath . '/database/seeds';
-        // $this->assertDirectoryNotExists($dir);
-        //
-        // // factory does not exist
-        // $dir = $this->modulePath . '/database/factories';
-        // $this->assertDirectoryNotExists($dir);
-        //
-        // // helpers file does not exist
-        // $file = $this->modulePath . '/helpers.php';
-        // $this->assertFileNotExists($file);
     }
 
     /** @test */
@@ -68,14 +46,6 @@ class ModuleMakeCommandTest extends TestCase
         $this->assertSame(0, $code);
 
         $this->assertDirectoryExists($this->modulePath);
-
-        // // controller exists
-        // $file = $this->modulePath . '/Controllers/FooBarController.php';
-        // $this->assertFileExists($file);
-        //
-        // // model exists
-        // $file = $this->modulePath . '/Models/FooBar.php';
-        // $this->assertFileExists($file);
     }
 
     /** @test */
