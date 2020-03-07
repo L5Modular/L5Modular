@@ -1,7 +1,0 @@
-<?php
-
-Route::group(['module' => 'DummyUCtitle', 'namespace' => 'DummyNamespace\Controllers'], function() {
-
-    Route::resource('DummyTitle', 'DummyUCtitleController');
-
-});

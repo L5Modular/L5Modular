@@ -20,6 +20,11 @@
             "ArtemSchander\\L5Modular\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ArtemSchander\\L5Modular\\Tests\\": "tests"
+        }
+    },
     "extra": {
          "laravel": {
               "providers": [
@@ -27,5 +32,9 @@
               ]
          }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "orchestra/testbench": "^3|^4",
+        "mockery/mockery": "^1.3"
+    }
 }
