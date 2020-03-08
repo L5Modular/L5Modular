@@ -10,3 +10,8 @@ before_script:
   - travis_retry composer install --dev --no-interaction --prefer-source
 
 script: vendor/bin/phpunit
+
+branches:
+  only:
+    - master
+    - release
