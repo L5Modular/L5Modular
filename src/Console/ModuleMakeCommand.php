@@ -182,8 +182,8 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->getConfiguredFolder($component);
 
-        $this->defineStub($stub);
-        $this->replaceName($this->stub);
+        $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
+        $this->stub = str_replace([ 'DummyTitle', 'DummyUCtitle' ], [ $this->getNameInput(), $this->name ], $stub);
 
         return $path;
     }
@@ -220,17 +220,6 @@ class ModuleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Puts the content of the asked stub into class attribute
-     *
-     * @param  string  $path
-     * @return void
-     */
-    protected function defineStub($path)
-    {
-        $this->stub = $this->files->get(__DIR__ . "/stubs/{$path}");
-    }
-
-    /**
      * Get the configured path for the asked component.
      *
      * @param  string  $component
@@ -250,19 +239,6 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $name = str_replace('\\routes\\', '\\', $name);
         return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', Str::studly($name)), 0, -1))), '\\');
-    }
-
-    /**
-     * Replace the name for the given stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function replaceName(&$stub)
-    {
-        $stub = str_replace('DummyTitle', $this->getNameInput(), $stub);
-        $stub = str_replace('DummyUCtitle', $this->name, $stub);
-        return $this;
     }
 
     /**
