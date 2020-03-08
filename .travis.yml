@@ -9,8 +9,6 @@ php:
 before_script:
   - travis_retry composer update --no-interaction --prefer-source
 
-script: vendor/bin/phpunit
-
 branches:
   only:
     - release/2.0.0
