@@ -1,0 +1,12 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+
+before_script:
+  - travis_retry composer install --dev --no-interaction --prefer-source
+
+script: vendor/bin/phpunit
