@@ -139,12 +139,22 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $types = config("modules.specific.{$this->name}.routing", config('modules.default.routing'));
         foreach ($types as $type) {
-            if (in_array($type, [ 'web', 'api', 'simple' ])) {
-                $name = $type;
-                if ($type === 'simple') $name = 'routes';
 
-                $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
-                $file = "Modules/{$this->name}/{$path}/{$name}.php";
+            $file = null;
+            switch ($type) {
+                case 'web':
+                case 'api':
+                    $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
+                    $file = "Modules/{$this->name}/{$path}/{$type}.php";
+                    break;
+
+                case 'simple':
+                    $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
+                    $file = "Modules/{$this->name}/{$path}/routes.php";
+                    break;
+            }
+
+            if ($file) {
                 $this->saveFile("Routes", $type, compact('file'));
             }
         }
