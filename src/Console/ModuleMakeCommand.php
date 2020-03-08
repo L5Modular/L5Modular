@@ -111,7 +111,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $name = "{$this->name}Controller";
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$name}"));
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/controller.stub');
+        $this->defineStub('controller.stub');
         $content = $this->replaceName($this->stub)->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
 
         $file = $this->getPath($class);
@@ -127,7 +127,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $path = $this->getConfiguredFolder('models');
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}"));
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/model.stub');
+        $this->defineStub('model.stub');
         $content = $this->replaceName($this->stub)->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
 
         $file = $this->getPath($class);
@@ -142,7 +142,7 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->getConfiguredFolder('views');
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/resources/view.stub');
+        $this->defineStub('resources/view.stub');
         $this->replaceName($this->stub);
 
         $file = app_path(str_replace('//', '/', "Modules/{$this->name}/{$path}/index.blade.php"));
@@ -157,7 +157,7 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->getConfiguredFolder('translations');
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/resources/translation.stub');
+        $this->defineStub('resources/translation.stub');
         $this->replaceName($this->stub);
 
         $file = app_path(str_replace('//', '/', "Modules/{$this->name}/{$path}/en.php"));
@@ -179,34 +179,22 @@ class ModuleMakeCommand extends GeneratorCommand
             switch ($type) {
                 case 'web':
                 case 'api':
-                    $this->stub = $this->files->get(__DIR__ . "/stubs/routes/{$type}.stub");
                     $file = app_path(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$type}.php"));
-                    $this->line("<fg=green>Created Routes:</> {$type}");
                     break;
-
-                    break;
-
-                // TODO
-                // @codeCoverageIgnoreStart
-                case 'console':
-                    break;
-
-                // TODO
-                case 'channels':
-                    break;
-                // @codeCoverageIgnoreEnd
 
                 case 'simple':
-                    $this->stub = $this->files->get(__DIR__ . "/stubs/routes/{$type}.stub");
                     $file = app_path(str_replace('//', '/', "Modules/{$this->name}/{$path}/routes.php"));
-                    $this->line('<fg=green>Created Routes:</> routes');
                     break;
             }
 
             if ($file) {
+                $this->defineStub("routes/{$type}.stub");
+
                 $this->replaceName($this->stub);
                 $this->makeDirectory($file);
                 $this->files->put($file, $this->stub);
+
+                $this->line("<fg=green>Created Routes:</> {$type}");
             }
         }
     }
@@ -228,7 +216,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $path = $this->getConfiguredFolder('seeds');
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}Seeder"));
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/database/seeder.stub');
+        $this->defineStub('database/seeder.stub');
         $content = $this->replaceName($this->stub)->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
 
         $file = $this->getPath($class);
@@ -243,7 +231,7 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->getConfiguredFolder('factories');
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/database/factory.stub');
+        $this->defineStub('database/factory.stub');
         $this->replaceName($this->stub);
 
         $modelPath = config("modules.specific.{$this->name}.structure.models", config('modules.default.structure.models'));
@@ -263,7 +251,7 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->getConfiguredFolder('helpers');
 
-        $this->stub = $this->files->get(__DIR__ . '/stubs/helpers.stub');
+        $this->defineStub('helpers.stub');
         $this->replaceName($this->stub);
 
         $file = app_path(str_replace('//', '/', "Modules/{$this->name}/{$path}/helpers.php"));
@@ -272,6 +260,17 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->files->put($file, $this->stub);
 
         $this->line("<fg=green>Created Helpers:</> helpers");
+    }
+
+    /**
+     * Puts the content of the asked stub into class attribute
+     *
+     * @param  string  $path
+     * @return void
+     */
+    protected function defineStub($path)
+    {
+        $this->stub = $this->files->get(__DIR__ . "/stubs/{$path}");
     }
 
     /**
