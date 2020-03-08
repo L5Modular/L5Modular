@@ -79,18 +79,6 @@ class ModuleServiceProvider extends ServiceProvider
                         }
                         break;
 
-                        break;
-
-                    // TODO
-                    // @codeCoverageIgnoreStart
-                    case 'console':
-                        break;
-
-                    // TODO
-                    case 'channels':
-                        break;
-                    // @codeCoverageIgnoreEnd
-
                     case 'simple':
                         $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
                         if ($this->files->exists($file)) {
