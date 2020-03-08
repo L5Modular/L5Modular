@@ -105,11 +105,6 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->info('Module created successfully.');
     }
 
-    public function fire()
-    {
-        return $this->handle();
-    }
-
     protected function generateController()
     {
         $name = "{$this->name}Controller";
@@ -192,12 +187,14 @@ class ModuleMakeCommand extends GeneratorCommand
                     break;
 
                 // TODO
+                // @codeCoverageIgnoreStart
                 case 'console':
                     break;
 
                 // TODO
                 case 'channels':
                     break;
+                // @codeCoverageIgnoreEnd
 
                 case 'simple':
                     $this->stub = $this->files->get(__DIR__ . "/stubs/routes/{$type}.stub");
@@ -330,6 +327,7 @@ class ModuleMakeCommand extends GeneratorCommand
     /**
      * Get the stub file for the generator.
      *
+     * @codeCoverageIgnore
      * @return string
      */
     protected function getStub()

@@ -82,12 +82,14 @@ class ModuleServiceProvider extends ServiceProvider
                         break;
 
                     // TODO
+                    // @codeCoverageIgnoreStart
                     case 'console':
                         break;
 
                     // TODO
                     case 'channels':
                         break;
+                    // @codeCoverageIgnoreEnd
 
                     case 'simple':
                         $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
@@ -194,12 +196,23 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerMakeCommand();
+        $this->registerPublishConfig();
+    }
 
-        $configPath = __DIR__.'/config/modules.php';
-        $this->mergeConfigFrom($configPath, 'modules');
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    protected function registerPublishConfig()
+    {
+        $configPath = __DIR__ . '/config/modules.php';
+        $publishPath = $this->app->configPath('modules.php');
+
         $this->publishes([
-            $configPath => config_path('modules.php'),
+            $configPath => $publishPath,
         ]);
+        $this->mergeConfigFrom($configPath, 'modules');
     }
 
     /**

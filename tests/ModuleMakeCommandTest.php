@@ -21,18 +21,25 @@ class ModuleMakeCommandTest extends TestCase
         $this->finder = $this->app['files'];
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->finder->deleteDirectory($this->modulePath);
-        if ($this->finder->isDirectory(base_path('modules/ModuleName'))) {
-            $this->finder->deleteDirectory(base_path('modules/ModuleName'));
-        }
         parent::tearDown();
     }
 
     /** @test */
     public function it_generates_module()
     {
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $this->assertDirectoryExists($this->modulePath);
+    }
+
+    /** @test */
+    public function it_does_not_generate_a_module_with_duplicate_name()
+    {
+        mkdir($this->modulePath);
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 

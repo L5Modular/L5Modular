@@ -9,7 +9,7 @@ use ArtemSchander\L5Modular\ModuleServiceProvider;
  */
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -21,26 +21,5 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [ ModuleServiceProvider::class ];
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // $app['config']->set('modules.generate', [
-        //     'controller' => true,
-        //     'model' => true,
-        //     'view' => true,
-        //     'translation' => false,
-        //     'routes' => true,
-        //     'migration' => false,
-        //     'seeder' => false,
-        //     'factory' => false,
-        //     'helpers' => false,
-        // ]);
     }
 }
