@@ -13,5 +13,4 @@ script: vendor/bin/phpunit
 
 branches:
   only:
-    - master
-    - release
+    - release/2.0.0
