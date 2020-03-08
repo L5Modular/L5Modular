@@ -9,7 +9,7 @@ php:
 before_script:
   - travis_retry composer update --no-interaction --prefer-source
 
-script: vendor/bin/phpunit ./tests
+script: phpunit --coverage-text --coverage-clover=coverage.clover
 
 branches:
   only:
