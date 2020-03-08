@@ -87,29 +87,6 @@ class ModuleMakeCommand extends GeneratorCommand
         }
     }
 
-    protected function saveFile(string $type, string $name, array $options)
-    {
-        if (isset($options['class'])) {
-            $class = $this->qualifyClass(str_replace('//', '/', $options['class']));
-            $content = $this->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
-
-            $file = $this->getPath($class);
-        } elseif (isset($options['file'])) {
-            $file = app_path(str_replace('//', '/', $options['file']));
-            $content = $this->stub;
-        }
-
-        if (isset($options['content'])) {
-            $content = $options['content'];
-        }
-
-        if (isset($file) && isset($content)) {
-            $this->makeDirectory($file);
-            $this->files->put($file, $content);
-            $this->line("<fg=green>Created {$type}:</> {$name}");
-        }
-    }
-
     protected function generateController()
     {
         $path = $this->prepareStubGeneration('controllers', 'controller.stub');
@@ -199,7 +176,7 @@ class ModuleMakeCommand extends GeneratorCommand
     }
 
     /**
-     * undocumented function
+     * Prepare stub content to be saved
      *
      * @param  string  $component
      * @param  string  $stub
@@ -213,6 +190,37 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->replaceName($this->stub);
 
         return $path;
+    }
+
+    /**
+     * Save stub content to file
+     *
+     * @param  string  $type
+     * @param  string  $name
+     * @param  array   $options
+     * @return string
+     */
+    protected function saveFile(string $type, string $name, array $options)
+    {
+        if (isset($options['class'])) {
+            $class = $this->qualifyClass(str_replace('//', '/', $options['class']));
+            $content = $this->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
+
+            $file = $this->getPath($class);
+        } elseif (isset($options['file'])) {
+            $file = app_path(str_replace('//', '/', $options['file']));
+            $content = $this->stub;
+        }
+
+        if (isset($options['content'])) {
+            $content = $options['content'];
+        }
+
+        if (isset($file) && isset($content)) {
+            $this->makeDirectory($file);
+            $this->files->put($file, $content);
+            $this->line("<fg=green>Created {$type}:</> {$name}");
+        }
     }
 
     /**
