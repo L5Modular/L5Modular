@@ -9,9 +9,7 @@ php:
 before_script:
   - travis_retry composer update --no-interaction --prefer-source
 
-script:
-  - phpunit test -- --coverage-clover=coverage.xml
-  # - phpunit --no-coverage
+# script:
 #   - if [ $(phpenv version-name) == "7.4" ]; then phpunit --coverage-text --coverage-clover=coverage.clover; else phpunit --no-coverage; fi
 
 branches:
