@@ -107,8 +107,8 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateController()
     {
+        $path = $this->getConfiguredFolder('controllers');
         $name = "{$this->name}Controller";
-        $path = config("modules.specific.{$this->name}.structure.controllers", config('modules.default.structure.controllers'));
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$name}"));
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/controller.stub');
@@ -124,7 +124,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateModel()
     {
-        $path = config("modules.specific.{$this->name}.structure.models", config('modules.default.structure.models'));
+        $path = $this->getConfiguredFolder('models');
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}"));
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/model.stub');
@@ -140,7 +140,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateView()
     {
-        $path = config("modules.specific.{$this->name}.structure.views", config('modules.default.structure.views'));
+        $path = $this->getConfiguredFolder('views');
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/resources/view.stub');
         $this->replaceName($this->stub);
@@ -155,7 +155,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateTranslation()
     {
-        $path = config("modules.specific.{$this->name}.structure.translations", config('modules.default.structure.translations'));
+        $path = $this->getConfiguredFolder('translations');
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/resources/translation.stub');
         $this->replaceName($this->stub);
@@ -170,7 +170,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateRoutes()
     {
-        $path = config("modules.specific.{$this->name}.structure.routes", config('modules.default.structure.routes'));
+        $path = $this->getConfiguredFolder('routes');
         $types = config("modules.specific.{$this->name}.routing", config('modules.default.routing'));
 
         foreach ($types as $type) {
@@ -213,7 +213,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateMigration()
     {
-        $path = config("modules.specific.{$this->name}.structure.migrations", config('modules.default.structure.migrations'));
+        $path = $this->getConfiguredFolder('migrations');
         $path = str_replace('//', '/', "Modules/{$this->name}/{$path}");
 
         // needs the temp name to generate the folder
@@ -225,7 +225,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateSeeder()
     {
-        $path = config("modules.specific.{$this->name}.structure.seeds", config('modules.default.structure.seeds'));
+        $path = $this->getConfiguredFolder('seeds');
         $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}Seeder"));
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/database/seeder.stub');
@@ -241,8 +241,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateFactory()
     {
-        $path = config("modules.specific.{$this->name}.structure.factories", config('modules.default.structure.factories'));
-        $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}Factory"));
+        $path = $this->getConfiguredFolder('factories');
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/database/factory.stub');
         $this->replaceName($this->stub);
@@ -251,6 +250,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $fullModelClass = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$modelPath}/{$this->name}"));
         $content = str_replace(['DummyFullModelClass', 'DummyModelClass'], [ $fullModelClass, $this->name ], $this->stub);
 
+        $class = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$path}/{$this->name}Factory"));
         $file = $this->getPath($class);
         $this->makeDirectory($file);
 
@@ -261,7 +261,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function generateHelpers()
     {
-        $path = config("modules.specific.{$this->name}.structure.helpers", config('modules.default.structure.helpers'));
+        $path = $this->getConfiguredFolder('helpers');
 
         $this->stub = $this->files->get(__DIR__ . '/stubs/helpers.stub');
         $this->replaceName($this->stub);
@@ -272,6 +272,16 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->files->put($file, $this->stub);
 
         $this->line("<fg=green>Created Helpers:</> helpers");
+    }
+
+    /**
+     * Get the configured path for the asked component.
+     *
+     * @param  string  $component
+     * @return string
+     */
+    protected function getConfiguredFolder(string $component) {
+        return config("modules.specific.{$this->name}.structure.{$component}", config("modules.default.structure.{$component}"));
     }
 
     /**

@@ -19,7 +19,6 @@ before_script:
 script:
   - phpunit --coverage-text --coverage-clover build/logs/clover.xml
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
-#   - if [ $(phpenv version-name) == "7.4" ]; then phpunit --coverage-text --coverage-clover=coverage.clover; else phpunit --no-coverage; fi
 
 branches:
   except:
