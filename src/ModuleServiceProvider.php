@@ -64,16 +64,26 @@ class ModuleServiceProvider extends ServiceProvider
             extract($this->getRoutingConfig($module));
 
             foreach ($types as $type) {
-                $this->registerRoute($module, $path, $namespace, $type);
+                if ($type === 'simple') $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
+                else $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$type}.php"));
+                $this->registerRoute($module, $path, $namespace, $type, $file);
             }
         }
     }
 
-    protected function registerRoute(string $module, string $path, string $namespace, string $type)
+    /**
+     * Registeres a simgle route
+     *
+     * @param  string $module
+     * @param  string $path
+     * @param  string $namespace
+     * @param  string $type
+     * @param  string $file
+     *
+     * @return void
+     */
+    protected function registerRoute(string $module, string $path, string $namespace, string $type, string $file)
     {
-        if ($type === 'simple') $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
-        else $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$type}.php"));
-
         $allowed = [ 'web', 'api', 'simple' ];
         if (in_array($type, $allowed) && $this->files->exists($file)) {
             $Route = Route::namespace($namespace);
@@ -82,6 +92,13 @@ class ModuleServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Collect the needed data to register the routes
+     *
+     * @param  string $module
+     *
+     * @return array
+     */
     protected function getRoutingConfig(string $module)
     {
         $types = config("modules.specific.{$module}.routing", config('modules.default.routing'));
