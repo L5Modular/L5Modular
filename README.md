@@ -4,11 +4,10 @@
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
 [![Code Climate coverage](https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
 [![Downloads](https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg)](https://packagist.org/packages/artem-schander/l5-modular)
-[![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
 [![License](https://img.shields.io/packagist/l/artem-schander/l5-modular)](https://opensource.org/licenses/MIT)
 
 
-This package allows you to organize your Laravel project in a modular manner..
+This package allows you to organize your Laravel project in a modular manner.
 You can simply drop or generate modules with their own controllers, models, views, routes, etc. into the `app/Modules` folder and go on working with them.
 
 Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
@@ -24,7 +23,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
 <a name="installation"></a>
 ## Installation
 
-The best way to install this package is through your terminal via Composer.
+The easiest way to install this package is through your terminal via Composer.
 
 Run the following command from your projects root
 ```shell
@@ -34,11 +33,8 @@ composer require artem-schander/l5-modular
 <a name="getting-started"></a>
 ## Getting started
 
-The built in Artisan command `php artisan make:module name` generates a ready to use module in the `app/Modules` folder.
-
-Since version 1.3.0 you can generate modules named with more than one word, like `foo-bar`.
-
-This is how the generated module would look like:
+The built in Artisan command `php artisan make:module foo-bar` generates a ready to use module in the `app/Modules` folder.
+This is how the generated module would look like if not otherwise configured:
 ```
 laravel-project/
     app/
@@ -48,17 +44,28 @@ laravel-project/
             │   └── FooBarController.php
             ├── Models/
             │   └── FooBar.php
-            ├── Views/
-            │   └── index.blade.php
-            ├── Translations/
-            │   └── en/
-            │       └── example.php
+            ├── resources/
+            │   ├── views/
+            │   │   └── index.blade.php
+            │   └── lang/
+            │       └── en/
+            │           └── example.php
             ├── routes
             │   ├── api.php
             │   └── web.php
             └── helper.php
 
 ```
+By default the generation of some components are disabled. This package can generate and handle the following:
+1. Controllers
+2. Models
+3. Views
+4. Translations
+5. Routes
+6. Migrations
+7. Seeds
+8. Factories
+9. Helpers
 
 <a name="usage"></a>
 ## Usage
