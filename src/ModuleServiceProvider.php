@@ -81,8 +81,10 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerRoute(string $module, string $path, string $namespace, string $type)
     {
-        if ($type === 'simple') $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
-        else $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$type}.php"));
+        if ($type === 'simple') $file = 'routes.php';
+        else $file = "{$type}.php";
+
+        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}.php"));
 
         $allowed = [ 'web', 'api', 'simple' ];
         if (in_array($type, $allowed) && $this->files->exists($file)) {
