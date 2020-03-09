@@ -88,11 +88,8 @@ class ModuleServiceProvider extends ServiceProvider
 
         $allowed = [ 'web', 'api', 'simple' ];
         if (in_array($type, $allowed) && $this->files->exists($file)) {
-            if ($type === 'simple') {
-                Route::namespace($namespace)->group($file);
-            } else {
-                Route::middleware($type)->namespace($namespace)->group($file);
-            }
+            if ($type === 'simple') Route::namespace($namespace)->group($file);
+            else Route::middleware($type)->namespace($namespace)->group($file);
         }
     }
 
