@@ -125,7 +125,8 @@ class ModuleMakeCommand extends GeneratorCommand
         if ($type === 'simple') $file = 'routes.php';
         else $file = "{$type}.php";
 
-        if (in_array($type, [ 'web', 'api', 'simple' ])) {
+        $allowed = [ 'web', 'api', 'simple' ];
+        if (in_array($type, $allowed)) {
             $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
             $file = "Modules/{$this->name}/{$path}/{$file}";
             $this->saveFile("Routes", $type, compact('file'));

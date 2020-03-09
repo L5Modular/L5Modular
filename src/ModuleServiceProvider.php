@@ -84,7 +84,8 @@ class ModuleServiceProvider extends ServiceProvider
         if ($type === 'simple') $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
         else $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$type}.php"));
 
-        if (in_array($type, [ 'web', 'api', 'simple' ]) && $this->files->exists($file)) {
+        $allowed = [ 'web', 'api', 'simple' ];
+        if (in_array($type, $allowed) && $this->files->exists($file)) {
             $Route = Route::namespace($namespace);
             if ($type !== 'simple') $Route->middleware($type);
             $Route->group($file);
