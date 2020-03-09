@@ -2,6 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\ListenerMakeCommand as BaseListenerMakeCommand;
 use Illuminate\Support\Str;
@@ -9,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ListenerMakeCommand extends BaseListenerMakeCommand
 {
-    use HasModuleOption;
+    use ConfiguresFolder, HasModuleOption;
 
     /**
      * The console command name.
@@ -52,7 +53,7 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
             'Illuminate',
             '\\',
         ])) {
-            $event = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'Events\\'.$event;
+            $event = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'\\'.$this->getConfiguredFolder('events').'\\'.$event;
         }
 
         $stub = str_replace(
@@ -72,7 +73,7 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Listeners';
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('listeners');
     }
 
     /**

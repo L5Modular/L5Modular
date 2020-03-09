@@ -65,9 +65,17 @@ return [
 
         'structure' => [
             'controllers' => 'Controllers',
+            'events' => 'Events',
+            'jobs' => 'Jobs',
+            'listeners' => 'Listeners',
+            'mails' => 'Mail',
             'models' => 'Models',
+            'notifications' => 'Notifications',
+            'observers' => 'Observers',
             'views' => 'resources/views',
             'translations' => 'resources/lang',
+            'requests' => 'Requests',
+            'resources' => 'Resources',
             'routes' => 'routes',
             'migrations' => 'database/migrations',
             'seeds' => 'database/seeds',

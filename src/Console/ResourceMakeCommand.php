@@ -2,6 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\ResourceMakeCommand as BaseResourceMakeCommand;
 use Illuminate\Support\Str;
@@ -9,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ResourceMakeCommand extends BaseResourceMakeCommand
 {
-    use HasModuleOption;
+    use ConfiguresFolder, HasModuleOption;
 
     /**
      * The console command name.
@@ -45,7 +46,7 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Resources';
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('resources');
     }
 
     /**

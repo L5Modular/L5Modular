@@ -2,6 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Illuminate\Foundation\Console\MailMakeCommand as BaseMailMakeCommand;
 use Illuminate\Support\Str;
@@ -9,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MailMakeCommand extends BaseMailMakeCommand
 {
-    use HasModuleOption;
+    use ConfiguresFolder, HasModuleOption;
 
     /**
      * The console command name.
@@ -44,7 +45,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/views/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
+        $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/'.$this->getConfiguredFolder('views').'/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
@@ -65,7 +66,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\Mail';
+        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('mails');
     }
 
     /**
