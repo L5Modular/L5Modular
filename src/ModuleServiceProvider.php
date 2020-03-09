@@ -64,7 +64,7 @@ class ModuleServiceProvider extends ServiceProvider
             extract($this->getRoutingConfig($module));
 
             foreach ($types as $type) {
-                $this->registerRoute($module, $path, $namespace, $type, $file);
+                $this->registerRoute($module, $path, $namespace, $type);
             }
         }
     }
@@ -84,7 +84,7 @@ class ModuleServiceProvider extends ServiceProvider
         if ($type === 'simple') $file = 'routes.php';
         else $file = "{$type}.php";
 
-        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}.php"));
+        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}"));
 
         $allowed = [ 'web', 'api', 'simple' ];
         if (in_array($type, $allowed) && $this->files->exists($file)) {
