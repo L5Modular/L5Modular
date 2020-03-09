@@ -1,9 +1,12 @@
 # L5Modular
-[![Laravel](https://img.shields.io/badge/laravel-5-orange.svg)](http://laravel.com)
-[![Release](https://poser.pugx.org/artem-schander/l5-modular/v/stable)](https://github.com/Artem-Schander/L5Modular/releases)
-[![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/artem-schander/L5Modular)](https://github.com/Artem-Schander/L5Modular/releases)
+[![Travis (.org)](https://img.shields.io/travis/Artem-Schander/L5Modular)](https://travis-ci.com/Artem-Schander/L5Modular)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
+[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
 [![Downloads](https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg)](https://packagist.org/packages/artem-schander/l5-modular)
-[![License](https://poser.pugx.org/artem-schander/l5-modular/license)](https://opensource.org/licenses/MIT)
+[![Source](https://img.shields.io/badge/source-Artem_Schander-blue.svg)](https://github.com/Artem-Schander/L5Modular)
+[![License](https://img.shields.io/packagist/l/artem-schander/l5-modular)](https://opensource.org/licenses/MIT)
+
 
 This package gives you the ability to use Laravel with module system.
 You can simply drop or generate modules with their own controllers, models, views, translations and routes files into the `app/Modules` folder and go on working with them.
