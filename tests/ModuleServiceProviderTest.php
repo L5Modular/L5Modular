@@ -121,7 +121,7 @@ class ModuleServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_bootes_a_module()
+    public function it_bootes_a_full_module()
     {
         $basePath = realpath($this->app['path.base']);
         $this->artisan('make:module', ['name' => 'foo-bar']);
@@ -191,6 +191,80 @@ class ModuleServiceProviderTest extends TestCase
 
         $app->shouldReceive('load')
             ->once()
+            ->with($basePath . '/app/Modules/FooBar/database/factories');
+
+        $result = $serviceProvider->boot($fileSystem);
+        $this->assertNull($result);
+    }
+
+    /** @test */
+    public function it_bootes_a_module_with_a_simple_route_file_only()
+    {
+        $this->app['config']->set('modules.default.structure.routes', '');
+        $this->app['config']->set('modules.default.routing', [ 'simple' ]);
+        $this->app['config']->set('modules.generate', [
+            'routes' => true,
+        ]);
+
+        $basePath = realpath($this->app['path.base']);
+        $this->artisan('make:module', ['name' => 'foo-bar']);
+
+        $app = Mockery::mock(ArrayAccess::class);
+        $fileSystem = Mockery::mock(FileSystem::class);
+        $serviceProvider = new ModuleServiceProvider($app);
+
+        $fileSystem->shouldReceive('directories')
+            ->once()
+            ->andReturn([ 'FooBar' ]);
+
+        $app->shouldReceive('routesAreCached')
+            ->once()
+            ->andReturn(false);
+
+        $fileSystem->shouldNotReceive('exists')
+            ->with($basePath . '/app/Modules/FooBar/routes/api.php');
+
+        $fileSystem->shouldNotReceive('exists')
+            ->with($basePath . '/app/Modules/FooBar/routes/web.php');
+
+        $fileSystem->shouldReceive('exists')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/routes.php')
+            ->andReturn(true);
+
+        $fileSystem->shouldReceive('exists')
+            ->with($basePath . '/app/Modules/FooBar/helpers.php');
+
+        $fileSystem->shouldReceive('isDirectory')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/resources/views')
+            ->andReturn(false);
+
+        // $app->shouldReceive('afterResolving')
+        //     ->times(3);
+        //
+        // $app->shouldReceive('resolved')
+        //     ->times(3);
+
+        $fileSystem->shouldReceive('isDirectory')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/resources/lang')
+            ->andReturn(false);
+
+        $fileSystem->shouldReceive('isDirectory')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/database/migrations')
+            ->andReturn(false);
+
+        $fileSystem->shouldReceive('isDirectory')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/database/factories')
+            ->andReturn(false);
+
+        $app->shouldNotReceive('make')
+            ->with(Factory::class);
+
+        $app->shouldNotReceive('load')
             ->with($basePath . '/app/Modules/FooBar/database/factories');
 
         $result = $serviceProvider->boot($fileSystem);

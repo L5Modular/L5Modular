@@ -8,8 +8,8 @@
 [![License](https://img.shields.io/packagist/l/artem-schander/l5-modular)](https://opensource.org/licenses/MIT)
 
 
-This package gives you the ability to use Laravel with module system.
-You can simply drop or generate modules with their own controllers, models, views, translations and routes files into the `app/Modules` folder and go on working with them.
+This package allows you to organize your Laravel project in a modular manner..
+You can simply drop or generate modules with their own controllers, models, views, routes, etc. into the `app/Modules` folder and go on working with them.
 
 Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
 
@@ -18,6 +18,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
 * [Installation](#installation)
 * [Getting started](#getting-started)
 * [Usage](#usage)
+* [Configuration](#configuration)
 
 
 <a name="installation"></a>
@@ -33,7 +34,7 @@ composer require artem-schander/l5-modular
 <a name="getting-started"></a>
 ## Getting started
 
-The built in Artisan command `php artisan make:module name [--no-migration] [--no-translation]` generates a ready to use module in the `app/Modules` folder and a migration/translation if necessary.
+The built in Artisan command `php artisan make:module name` generates a ready to use module in the `app/Modules` folder.
 
 Since version 1.3.0 you can generate modules named with more than one word, like `foo-bar`.
 
