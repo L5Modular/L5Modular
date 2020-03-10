@@ -1,8 +1,8 @@
 <p align="center"><img width="200" src="http://artekk.de/resources/images/l5modular-logo.png" alt="L5Modular logo"></p>
-<h2 align="center">
-    L5Modular<br>
-    <small>Keep Your Laravel App Organized</small>
-</h2>
+<h2 align="center">L5Modular</h2>
+<p align="center">Keep Your Laravel App Organized</p>
+
+<hr>
 
 <p align="center">
     <a href="https://github.com/Artem-Schander/L5Modular/releases"><img src="https://img.shields.io/github/v/release/artem-schander/L5Modular" alt="GitHub release (latest by date)"></a>
@@ -12,6 +12,8 @@
     <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="Downloads"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="License"></a>
 </p>
+
+<hr>
 
 This package allows you to organize your Laravel project in a modular manner.
 You can simply drop or generate modules with their own controllers, models, views, routes, etc. into the `app/Modules` folder and go on working with them.
