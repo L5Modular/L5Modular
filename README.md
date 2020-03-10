@@ -1,11 +1,15 @@
-# L5Modular
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/artem-schander/L5Modular)](https://github.com/Artem-Schander/L5Modular/releases)
-[![Travis (.org)](https://img.shields.io/travis/Artem-Schander/L5Modular)](https://travis-ci.com/Artem-Schander/L5Modular)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
-[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular)](https://codeclimate.com/github/Artem-Schander/L5Modular)
-[![Downloads](https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg)](https://packagist.org/packages/artem-schander/l5-modular)
-[![License](https://img.shields.io/packagist/l/artem-schander/l5-modular)](https://opensource.org/licenses/MIT)
+<p align="center"><img width="200" src="http://artekk.de/resources/images/l5modular-logo.png" alt="L5Modular logo"></p>
+<h2 align="center">L5Modular</h2>
+<h4 align="center">Keep Your Laravel App Organized</h4>
 
+<p align="center">
+    <p><a href="https://github.com/Artem-Schander/L5Modular/releases"><img src="https://img.shields.io/github/v/release/artem-schander/L5Modular" alt="GitHub release (latest by date)"></a>
+    <a href="https://travis-ci.com/Artem-Schander/L5Modular"><img src="https://img.shields.io/travis/Artem-Schander/L5Modular" alt="Travis (.org)"></a>
+    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular" alt="Code Climate maintainability"></a>
+    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="Code Climate coverage"></a>
+    <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="Downloads"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="License"></a></p>
+</p>
 
 This package allows you to organize your Laravel project in a modular manner.
 You can simply drop or generate modules with their own controllers, models, views, routes, etc. into the `app/Modules` folder and go on working with them.
@@ -56,7 +60,7 @@ laravel-project/
             └── helper.php
 
 ```
-By default the generation of some components are disabled. This package can generate and handle the following:
+By default the generation of some components are disabled. In full extent this package can generate and handle the following components:
 1. Controllers
 2. Models
 3. Views
