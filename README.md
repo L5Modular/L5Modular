@@ -353,7 +353,7 @@ You can completely customize the structure of each module.
 ],
 ```
 
-This config would cause the following structure to be expected by the service provider
+With this config the service provider would expect the following structure and load all existing files while ignoring the nonexistent ones
 
 ```bash
 laravel-project/
