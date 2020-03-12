@@ -42,9 +42,8 @@ return [
         | Type Of Routing
         |--------------------------------------------------------------------------
         |
-        | If you don't need different route files for
-        | web / api / cosole / channels you can change
-        | the array antries like you need them.
+        | If you need / don't need different route files for web and api
+        | you can change the array entries like you need them.
         |
         | Supported: "web", "api", "simple"
         |
@@ -97,15 +96,15 @@ return [
         | This type of configuration would you allow
         | to use modules from L5Modular v1
         |
+        | 'ExampleModule' => [
+        |     'enabled' => false,
+        |     'routing' => [ 'simple' ],
+        |     'structure' => [
+        |         'views' => 'Views',
+        |         'translations' => 'Translations',
+        |     ],
+        | ],
         */
 
-        // 'ExampleModule' => [
-        //     'enabled' => false,
-        //     'routing' => [ 'simple' ],
-        //     'structure' => [
-        //         'views' => 'Views',
-        //         'translations' => 'Translations',
-        //     ],
-        // ],
     ],
 ];
