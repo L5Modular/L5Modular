@@ -324,7 +324,7 @@ The config to disable the FooBar module would then look like this
 
 #### Change the routing
 
-To change the routing to load only a simple `routes.php` for the FooBar module would would result in this config
+To change the routing to load only a simple `routes.php` for the FooBar module you would need this config
 
 ```php
 'FooBar' => [
