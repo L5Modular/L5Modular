@@ -46,7 +46,7 @@ class JobMakeCommand extends BaseJobMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('jobs');
+        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('jobs');
     }
 
     /**

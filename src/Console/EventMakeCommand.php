@@ -46,7 +46,7 @@ class EventMakeCommand extends BaseEventMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('events');
+        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('events');
     }
 
     /**

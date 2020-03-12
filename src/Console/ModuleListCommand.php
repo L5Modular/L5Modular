@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace ArtemSchander\L5Modular\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class ModuleListCommand extends Command {
+class ModuleListCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -26,7 +27,7 @@ class ModuleListCommand extends Command {
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
-    
+
     /**
      * Create a new controller creator command instance.
      *
@@ -62,16 +63,16 @@ class ModuleListCommand extends Command {
      * @return mixed
      */
     public function getModules()
-    { 
+    {
 
-        if (is_dir(app_path().'/Modules/')) {
-            $modules = array_map('class_basename', $this->files->directories(app_path().'/Modules/'));
+        if (is_dir(app_path() . '/Modules/')) {
+            $modules = array_map('class_basename', $this->files->directories(app_path() . '/Modules/'));
             $enabled_modules = config("modules.enable") ?: $modules;
 
             return collect($modules)->map(function ($module) use ($enabled_modules) {
                 return ['Module' => $module, 'Status' => in_array($module, $enabled_modules) ? 'Enabled' : 'Disabled'];
             })->sortBy('Module')->values()->toArray();
-        }else{
+        } else {
             return null;
         }
     }

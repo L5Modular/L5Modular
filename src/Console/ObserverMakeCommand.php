@@ -37,7 +37,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
 
         return $this->module ? parent::handle() : false;
     }
-    
+
     /**
      * Replace the model for the given stub.
      *
@@ -49,7 +49,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
     {
         $model = str_replace('/', '\\', $model);
 
-        $namespaceModel = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'\\'.$this->getConfiguredFolder('models').'\\'.$model;
+        $namespaceModel = $this->laravel->getNamespace() . '\Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('models') . '\\' . $model;
 
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);
@@ -58,7 +58,9 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
         }
 
         $stub = str_replace(
-            "use {$namespaceModel};\nuse {$namespaceModel};", "use {$namespaceModel};", $stub
+            "use {$namespaceModel};\nuse {$namespaceModel};",
+            "use {$namespaceModel};",
+            $stub
         );
 
         $model = class_basename(trim($model, '\\'));
@@ -78,7 +80,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('observers');
+        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('observers');
     }
 
     /**

@@ -48,20 +48,24 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
     {
         $event = $this->option('event');
 
-        if (! Str::startsWith($event, [
+        if (!Str::startsWith($event, [
             $this->laravel->getNamespace(),
             'Illuminate',
             '\\',
         ])) {
-            $event = $this->laravel->getNamespace().'\Modules\\'.Str::studly($this->option('module')).'\\'.$this->getConfiguredFolder('events').'\\'.$event;
+            $event = $this->laravel->getNamespace() . '\Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('events') . '\\' . $event;
         }
 
         $stub = str_replace(
-            'DummyEvent', class_basename($event), parent::buildClass($name)
+            'DummyEvent',
+            class_basename($event),
+            parent::buildClass($name)
         );
 
         return str_replace(
-            'DummyFullEvent', trim($event, '\\'), $stub
+            'DummyFullEvent',
+            trim($event, '\\'),
+            $stub
         );
     }
 
@@ -73,7 +77,7 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('listeners');
+        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('listeners');
     }
 
     /**

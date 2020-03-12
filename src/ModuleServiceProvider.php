@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factory;
 class ModuleServiceProvider extends ServiceProvider
 {
     protected $files;
-    
+
     /**
      * The commands to be registered.
      *
@@ -80,7 +80,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerModuleRoutes(string $module)
     {
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             $types = config("modules.specific.{$module}.routing", config('modules.default.routing'));
             $path = config("modules.specific.{$module}.structure.routes", config('modules.default.structure.routes'));
 
@@ -222,7 +222,7 @@ class ModuleServiceProvider extends ServiceProvider
         ]);
         $this->mergeConfigFrom($configPath, 'modules');
     }
-    
+
     /**
      * Register the given commands.
      *

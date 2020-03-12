@@ -2,7 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Traits;
 
-trait ConfiguresFolder 
+trait ConfiguresFolder
 {
     /**
      * The module where the class will be generated.

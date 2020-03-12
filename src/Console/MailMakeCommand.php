@@ -45,17 +45,17 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        $path = app_path().'/Modules/'.Str::studly($this->option('module')).'/'.$this->getConfiguredFolder('views').'/'.str_replace('.', '/', $this->option('markdown')).'.blade.php';
+        $path = app_path() . '/Modules/' . Str::studly($this->option('module')) . '/' . $this->getConfiguredFolder('views') . '/' . str_replace('.', '/', $this->option('markdown')) . '.blade.php';
 
-        if (! $this->files->isDirectory(dirname($path))) {
+        if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        $base_class = new ReflectionClass(BaseMailMakeCommand::class);
-        
+        $base_class = new \ReflectionClass(BaseMailMakeCommand::class);
+
         $base_class_path = dirname($base_class->getFileName());
 
-        $this->files->put($path, file_get_contents($base_class_path.'/stubs/markdown.stub'));
+        $this->files->put($path, file_get_contents($base_class_path . '/stubs/markdown.stub'));
     }
 
     /**
@@ -66,7 +66,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Modules\\'.Str::studly($this->module).'\\'.$this->getConfiguredFolder('mails');
+        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('mails');
     }
 
     /**
