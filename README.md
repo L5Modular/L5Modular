@@ -28,10 +28,10 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
     * [Routing](#routing)
     * [Migrations](#migrations)
     * [Factories](#factories)
-    * [Load additional classes](#load-additional-classes)
+    * [Loading additional classes](#loading-additional-classes)
 * [Configuration](#configuration)
     * [Publish config file](#publish-config-file)
-    * [Generation](#generation)
+    * [Generate](#generate)
     * [Default](#default)
     * [Specific](#specific)
 * [License](#license)
@@ -128,7 +128,7 @@ Unless otherwise configured, the service provider will expect the migrations ins
 For the factories applies the same as for the migrations.  
 Unless otherwise configured, the service provider will expect the factories inside the `database/factories/` folder.
 
-### Load additional classes
+### Loading additional classes
 
 Often enough there is a need to load additional classes into a module. Since Laravel loads the app using the [PSR-4](http://www.php-fig.org/psr/psr-4/) autoloading standard, you can just add folders and files almost without limitations. The only thing you should keep in mind is to name the file exactly like the class name and to add the correct namespace.
 
@@ -155,7 +155,7 @@ class FancyService
 
 The behaviour of this package is highly customizable.
 You can define which components should be generated, what kind of routing is preferred and the module structure. The routing, the structure and a status is also configurable for every module individually.  
-To be able to do the mentioned settings you need a `config/modules.php` file which needs to return an array.
+To be able to do the mentioned settings there must be a `config/modules.php` file which should return an array.
 
 ### Publish config file
 
@@ -173,13 +173,13 @@ Which provider or tag's files would you like to publish?:
   [1] Provider: ArtemSchander\L5Modular\ModuleServiceProvider
 ```
 
-Choose either `0` to publish everything or the number with `Provider: ArtemSchander\L5Modular\ModuleServiceProvider`.  
-Now you can customize the following..
+Pick either `0` to publish everything or at least the number with `Provider: ArtemSchander\L5Modular\ModuleServiceProvider`.  
+When this is done, you can configure in the published `config/modules.php` file the following...
 
-### Generation
+#### `'generate'`
 
 By default the generation of some components is disabled.  
-The `generate` array accepts boolean values to enable / disable the generation of the component.
+The `generate` array accepts boolean values to enable / disable the generation of a component.
 
 ```php
 'generate' => [
@@ -195,7 +195,7 @@ The `generate` array accepts boolean values to enable / disable the generation o
 ],
 ```
 
-### Default
+#### `'default'`
 
 Everything you configure here, will be applied to all modules unless they have their own settings defined under `specific`.  
 The default settings consists of `routing` and `structure`.
@@ -242,7 +242,7 @@ The default settings consists of `routing` and `structure`.
 ],
 ```
 
-#### Routing
+#### `'routing'`
 
 Here you can define which type of route files will be generated and loaded. The possible options are: `web` `api` `simple`
 
@@ -260,7 +260,7 @@ The service provider will load the file if it exists, apply the "api" middleware
 The make command will generate a `routes.php` file with a predifined resource route.  
 The service provider will load the file if it exists and apply the "controllers" namespace of the corresponding module.
 
-#### Structure
+#### `'structure'`
 
 The structure config accepts an associative array, while the values represent the path to the component stated in the key.
 
@@ -280,7 +280,7 @@ The structure config accepts an associative array, while the values represent th
 
 If the value is an empty string, the component will be generated right into the module folder and expected there by the service provider.
 
-### Specific
+#### `'specific'`
 
 Every exception to the default config should be defined here. Besides that is this the right place to disable modules.  
 It is important to name the keys exactly like the modules the containing config should affect.
