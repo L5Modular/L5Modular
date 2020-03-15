@@ -17,13 +17,12 @@ trait HasModuleOption
     private function initModuleOption()
     {
         if (!$this->module = $this->option('module')) {
-            $this->module = $this->ask('In what module would you like to generate a ' . $this->type . '?');
+            $this->module = $this->ask('In what module would you like to generate?');
         }
+        
+        $this->line(app_path('Modules/'.$this->module));
 
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
-
-        if (!$this->files->isDirectory(dirname($path, 2))) {
+        if (!$this->files->isDirectory(app_path('Modules/'.$this->module))) {
             $this->error('Module doesn\'t exist.');
 
             $this->module = false;

@@ -45,7 +45,7 @@ class MailMakeCommand extends BaseMailMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        $path = app_path() . '/Modules/' . Str::studly($this->option('module')) . '/' . $this->getConfiguredFolder('views') . '/' . str_replace('.', '/', $this->option('markdown')) . '.blade.php';
+        $path = app_path() . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('views') . '/' . str_replace('.', '/', $this->option('markdown')) . '.blade.php';
 
         if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);

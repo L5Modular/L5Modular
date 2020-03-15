@@ -6,6 +6,7 @@ use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Database\Console\Factories\FactoryMakeCommand as BaseFactoryCommand;
+use Illuminate\Support\Str;
 
 class FactoryMakeCommand extends BaseFactoryCommand
 {
@@ -51,7 +52,13 @@ class FactoryMakeCommand extends BaseFactoryCommand
             $this->argument('name')
         );
 
-        return $this->laravel['path'] . '/Modules/' . $this->module . '/' . $this->getConfiguredFolder('factories') . '/' . $name . '.php';
+        return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('factories') . '/' . $name . '.php';
+        // return $this->laravel->databasePath() . "/factories/{$name}.php";
+
+        
+        // $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+
+        // return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     /**

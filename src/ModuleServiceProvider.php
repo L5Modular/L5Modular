@@ -21,14 +21,17 @@ class ModuleServiceProvider extends ServiceProvider
         Console\ModuleMakeCommand::class,
         Console\ControllerMakeCommand::class,
         Console\EventMakeCommand::class,
+        Console\FactoryMakeCommand::class,
         Console\JobMakeCommand::class,
         Console\ListenerMakeCommand::class,
         Console\MailMakeCommand::class,
         Console\ModelMakeCommand::class,
+        Console\MigrateMakeCommand::class,
         Console\NotificationMakeCommand::class,
         Console\ObserverMakeCommand::class,
         Console\RequestMakeCommand::class,
         Console\ResourceMakeCommand::class,
+        Console\SeederMakeCommand::class,
     ];
 
     /**

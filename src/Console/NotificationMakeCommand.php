@@ -45,7 +45,7 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
      */
     protected function writeMarkdownTemplate()
     {
-        $path = app_path() . '/Modules/' . Str::studly($this->option('module')) . '/' . $this->getConfiguredFolder('views') . '/' . str_replace('.', '/', $this->option('markdown')) . '.blade.php';
+        $path = app_path() . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('views') . '/' . str_replace('.', '/', $this->option('markdown')) . '.blade.php';
 
         if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
@@ -78,7 +78,7 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
     {
         $options = parent::getOptions();
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a contorller in a certain module'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a notification in a certain module'];
 
         return $options;
     }

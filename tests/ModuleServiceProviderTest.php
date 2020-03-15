@@ -143,10 +143,10 @@ class ModuleServiceProviderTest extends TestCase
             ->with($basePath . '/app/Modules/FooBar/routes/api.php')
             ->andReturn(true);
 
-        // $fileSystem->shouldReceive('exists')
-        //     ->once()
-        //     ->with($basePath . '/app/Modules/FooBar/routes/web.php')
-        //     ->andReturn(true);
+        $fileSystem->shouldReceive('exists')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/routes/web.php')
+            ->andReturn(true);
 
         $fileSystem->shouldReceive('exists')
             ->once()

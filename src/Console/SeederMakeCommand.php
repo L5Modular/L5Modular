@@ -6,6 +6,7 @@ use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use ArtemSchander\L5Modular\Traits\HasModuleOption;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Database\Console\Seeds\SeederMakeCommand as BaseSeederMakeCommand;
+use Illuminate\Support\Str;
 
 class SeederMakeCommand extends BaseSeederMakeCommand
 {
@@ -51,7 +52,7 @@ class SeederMakeCommand extends BaseSeederMakeCommand
      */
     protected function getPath($name)
     {
-        return $this->laravel['path'] . '/Modules/' . $this->module . '/' . $this->getConfiguredFolder('seeds') . '/' . $name . '.php';
+        return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('seeds') . '/' . $name . '.php';
     }
 
     /**
@@ -61,6 +62,10 @@ class SeederMakeCommand extends BaseSeederMakeCommand
      */
     protected function getOptions()
     {
-        return ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a factory in a certain module'];
+        $options = parent::getOptions();
+
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a factory in a certain module'];
+
+        return $options;
     }
 }
