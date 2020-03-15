@@ -49,7 +49,7 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
     {
         $model = str_replace('/', '\\', $model);
 
-        $namespaceModel = $this->laravel->getNamespace() . '\Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('models') . '\\' . $model;
+        $namespaceModel = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('models') . '\\' . $model;
 
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);

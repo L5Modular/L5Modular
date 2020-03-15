@@ -4,9 +4,6 @@ namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-/**
- * @author Artem Schander
- */
 class MigrateMakeCommandTest extends MakeCommandTestCase
 {
     private $command = 'make:module:migration';
@@ -48,5 +45,20 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
             ->assertExitCode(0);
 
         $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey));
+    }
+
+    /** @test */
+    public function Should_GenerateInGivenPath_When_PathOptionGiven()
+    {
+        $this->artisan('make:module', ['name' => $this->moduleName])
+            ->assertExitCode(0);
+
+        $this->artisan($this->command, [
+            'name' => $this->componentName,
+            '--path' => 'fooBar',
+        ])->expectsQuestion('In what module would you like to generate?', $this->moduleName)
+            ->assertExitCode(0);
+
+        $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/foobar');
     }
 }

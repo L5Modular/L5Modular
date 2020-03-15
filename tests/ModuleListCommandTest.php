@@ -2,13 +2,26 @@
 
 namespace ArtemSchander\L5Modular\Tests\Commands;
 
-use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
+use ArtemSchander\L5Modular\ModuleServiceProvider;
 
-/**
- * @author Artem Schander
- */
-class ModuleListCommandTest extends MakeCommandTestCase
+class ModuleListCommandTest extends \Orchestra\Testbench\TestCase
 {
+    /**
+     * The name of the module.
+     */
+    protected $moduleName = 'FooBar';
+
+    protected function getPackageProviders($app)
+    {
+        return [ModuleServiceProvider::class];
+    }
+
+    protected function tearDown(): void
+    {
+        $this->app['files']->deleteDirectory($this->app['path'].'/Modules');
+        parent::tearDown();
+    }
+
     /** @test */
     public function Should_ShowListOfModule()
     {
@@ -21,5 +34,14 @@ class ModuleListCommandTest extends MakeCommandTestCase
         $this->app['config']->set('modules.specific.Bar.enabled', false);
 
         $this->artisan('module:list')->assertExitCode(0);
+    }
+
+    /** @test */
+    public function Should_NotShowListOfModule_When_NoModuleExists()
+    {
+        $this->app['config']->set('modules.specific.Bar.enabled', false);
+
+        $this->artisan('module:list')
+            ->assertExitCode(false);
     }
 }

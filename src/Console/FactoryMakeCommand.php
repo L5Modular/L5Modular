@@ -53,12 +53,6 @@ class FactoryMakeCommand extends BaseFactoryCommand
         );
 
         return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('factories') . '/' . $name . '.php';
-        // return $this->laravel->databasePath() . "/factories/{$name}.php";
-
-        
-        // $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-
-        // return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     /**

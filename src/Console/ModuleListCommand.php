@@ -51,7 +51,9 @@ class ModuleListCommand extends Command
         $modules = $this->getModules();
 
         if (empty($modules)) {
-            return $this->error("Your application doesn't have any modules");
+            $this->error('Your application doesn\'t have any modules');
+
+            return false; 
         }
 
         $this->table(['Module', 'Status'], $modules);
@@ -64,9 +66,10 @@ class ModuleListCommand extends Command
      */
     public function getModules()
     {
-
-        if (is_dir(app_path() . '/Modules/')) {
-            $modules = array_map('class_basename', $this->files->directories(app_path() . '/Modules/'));
+        $module_path = $this->laravel['path'] . '/Modules';
+        
+        if ($this->files->exists($module_path) && !empty($this->files->directories($module_path))) {
+            $modules = array_map('class_basename', $this->files->directories($module_path));
 
             return collect($modules)->map(function ($module) {
                 $module_enabled = config('modules.specific.' . $module . '.enabled', true);

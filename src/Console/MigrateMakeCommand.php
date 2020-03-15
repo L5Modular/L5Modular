@@ -24,7 +24,6 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
         {--table= : The table to migrate}
         {--module= : Generate a migration in a certain module}
         {--path= : The location where the migration file should be created}
-        {--realpath : Indicate any provided migration file paths are pre-resolved absolute paths}
         {--fullpath : Output the full path of the migration}';
 
     /**
@@ -56,7 +55,7 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     {
         $this->initModuleOption();
 
-        if (! $this->files->isDirectory($this->getMigrationPath())) {
+        if (!$this->files->isDirectory($this->getMigrationPath())) {
             $this->files->makeDirectory($this->getMigrationPath(), 0777, true, true);
         }
 
@@ -74,10 +73,13 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     protected function writeMigration($name, $table, $create)
     {
         $file = $this->creator->create(
-            $name, $this->getMigrationPath(), $table, $create
+            $name,
+            $this->getMigrationPath(),
+            $table,
+            $create
         );
 
-        if (! $this->option('fullpath')) {
+        if (!$this->option('fullpath')) {
             $file = pathinfo($file, PATHINFO_FILENAME);
         }
 
@@ -91,12 +93,12 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
      */
     protected function getMigrationPath()
     {
-        if (! is_null($targetPath = $this->input->getOption('path'))) {
-            return ! $this->usingRealPath()
-                            ? $this->laravel->basePath().'/'.$targetPath
-                            : $targetPath;
+        $migrationPath = $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('migrations');
+
+        if (!is_null($targetPath = $this->input->getOption('path'))) {
+            return $migrationPath . '/' . $targetPath;
         }
 
-        return $this->laravel['path'].'/Modules/'.Str::studly($this->module).'/'.$this->getConfiguredFolder('migrations');
+        return $migrationPath;
     }
 }

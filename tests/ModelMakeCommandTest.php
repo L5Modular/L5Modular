@@ -4,9 +4,6 @@ namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-/**
- * @author Artem Schander
- */
 class ModelMakeCommandTest extends MakeCommandTestCase
 {
     private $command = 'make:module:model';
@@ -92,6 +89,23 @@ class ModelMakeCommandTest extends MakeCommandTestCase
         $this->artisan($this->command, [
             'name' => $this->componentName,
             '--migration' => 'FooMigration',
+            '--module' => $this->moduleName
+        ])->assertExitCode(0);
+
+        $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
+        $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder('migrations'));
+    }
+    
+    /** @test */
+    public function Should_GenerateWithPivotMigration_When_MigrationOptionGivenAndIsPivot()
+    {
+        $this->artisan('make:module', ['name' => $this->moduleName])
+            ->assertExitCode(0);
+
+        $this->artisan($this->command, [
+            'name' => $this->componentName,
+            '--migration' => 'FooMigration',
+            '--pivot' => true,
             '--module' => $this->moduleName
         ])->assertExitCode(0);
 

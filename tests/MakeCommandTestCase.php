@@ -5,9 +5,6 @@ namespace ArtemSchander\L5Modular\Tests;
 use ArtemSchander\L5Modular\ModuleServiceProvider;
 use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 
-/**
- * @author Artem Schander
- */
 class MakeCommandTestCase extends \Orchestra\Testbench\TestCase
 {
     use ConfiguresFolder;

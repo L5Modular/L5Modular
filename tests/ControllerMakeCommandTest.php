@@ -4,9 +4,6 @@ namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-/**
- * @author Artem Schander
- */
 class ControllerMakeCommandTest extends MakeCommandTestCase
 {
     private $command = 'make:module:controller';
