@@ -67,10 +67,11 @@ class ModuleListCommand extends Command
 
         if (is_dir(app_path() . '/Modules/')) {
             $modules = array_map('class_basename', $this->files->directories(app_path() . '/Modules/'));
-            $enabled_modules = config("modules.enable") ?: $modules;
 
-            return collect($modules)->map(function ($module) use ($enabled_modules) {
-                return ['Module' => $module, 'Status' => in_array($module, $enabled_modules) ? 'Enabled' : 'Disabled'];
+            return collect($modules)->map(function ($module) {
+                $module_enabled = config('modules.specific.' . $module . '.enabled', true);
+
+                return ['Module' => $module, 'Status' => $module_enabled ? 'Enabled' : 'Disabled'];
             })->sortBy('Module')->values()->toArray();
         } else {
             return null;

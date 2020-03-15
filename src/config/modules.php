@@ -64,7 +64,7 @@ return [
         */
 
         'structure' => [
-            'controllers' => 'Controllers',
+            'controllers' => 'Http/Controllers',
             'events' => 'Events',
             'factories' => 'database/factories',
             'jobs' => 'Jobs',
@@ -74,8 +74,8 @@ return [
             'models' => 'Models',
             'notifications' => 'Notifications',
             'observers' => 'Observers',
-            'requests' => 'Requests',
-            'resources' => 'Resources',
+            'requests' => 'Http/Requests',
+            'resources' => 'Http/Resources',
             'routes' => 'routes',
             'seeds' => 'database/seeds',
             'translations' => 'resources/lang',
