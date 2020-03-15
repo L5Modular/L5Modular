@@ -65,12 +65,12 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $enabled = config("modules.specific.{$name}.enabled", true);
         if ($enabled) {
-            $this->registerModuleRoutes($name);
-            $this->registerModuleHelpers($name);
-            $this->registerModuleViews($name);
-            $this->registerModuleTranslations($name);
-            $this->registerModuleMigrations($name);
-            $this->registerModuleFactories($name);
+            $this->registerRoutes($name);
+            $this->registerHelpers($name);
+            $this->registerViews($name);
+            $this->registerTranslations($name);
+            $this->registerMigrations($name);
+            $this->registerFactories($name);
         }
     }
 
@@ -81,37 +81,57 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleRoutes(string $module)
+    protected function registerRoutes(string $module)
     {
-        if (!$this->app->routesAreCached()) {
-            $types = config("modules.specific.{$module}.routing", config('modules.default.routing'));
-            $path = config("modules.specific.{$module}.structure.routes", config('modules.default.structure.routes'));
-
-            $controllersPath = config("modules.specific.{$module}.structure.controllers", config('modules.default.structure.controllers'));
-            $namespace = trim("App\\Modules\\{$module}\\" . implode('\\', explode('/', $controllersPath)), '\\');
+        if (! $this->app->routesAreCached()) {
+            extract($this->getRoutingConfig($module));
 
             foreach ($types as $type) {
-                switch ($type) {
-                    case 'web':
-                    case 'api':
-                        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$type}.php"));
-                        if ($this->files->exists($file)) {
-                            Route::middleware($type)
-                                ->namespace($namespace)
-                                ->group($file);
-                        }
-                        break;
-
-                    case 'simple':
-                        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/routes.php"));
-                        if ($this->files->exists($file)) {
-                            Route::namespace($namespace)
-                                ->group($file);
-                        }
-                        break;
-                }
+                $this->registerRoute($module, $path, $namespace, $type);
             }
         }
+    }
+
+    /**
+     * Registeres a simgle route
+     *
+     * @param  string $module
+     * @param  string $path
+     * @param  string $namespace
+     * @param  string $type
+     *
+     * @return void
+     */
+    protected function registerRoute(string $module, string $path, string $namespace, string $type)
+    {
+        if ($type === 'simple') $file = 'routes.php';
+        else $file = "{$type}.php";
+
+        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}"));
+
+        $allowed = [ 'web', 'api', 'simple' ];
+        if (in_array($type, $allowed) && $this->files->exists($file)) {
+            if ($type === 'simple') Route::namespace($namespace)->group($file);
+            else Route::middleware($type)->namespace($namespace)->group($file);
+        }
+    }
+
+    /**
+     * Collect the needed data to register the routes
+     *
+     * @param  string $module
+     *
+     * @return array
+     */
+    protected function getRoutingConfig(string $module)
+    {
+        $types = config("modules.specific.{$module}.routing", config('modules.default.routing'));
+        $path = config("modules.specific.{$module}.structure.routes", config('modules.default.structure.routes'));
+
+        $cp = config("modules.specific.{$module}.structure.controllers", config('modules.default.structure.controllers'));
+        $namespace = trim("App\\Modules\\{$module}\\" . implode('\\', explode('/', $cp)), '\\');
+
+        return compact('types', 'path', 'namespace');
     }
 
     /**
@@ -121,12 +141,9 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleHelpers(string $module)
+    protected function registerHelpers(string $module)
     {
-        $path = config("modules.specific.{$module}.structure.helpers", config('modules.default.structure.helpers'));
-        $file = str_replace('//', '/', app_path("Modules/{$module}/{$path}/helpers.php"));
-
-        if ($this->files->exists($file)) {
+        if ($file = $this->prepareComponent($module, 'helpers', 'helpers.php')) {
             include_once $file;
         }
     }
@@ -138,12 +155,9 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleViews(string $module)
+    protected function registerViews(string $module)
     {
-        $path = config("modules.specific.{$module}.structure.views", config('modules.default.structure.views'));
-        $views = str_replace('//', '/', app_path("Modules/{$module}/{$path}"));
-
-        if ($this->files->isDirectory($views)) {
+        if ($views = $this->prepareComponent($module, 'views')) {
             $this->loadViewsFrom($views, $module);
         }
     }
@@ -155,12 +169,9 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleTranslations(string $module)
+    protected function registerTranslations(string $module)
     {
-        $path = config("modules.specific.{$module}.structure.translations", config('modules.default.structure.translations'));
-        $translations = str_replace('//', '/', app_path("Modules/{$module}/{$path}"));
-
-        if ($this->files->isDirectory($translations)) {
+        if ($translations = $this->prepareComponent($module, 'translations')) {
             $this->loadTranslationsFrom($translations, $module);
         }
     }
@@ -172,12 +183,9 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleMigrations(string $module)
+    protected function registerMigrations(string $module)
     {
-        $path = config("modules.specific.{$module}.structure.migrations", config('modules.default.structure.migrations'));
-        $migrations = str_replace('//', '/', app_path("Modules/{$module}/{$path}"));
-
-        if ($this->files->isDirectory($migrations)) {
+        if ($migrations = $this->prepareComponent($module, 'migrations')) {
             $this->loadMigrationsFrom($migrations);
         }
     }
@@ -189,14 +197,31 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerModuleFactories(string $module)
+    protected function registerFactories(string $module)
     {
-        $path = config("modules.specific.{$module}.structure.factories", config('modules.default.structure.factories'));
-        $factories = str_replace('//', '/', app_path("Modules/{$module}/{$path}"));
-
-        if ($this->files->isDirectory($factories)) {
+        if ($factories = $this->prepareComponent($module, 'factories')) {
             $this->app->make(Factory::class)->load($factories);
         }
+    }
+
+    /**
+     * Prepare component registration
+     *
+     * @param  string $module
+     * @param  string $component
+     * @param  string $file
+     *
+     * @return string
+     */
+    protected function prepareComponent(string $module, string $component, string $file = '')
+    {
+        $path = config("modules.specific.{$module}.structure.{$component}", config("modules.default.structure.{$component}"));
+        $resource = rtrim(str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}")), '/');
+
+        if (! ($file && $this->files->exists($resource)) && ! (!$file && $this->files->isDirectory($resource))) {
+            $resource = false;
+        }
+        return $resource;
     }
 
     /**
@@ -220,10 +245,8 @@ class ModuleServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/config/modules.php';
         $publishPath = $this->app->configPath('modules.php');
 
-        $this->publishes([
-            $configPath => $publishPath,
-        ]);
         $this->mergeConfigFrom($configPath, 'modules');
+        $this->publishes([ $configPath => $publishPath ], 'config');
     }
 
     /**
