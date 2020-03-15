@@ -12,6 +12,29 @@ class ModuleServiceProvider extends ServiceProvider
     protected $files;
 
     /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        Console\ModuleListCommand::class,
+        Console\ModuleMakeCommand::class,
+        Console\ControllerMakeCommand::class,
+        Console\EventMakeCommand::class,
+        Console\FactoryMakeCommand::class,
+        Console\JobMakeCommand::class,
+        Console\ListenerMakeCommand::class,
+        Console\MailMakeCommand::class,
+        Console\ModelMakeCommand::class,
+        Console\MigrateMakeCommand::class,
+        Console\NotificationMakeCommand::class,
+        Console\ObserverMakeCommand::class,
+        Console\RequestMakeCommand::class,
+        Console\ResourceMakeCommand::class,
+        Console\SeederMakeCommand::class,
+    ];
+
+    /**
      * Bootstrap the application services.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
@@ -208,8 +231,8 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerMakeCommand();
         $this->registerPublishConfig();
+        $this->registerCommands($this->commands);
     }
 
     /**
@@ -227,18 +250,13 @@ class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the "make:module" console command.
+     * Register the given commands.
      *
-     * @return Console\ModuleMakeCommand
+     * @param  array  $commands
+     * @return void
      */
-    protected function registerMakeCommand()
+    protected function registerCommands(array $commands)
     {
-        $this->commands('modules.make');
-
-        $bind_method = method_exists($this->app, 'bindShared') ? 'bindShared' : 'singleton';
-
-        $this->app->{$bind_method}('modules.make', function ($app) {
-            return new Console\ModuleMakeCommand($this->files);
-        });
+        $this->commands(array_values($commands));
     }
 }

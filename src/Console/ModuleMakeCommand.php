@@ -2,12 +2,14 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMakeCommand extends GeneratorCommand
 {
+    use ConfiguresFolder;
 
     /**
      * The console command name.
@@ -22,14 +24,7 @@ class ModuleMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $description = 'Create a new module (folder structure)';
-
-    /**
-     * The studly case module name
-     *
-     * @var string
-     */
-    protected $module;
-
+    
     /**
      * The fully qualified module path
      *
@@ -51,8 +46,8 @@ class ModuleMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
-        $this->name = Str::studly($this->getNameInput());
-        $this->path = app_path("Modules/{$this->name}");
+        $this->module = Str::studly($this->getNameInput());
+        $this->path = app_path("Modules/{$this->module}");
 
         // check if module exists
         if ($this->files->exists($this->path)) {
@@ -90,31 +85,31 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function generateController()
     {
         $path = $this->prepareStubGeneration('controllers', 'controller.stub');
-        $name = "{$this->name}Controller";
-        $this->saveFile("Controller", $name, [ 'class' =>  "Modules/{$this->name}/{$path}/{$name}" ]);
+        $name = "{$this->module}Controller";
+        $this->saveFile("Controller", $name, [ 'class' =>  "Modules/{$this->module}/{$path}/{$name}" ]);
     }
 
     protected function generateModel()
     {
         $path = $this->prepareStubGeneration('models', 'model.stub');
-        $this->saveFile("Model", $this->name, [ 'class' => "Modules/{$this->name}/{$path}/{$this->name}" ]);
+        $this->saveFile("Model", $this->module, [ 'class' => "Modules/{$this->module}/{$path}/{$this->module}" ]);
     }
 
     protected function generateView()
     {
         $path = $this->prepareStubGeneration('views', 'resources/view.stub');
-        $this->saveFile("View", 'index.blade', [ 'file' => "Modules/{$this->name}/{$path}/index.blade.php" ]);
+        $this->saveFile("View", 'index.blade', [ 'file' => "Modules/{$this->module}/{$path}/index.blade.php" ]);
     }
 
     protected function generateTranslation()
     {
         $path = $this->prepareStubGeneration('translations', 'resources/translation.stub');
-        $this->saveFile("Translation", 'en', [ 'file' => "Modules/{$this->name}/{$path}/en.php" ]);
+        $this->saveFile("Translation", 'en', [ 'file' => "Modules/{$this->module}/{$path}/en.php" ]);
     }
 
     protected function generateRoutes()
     {
-        $types = config("modules.specific.{$this->name}.routing", config('modules.default.routing'));
+        $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
         foreach ($types as $type) {
             $this->generateRoute($type);
         }
@@ -128,7 +123,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $allowed = [ 'web', 'api', 'simple' ];
         if (in_array($type, $allowed)) {
             $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
-            $file = "Modules/{$this->name}/{$path}/{$file}";
+            $file = "Modules/{$this->module}/{$path}/{$file}";
             $this->saveFile("Routes", $type, compact('file'));
         }
     }
@@ -136,19 +131,19 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function generateMigration()
     {
         $path = $this->getConfiguredFolder('migrations');
-        $path = str_replace('//', '/', "Modules/{$this->name}/{$path}");
+        $path = str_replace('//', '/', "Modules/{$this->module}/{$path}");
 
         // needs the temp name to generate the folder
         $this->makeDirectory(app_path($path) . '/migration.php');
 
-        $table = Str::plural(Str::snake($this->name));
+        $table = Str::plural(Str::snake($this->module));
         $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table, '--path' => "app/{$path}"]);
     }
 
     protected function generateSeeder()
     {
         $path = $this->prepareStubGeneration('seeds', 'database/seeder.stub');
-        $this->saveFile("Seeder", $this->name, [ 'class' =>  "Modules/{$this->name}/{$path}/{$this->name}Seeder" ]);
+        $this->saveFile("Seeder", $this->module, [ 'class' =>  "Modules/{$this->module}/{$path}/{$this->module}Seeder" ]);
     }
 
     protected function generateFactory()
@@ -156,11 +151,11 @@ class ModuleMakeCommand extends GeneratorCommand
         $path = $this->prepareStubGeneration('factories', 'database/factory.stub');
 
         $modelPath = $this->getConfiguredFolder('models');
-        $fullModelClass = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->name}/{$modelPath}/{$this->name}"));
-        $content = str_replace(['DummyFullModelClass', 'DummyModelClass'], [ $fullModelClass, $this->name ], $this->stub);
+        $fullModelClass = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->module}/{$modelPath}/{$this->module}"));
+        $content = str_replace(['DummyFullModelClass', 'DummyModelClass'], [ $fullModelClass, $this->module ], $this->stub);
 
-        $this->saveFile("Factory", $this->name, [
-            'class' =>  "Modules/{$this->name}/{$path}/{$this->name}Factory",
+        $this->saveFile("Factory", $this->module, [
+            'class' =>  "Modules/{$this->module}/{$path}/{$this->module}Factory",
             'content' => $content,
         ]);
     }
@@ -168,7 +163,7 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function generateHelpers()
     {
         $path = $this->prepareStubGeneration('helpers', 'helpers.stub');
-        $this->saveFile("Helpers", 'helpers', [ 'file' => "Modules/{$this->name}/{$path}/helpers.php" ]);
+        $this->saveFile("Helpers", 'helpers', [ 'file' => "Modules/{$this->module}/{$path}/helpers.php" ]);
     }
 
     /**
@@ -183,7 +178,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $path = $this->getConfiguredFolder($component);
 
         $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
-        $this->stub = str_replace([ 'DummyTitle', 'DummyUCtitle' ], [ $this->getNameInput(), $this->name ], $stub);
+        $this->stub = str_replace([ 'DummyTitle', 'DummyUCtitle' ], [ $this->getNameInput(), $this->module ], $stub);
 
         return $path;
     }
@@ -217,16 +212,6 @@ class ModuleMakeCommand extends GeneratorCommand
             $this->files->put($file, $content);
             $this->line("<fg=green>Created {$type}:</> {$name}");
         }
-    }
-
-    /**
-     * Get the configured path for the asked component.
-     *
-     * @param  string  $component
-     * @return string
-     */
-    protected function getConfiguredFolder(string $component) {
-        return config("modules.specific.{$this->name}.structure.{$component}", config("modules.default.structure.{$component}"));
     }
 
     /**

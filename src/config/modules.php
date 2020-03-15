@@ -14,7 +14,15 @@ return [
 
     'generate' => [
         'controller' => true,
+        'resource' => false,
+        'request' => false,
         'model' => true,
+        'mail' => false,
+        'notification' => false,
+        'event' => false,
+        'listener' => false,
+        'observer' => false,
+        'job' => false,
         'view' => true,
         'translation' => true,
         'routes' => true,
@@ -63,8 +71,16 @@ return [
         */
 
         'structure' => [
-            'controllers' => 'Controllers',
+            'controllers' => 'Http/Controllers',
+            'resources' => 'Http/Resources',
+            'requests' => 'Http/Requests',
             'models' => 'Models',
+            'mails' => 'Mail',
+            'notifications' => 'Notifications',
+            'events' => 'Events',
+            'listeners' => 'Listeners',
+            'observers' => 'Observers',
+            'jobs' => 'Jobs',
             'views' => 'resources/views',
             'translations' => 'resources/lang',
             'routes' => 'routes',
