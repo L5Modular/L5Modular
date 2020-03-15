@@ -59,6 +59,6 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
         ])->expectsQuestion('In what module would you like to generate?', $this->moduleName)
             ->assertExitCode(0);
 
-        $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/foobar');
+        $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/fooBar');
     }
 }
