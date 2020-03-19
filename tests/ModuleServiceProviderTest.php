@@ -90,9 +90,9 @@ class ModuleServiceProviderTest extends TestCase
         $app = Mockery::mock(ArrayAccess::class);
         $serviceProvider = new ModuleServiceProvider($app);
 
-        // $app->shouldReceive('singleton')
-        //     ->once()
-        //     ->andReturnNull();
+        $app->shouldReceive('singleton')
+            ->times(15)
+            ->andReturnNull();
 
         $app->shouldReceive('configPath')
             ->once()
