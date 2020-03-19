@@ -9,30 +9,9 @@ use Illuminate\Database\Eloquent\Factory;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    protected $files;
+    use Traits\RegisteresCommands;
 
-    /**
-     * The commands to be registered.
-     *
-     * @var array
-     */
-    protected $commands = [
-        Console\ModuleListCommand::class,
-        Console\ModuleMakeCommand::class,
-        Console\ControllerMakeCommand::class,
-        Console\EventMakeCommand::class,
-        Console\FactoryMakeCommand::class,
-        Console\JobMakeCommand::class,
-        Console\ListenerMakeCommand::class,
-        Console\MailMakeCommand::class,
-        Console\ModelMakeCommand::class,
-        Console\MigrateMakeCommand::class,
-        Console\NotificationMakeCommand::class,
-        Console\ObserverMakeCommand::class,
-        Console\RequestMakeCommand::class,
-        Console\ResourceMakeCommand::class,
-        Console\SeederMakeCommand::class,
-    ];
+    protected $files;
 
     /**
      * Bootstrap the application services.
@@ -232,7 +211,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerPublishConfig();
-        $this->registerCommands($this->commands);
+        $this->registerCommands();
     }
 
     /**
@@ -247,16 +226,5 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom($configPath, 'modules');
         $this->publishes([ $configPath => $publishPath ], 'config');
-    }
-
-    /**
-     * Register the given commands.
-     *
-     * @param  array  $commands
-     * @return void
-     */
-    protected function registerCommands(array $commands)
-    {
-        $this->commands(array_values($commands));
     }
 }

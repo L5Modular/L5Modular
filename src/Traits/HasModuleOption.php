@@ -12,14 +12,14 @@ trait HasModuleOption
     protected $module;
 
     /**
-     * 
+     *
      */
     private function initModuleOption()
     {
         if (!$this->module = $this->option('module')) {
             $this->module = $this->ask('In what module would you like to generate?');
         }
-        
+
         $this->line(app_path('Modules/'.$this->module));
 
         if (!$this->files->isDirectory(app_path('Modules/'.$this->module))) {

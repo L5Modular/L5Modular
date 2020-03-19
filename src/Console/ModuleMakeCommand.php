@@ -24,7 +24,7 @@ class ModuleMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $description = 'Create a new module (folder structure)';
-    
+
     /**
      * The fully qualified module path
      *
