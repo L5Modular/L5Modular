@@ -45,6 +45,28 @@ class SeederMakeCommand extends BaseSeederMakeCommand
     }
 
     /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return __DIR__.'/stubs/database/seeder.stub';
+    }
+
+    /**
+     * Get the full namespace for a given class, without the class name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getNamespace($name)
+    {
+        $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('seeds'))))), '\\');
+        return $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->module) . '\\' . $relativePart;
+    }
+
+    /**
      * Get the destination class path.
      *
      * @param  string  $name
@@ -64,7 +86,7 @@ class SeederMakeCommand extends BaseSeederMakeCommand
     {
         $options = parent::getOptions();
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a factory in a certain module'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a seeder in a certain module'];
 
         return $options;
     }

@@ -4,7 +4,7 @@ namespace DummyNamespace;
 
 use Illuminate\Database\Seeder;
 
-class DummyUCtitleSeeder extends Seeder
+class DummyClass extends Seeder
 {
     /**
      * Run the database seeds.
