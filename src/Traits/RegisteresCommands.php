@@ -242,7 +242,8 @@ trait RegisteresCommands
     {
         $this->app->singleton('command.module.seeder.make', function ($app) {
             $files = $app['files'];
-            return new Console\SeederMakeCommand($files);
+            $composer = $app['composer'];
+            return new Console\SeederMakeCommand($files, $composer);
         });
     }
 }
