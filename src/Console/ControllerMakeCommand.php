@@ -4,6 +4,7 @@ namespace ArtemSchander\L5Modular\Console;
 
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Routing\Console\ControllerMakeCommand as BaseControllerMakeCommand;
+use InvalidArgumentException;
 use Illuminate\Support\Str;
 
 class ControllerMakeCommand extends BaseControllerMakeCommand
@@ -34,7 +35,7 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
     /**
      * The cli info that will be shown on --help.
      */
-    const MODULE_OPTION_INFO = 'Generate an controller in a certain module';
+    const MODULE_OPTION_INFO = 'Generate a controller in a certain module';
 
     /**
      * Get the fully-qualified model class name.
