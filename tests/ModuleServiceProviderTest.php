@@ -138,6 +138,10 @@ class ModuleServiceProviderTest extends TestCase
             ->once()
             ->andReturn(false);
 
+        $app->shouldReceive('getNamespace')
+            ->once()
+            ->andReturn('App/');
+
         $fileSystem->shouldReceive('exists')
             ->once()
             ->with($basePath . '/app/Modules/FooBar/routes/api.php')
@@ -220,6 +224,10 @@ class ModuleServiceProviderTest extends TestCase
         $app->shouldReceive('routesAreCached')
             ->once()
             ->andReturn(false);
+
+        $app->shouldReceive('getNamespace')
+            ->once()
+            ->andReturn('App/');
 
         $fileSystem->shouldNotReceive('exists')
             ->with($basePath . '/app/Modules/FooBar/routes/api.php');
