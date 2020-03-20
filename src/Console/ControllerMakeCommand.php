@@ -4,6 +4,7 @@ namespace ArtemSchander\L5Modular\Console;
 
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Routing\Console\ControllerMakeCommand as BaseControllerMakeCommand;
+use Symfony\Component\Console\Input\InputOption;
 use InvalidArgumentException;
 use Illuminate\Support\Str;
 
@@ -38,6 +39,35 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
     const MODULE_OPTION_INFO = 'Generate a controller in a certain module';
 
     /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        if ($this->option('welcome')) {
+            $stub = __DIR__.'/stubs/controller.stub';
+        } else {
+            $stub = parent::getStub();
+        }
+
+        return $stub;
+    }
+
+    /**
+     * Build the class with the given name.
+     *
+     * Remove the base controller import if we are already in base namespace.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function buildClass($name)
+    {
+        return str_replace('DummyModuleName', $this->module, parent::buildClass($name));
+    }
+
+    /**
      * Get the fully-qualified model class name.
      *
      * @param  string  $model
@@ -59,5 +89,18 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
         }
 
         return $model;
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        $options = parent::getOptions();
+        $options[] = ['welcome', 'w', InputOption::VALUE_NONE, 'Generate a controller class with a welcome method.'];
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, self::MODULE_OPTION_INFO];
+        return $options;
     }
 }

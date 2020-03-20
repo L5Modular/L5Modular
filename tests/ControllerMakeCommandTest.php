@@ -85,6 +85,4 @@ class ControllerMakeCommandTest extends MakeCommandTestCase
         $this->assertFileNotExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
         $this->assertFileNotExists($this->modulePath . '/' . $this->getConfiguredFolder('models') . '/Test.php');
     }
-
-    // TODO: test all other options
 }

@@ -56,7 +56,7 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     protected function writeMigration($name, $table, $create)
     {
         if (!$this->files->isDirectory($this->getMigrationPath())) {
-            $this->files->makeDirectory($this->getMigrationPath(), 0755, true, true);
+            $this->files->makeDirectory($this->getMigrationPath(), 0755, true);
         }
 
         $file = $this->creator->create($name, $this->getMigrationPath(), $table, $create);
