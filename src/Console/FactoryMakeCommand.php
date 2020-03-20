@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
-use Symfony\Component\Console\Input\InputOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Database\Console\Factories\FactoryMakeCommand as BaseFactoryCommand;
 use Illuminate\Support\Str;
 
 class FactoryMakeCommand extends BaseFactoryCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,45 +25,35 @@ class FactoryMakeCommand extends BaseFactoryCommand
     protected $description = 'Create a new model factory in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
-
-        return $this->module ? parent::handle() : false;
-    }
+    const KEY = 'factories';
 
     /**
-     * Get the destination class path.
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate a factory in a certain module';
+
+    /**
+     * Build the class with the given name.
      *
      * @param  string  $name
      * @return string
      */
-    protected function getPath($name)
+    protected function buildClass($name)
     {
-        $name = str_replace(
-            ['\\', '/'],
-            '',
-            $this->argument('name')
-        );
+        $model = $this->option('model');
 
-        return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('factories') . '/' . $name . '.php';
-    }
+        if (! Str::startsWith($model, [ $this->laravel->getNamespace(), '\\' ])) {
+            $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('models'))))), '\\');
+            $model = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $relativePart . '\\' . $model;
+        }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
+        $stub = $this->files->get($this->getStub());
+        $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a factory in a certain module'];
-
-        return $options;
+        return str_replace([ 'NamespacedDummyModel', 'DummyModel' ], [ trim($model, '\\'), class_basename($model) ], $stub);
     }
 }

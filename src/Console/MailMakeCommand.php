@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\MailMakeCommand as BaseMailMakeCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class MailMakeCommand extends BaseMailMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,16 +25,16 @@ class MailMakeCommand extends BaseMailMakeCommand
     protected $description = 'Create a new mail class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
+    const KEY = 'mails';
 
-        return $this->module ? parent::handle() : false;
-    }
+    /**
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate a mailable in a certain module';
 
     /**
      * Write the Markdown template for the mailable.
@@ -56,30 +54,5 @@ class MailMakeCommand extends BaseMailMakeCommand
         $base_class_path = dirname($base_class->getFileName());
 
         $this->files->put($path, file_get_contents($base_class_path . '/stubs/markdown.stub'));
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('mails');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a mailable in a certain module'];
-
-        return $options;
     }
 }

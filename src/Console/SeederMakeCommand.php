@@ -2,15 +2,12 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
-use Symfony\Component\Console\Input\InputOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Database\Console\Seeds\SeederMakeCommand as BaseSeederMakeCommand;
-use Illuminate\Support\Str;
 
 class SeederMakeCommand extends BaseSeederMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,21 +24,25 @@ class SeederMakeCommand extends BaseSeederMakeCommand
     protected $description = 'Create a new seeder class in a module';
 
     /**
-     * Execute the console command.
-     *
-     * @return void
+     * The key of the component to be generated.
      */
-    public function handle()
+    const KEY = 'seeds';
+
+    /**
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate a seeder in a certain module';
+
+    /**
+     * Get the full namespace for a given class, without the class name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getNamespace($name)
     {
-        $this->initModuleOption();
-
-        if (!$this->module) {
-            return false;
-        }
-
-        parent::handle();
-
-        $this->composer->dumpAutoloads();
+        $rootNamespace = trim($this->rootNamespace(), '\\');
+        return $this->getDefaultNamespace($rootNamespace);
     }
 
     /**
@@ -52,42 +53,5 @@ class SeederMakeCommand extends BaseSeederMakeCommand
     protected function getStub()
     {
         return __DIR__.'/stubs/database/seeder.stub';
-    }
-
-    /**
-     * Get the full namespace for a given class, without the class name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function getNamespace($name)
-    {
-        $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('seeds'))))), '\\');
-        return $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->module) . '\\' . $relativePart;
-    }
-
-    /**
-     * Get the destination class path.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function getPath($name)
-    {
-        return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('seeds') . '/' . $name . '.php';
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a seeder in a certain module'];
-
-        return $options;
     }
 }

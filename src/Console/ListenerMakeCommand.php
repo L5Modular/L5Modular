@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\ListenerMakeCommand as BaseListenerMakeCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class ListenerMakeCommand extends BaseListenerMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,16 +25,16 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
     protected $description = 'Create a new listener class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
+    const KEY = 'listeners';
 
-        return $this->module ? parent::handle() : false;
-    }
+    /**
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate a listener in a certain module';
 
     /**
      * Build the class with the given name.
@@ -48,49 +46,14 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
     {
         $event = $this->option('event');
 
-        if (!Str::startsWith($event, [
-            $this->laravel->getNamespace(),
-            'Illuminate',
-            '\\',
-        ])) {
-            $event = $this->laravel->getNamespace() . '\Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('events') . '\\' . $event;
+        if (! Str::startsWith($event, [ $this->laravel->getNamespace(), 'Illuminate', '\\' ])) {
+            $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('events'))))), '\\');
+            $event = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $relativePart . '\\' . $event;
         }
 
-        $stub = str_replace(
-            'DummyEvent',
-            class_basename($event),
-            parent::buildClass($name)
-        );
+        $stub = $this->files->get($this->getStub());
+        $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        return str_replace(
-            'DummyFullEvent',
-            trim($event, '\\'),
-            $stub
-        );
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('listeners');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a listener in a certain module'];
-
-        return $options;
+        return str_replace([ 'DummyFullEvent', 'DummyEvent' ], [ trim($event, '\\'), class_basename($event) ], $stub);
     }
 }

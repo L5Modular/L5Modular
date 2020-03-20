@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\ModelMakeCommand as BaseModelMakeCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class ModelMakeCommand extends BaseModelMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,16 +25,16 @@ class ModelMakeCommand extends BaseModelMakeCommand
     protected $description = 'Create a new model class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
+    const KEY = 'models';
 
-        return $this->module ? parent::handle() : false;
-    }
+    /**
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate a model in a certain module';
 
     /**
      * Create a model factory for the model.
@@ -83,7 +81,7 @@ class ModelMakeCommand extends BaseModelMakeCommand
     {
         $seeder = Str::studly(class_basename($this->argument('name')));
 
-        $this->call('make:module:seed', [
+        $this->call('make:module:seeder', [
             'name' => "{$seeder}Seeder",
             '--module' => $this->option('module') ? $this->option('module') : null,
         ]);
@@ -106,30 +104,5 @@ class ModelMakeCommand extends BaseModelMakeCommand
             '--api' => $this->option('api'),
             '--module' => $this->option('module') ? $this->option('module') : null,
         ]));
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('models');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a model in a certain module'];
-
-        return $options;
     }
 }

@@ -2,8 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand as BaseMigrateMakeCommand;
 use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Filesystem\Filesystem;
@@ -12,7 +11,7 @@ use Illuminate\Support\Str;
 
 class MigrateMakeCommand extends BaseMigrateMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command signature.
@@ -47,22 +46,6 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        $this->initModuleOption();
-
-        if (!$this->files->isDirectory($this->getMigrationPath())) {
-            $this->files->makeDirectory($this->getMigrationPath(), 0777, true, true);
-        }
-
-        return $this->module ? parent::handle() : false;
-    }
-
-    /**
      * Write the migration file to disk.
      *
      * @param  string  $name
@@ -72,12 +55,11 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
      */
     protected function writeMigration($name, $table, $create)
     {
-        $file = $this->creator->create(
-            $name,
-            $this->getMigrationPath(),
-            $table,
-            $create
-        );
+        if (!$this->files->isDirectory($this->getMigrationPath())) {
+            $this->files->makeDirectory($this->getMigrationPath(), 0755, true, true);
+        }
+
+        $file = $this->creator->create($name, $this->getMigrationPath(), $table, $create);
 
         if (!$this->option('fullpath')) {
             $file = pathinfo($file, PATHINFO_FILENAME);

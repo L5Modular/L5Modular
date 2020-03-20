@@ -2,15 +2,12 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\RequestMakeCommand as BaseRequestMakeCommand;
-use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class RequestMakeCommand extends BaseRequestMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,39 +24,14 @@ class RequestMakeCommand extends BaseRequestMakeCommand
     protected $description = 'Create a new request class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
-
-        return $this->module ? parent::handle() : false;
-    }
+    const KEY = 'requests';
 
     /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
+     * The cli info that will be shown on --help.
      */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('requests');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a request in a certain module'];
-
-        return $options;
-    }
+    const MODULE_OPTION_INFO = 'Generate a request in a certain module';
 }

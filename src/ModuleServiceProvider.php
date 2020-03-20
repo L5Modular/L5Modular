@@ -108,7 +108,7 @@ class ModuleServiceProvider extends ServiceProvider
         $path = config("modules.specific.{$module}.structure.routes", config('modules.default.structure.routes'));
 
         $cp = config("modules.specific.{$module}.structure.controllers", config('modules.default.structure.controllers'));
-        $namespace = trim("App\\Modules\\{$module}\\" . implode('\\', explode('/', $cp)), '\\');
+        $namespace = $this->app->getNamespace() . trim("Modules\\{$module}\\" . implode('\\', explode('/', $cp)), '\\');
 
         return compact('types', 'path', 'namespace');
     }

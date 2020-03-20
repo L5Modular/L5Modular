@@ -49,7 +49,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
 
         $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
     }
-    
+
     /** @test */
     public function Should_GenerateWithMarkdown_When_MarkdownGiven()
     {
@@ -65,7 +65,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
         $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
         $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder('views') . '/' . $this->markdownName . '.blade.php');
     }
-    
+
     /** @test */
     public function Should_GenerateWithMarkdown_When_MarkdownGivenAndViewDirectoryMissing()
     {

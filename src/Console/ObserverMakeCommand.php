@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\ObserverMakeCommand as BaseObserverMakeCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class ObserverMakeCommand extends BaseObserverMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,16 +25,16 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
     protected $description = 'Create a new observer class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
+    const KEY = 'observers';
 
-        return $this->module ? parent::handle() : false;
-    }
+    /**
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate an observer in a certain module';
 
     /**
      * Replace the model for the given stub.
@@ -49,7 +47,8 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
     {
         $model = str_replace('/', '\\', $model);
 
-        $namespaceModel = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $this->getConfiguredFolder('models') . '\\' . $model;
+        $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('models'))))), '\\');
+        $namespaceModel = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $relativePart . '\\' . $model;
 
         if (Str::startsWith($model, '\\')) {
             $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);
@@ -70,30 +69,5 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
         $stub = str_replace('DummyModel', $model, $stub);
 
         return str_replace('dummyModel', Str::camel($model), $stub);
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('observers');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        $options = parent::getOptions();
-
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate an observer in a certain module'];
-
-        return $options;
     }
 }

@@ -2,15 +2,13 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\HasModuleOption;
+use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Routing\Console\ControllerMakeCommand as BaseControllerMakeCommand;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
 
 class ControllerMakeCommand extends BaseControllerMakeCommand
 {
-    use ConfiguresFolder, HasModuleOption;
+    use MakesComponent;
 
     /**
      * The console command name.
@@ -27,39 +25,38 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
     protected $description = 'Create a new controller class in a module';
 
     /**
-     * Execute the console command.
+     * The key of the component to be generated.
      *
-     * @return bool|null
+     * @var string
      */
-    public function handle()
-    {
-        $this->initModuleOption();
-
-        return $this->module ? parent::handle() : false;
-    }
+    const KEY = 'controllers';
 
     /**
-     * Get the default namespace for the class.
+     * The cli info that will be shown on --help.
+     */
+    const MODULE_OPTION_INFO = 'Generate an controller in a certain module';
+
+    /**
+     * Get the fully-qualified model class name.
      *
-     * @param  string  $rootNamespace
+     * @param  string  $model
      * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Modules\\' . Str::studly($this->module) . '\\' . $this->getConfiguredFolder('controllers');
-    }
-
-    /**
-     * Get the console command options.
      *
-     * @return array
+     * @throws \InvalidArgumentException
      */
-    protected function getOptions()
+    protected function parseModel($model)
     {
-        $options = parent::getOptions();
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
+            throw new InvalidArgumentException('Model name contains invalid characters.');
+        }
 
-        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, 'Generate a controller in a certain module'];
+        $model = trim(str_replace('/', '\\', $model), '\\');
 
-        return $options;
+        if (! Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
+            $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('models'))))), '\\');
+            $model = $rootNamespace . 'Modules\\' . Str::studly($this->module) . '\\' . $relativePart . '\\' . $model;
+        }
+
+        return $model;
     }
 }
