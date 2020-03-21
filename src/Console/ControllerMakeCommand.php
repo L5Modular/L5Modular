@@ -97,7 +97,7 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
     protected function getOptions()
     {
         $options = parent::getOptions();
-        $options[] = ['welcome', 'w', InputOption::VALUE_NONE, 'Generate a controller class with a welcome method.'];
+        $options[] = ['welcome', 'w', InputOption::VALUE_NONE, 'Generate a controller with a welcome method.'];
         $options[] = ['module', null, InputOption::VALUE_OPTIONAL, self::MODULE_OPTION_INFO];
         return $options;
     }

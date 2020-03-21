@@ -47,6 +47,7 @@ class ModelMakeCommand extends BaseModelMakeCommand
             'name' => "{$factory}Factory",
             '--model' => $this->qualifyClass($this->getNameInput()),
             '--module' => $this->option('module') ? $this->option('module') : null,
+            '--quiet' => true,
         ]);
     }
 
@@ -67,6 +68,7 @@ class ModelMakeCommand extends BaseModelMakeCommand
             'name' => "create_{$table}_table",
             '--create' => $table,
             '--module' => $this->option('module') ? $this->option('module') : null,
+            '--quiet' => true,
         ]);
     }
 
@@ -82,6 +84,7 @@ class ModelMakeCommand extends BaseModelMakeCommand
         $this->call('make:module:seeder', [
             'name' => "{$seeder}Seeder",
             '--module' => $this->option('module') ? $this->option('module') : null,
+            '--quiet' => true,
         ]);
     }
 
@@ -101,6 +104,7 @@ class ModelMakeCommand extends BaseModelMakeCommand
             '--model' => $this->option('resource') || $this->option('api') ? $modelName : null,
             '--api' => $this->option('api'),
             '--module' => $this->option('module') ? $this->option('module') : null,
+            '--quiet' => true,
         ]));
     }
 }

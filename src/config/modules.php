@@ -116,6 +116,7 @@ return [
         |     'enabled' => false,
         |     'routing' => [ 'simple' ],
         |     'structure' => [
+        |         'controllers' => 'Controllers',
         |         'views' => 'Views',
         |         'translations' => 'Translations',
         |     ],

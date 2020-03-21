@@ -28,6 +28,8 @@ trait ReplacesRelatedDataInStub
         $stub = $this->files->get($this->getStub());
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        return str_replace([ 'DummyFullEvent', 'DummyEvent' ], [ trim($component, '\\'), class_basename($component) ], $stub);
+        $search = [ 'NamespacedDummyModel', 'DummyFullEvent', 'DummyEvent' ];
+        $replace = [ trim($component, '\\'), trim($component, '\\'), class_basename($component) ];
+        return str_replace($search, $replace, $stub);
     }
 }
