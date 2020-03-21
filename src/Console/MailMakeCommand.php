@@ -2,12 +2,14 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
+use ArtemSchander\L5Modular\Traits\MakesMail;
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\MailMakeCommand as BaseMailMakeCommand;
-use Illuminate\Support\Str;
+use ReflectionClass;
 
 class MailMakeCommand extends BaseMailMakeCommand
 {
+    use MakesMail;
     use MakesComponent;
 
     /**
@@ -37,48 +39,19 @@ class MailMakeCommand extends BaseMailMakeCommand
     const MODULE_OPTION_INFO = 'Generate a mailable in a certain module';
 
     /**
-     * Write the Markdown template for the mailable.
+     * Name of the stub file
      *
-     * @return void
+     * @var string
      */
-    protected function writeMarkdownTemplate()
-    {
-		$path = $this->getConfiguredFolder('views');
-        $file = str_replace('.', '/', $this->option('markdown')) . '.blade.php';
-
-        $file = str_replace('//', '/', app_path("Modules/{$this->module}/{$path}/{$file}"));
-
-        if (! $this->files->isDirectory(dirname($file))) {
-            $this->files->makeDirectory(dirname($file), 0755, true);
-        }
-
-        $base_class = new \ReflectionClass(BaseMailMakeCommand::class);
-
-        $base_class_path = dirname($base_class->getFileName());
-
-        $this->files->put($file, file_get_contents($base_class_path . '/stubs/markdown.stub'));
-    }
+    const STUB = 'mail.stub';
 
     /**
-     * Build the class with the given name.
+     * Returns a reflection of the extended class
      *
-     * @param  string  $name
-     * @return string
+     * @return ReflectionClass
      */
-    protected function buildClass($name)
+    protected function getBaseClass()
     {
-        return str_replace('DummyModuleName', $this->module, parent::buildClass($name));
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->option('markdown')
-                        ? __DIR__.'/stubs/markdown-mail.stub'
-                        : __DIR__.'/stubs/mail.stub';
+        return new ReflectionClass(BaseMailMakeCommand::class);
     }
 }
