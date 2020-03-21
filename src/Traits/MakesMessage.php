@@ -2,7 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Traits;
 
-trait MakesMail
+trait MakesMessage
 {
     /**
      * Write the Markdown template for the mailable.

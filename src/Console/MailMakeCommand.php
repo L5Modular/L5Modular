@@ -2,14 +2,14 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-use ArtemSchander\L5Modular\Traits\MakesMail;
+use ArtemSchander\L5Modular\Traits\MakesMessage;
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Foundation\Console\MailMakeCommand as BaseMailMakeCommand;
 use ReflectionClass;
 
 class MailMakeCommand extends BaseMailMakeCommand
 {
-    use MakesMail;
+    use MakesMessage;
     use MakesComponent;
 
     /**
