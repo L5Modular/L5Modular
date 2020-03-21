@@ -25,8 +25,6 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'resources';
 

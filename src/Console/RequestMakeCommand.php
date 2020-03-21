@@ -25,8 +25,6 @@ class RequestMakeCommand extends BaseRequestMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'requests';
 

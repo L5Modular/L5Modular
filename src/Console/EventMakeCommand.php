@@ -25,8 +25,6 @@ class EventMakeCommand extends BaseEventMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'events';
 

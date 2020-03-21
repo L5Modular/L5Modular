@@ -26,8 +26,6 @@ class ModelMakeCommand extends BaseModelMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'models';
 

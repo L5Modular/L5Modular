@@ -26,8 +26,6 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'observers';
 

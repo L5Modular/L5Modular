@@ -28,8 +28,6 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'controllers';
 

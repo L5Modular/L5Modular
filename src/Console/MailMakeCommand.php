@@ -28,8 +28,6 @@ class MailMakeCommand extends BaseMailMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'mails';
 
@@ -40,8 +38,6 @@ class MailMakeCommand extends BaseMailMakeCommand
 
     /**
      * Name of the stub file
-     *
-     * @var string
      */
     const STUB = 'mail.stub';
 

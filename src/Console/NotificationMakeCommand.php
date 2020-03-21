@@ -28,8 +28,6 @@ class NotificationMakeCommand extends BaseNotificationMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'notifications';
 

@@ -3,12 +3,13 @@
 namespace ArtemSchander\L5Modular\Console;
 
 use ArtemSchander\L5Modular\Traits\MakesComponent;
+use ArtemSchander\L5Modular\Traits\ReplacesRelatedDataInStub;
 use Illuminate\Foundation\Console\ListenerMakeCommand as BaseListenerMakeCommand;
-use Illuminate\Support\Str;
 
 class ListenerMakeCommand extends BaseListenerMakeCommand
 {
     use MakesComponent;
+    use ReplacesRelatedDataInStub;
 
     /**
      * The console command name.
@@ -26,8 +27,6 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
 
     /**
      * The key of the component to be generated.
-     *
-     * @var string
      */
     const KEY = 'listeners';
 
@@ -37,23 +36,14 @@ class ListenerMakeCommand extends BaseListenerMakeCommand
     const MODULE_OPTION_INFO = 'Generate a listener in a certain module';
 
     /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
+     * The key of the related component.
+     * Will be used in ReplacesRelatedDataInStub trait
      */
-    protected function buildClass($name)
-    {
-        $event = $this->option('event');
+    const RELATED_COMPONENT = 'event';
 
-        if (! Str::startsWith($event, [ $this->laravel->getNamespace(), 'Illuminate', '\\' ])) {
-            $relativePart = trim(implode('\\', array_map('ucfirst', explode('/', Str::studly($this->getConfiguredFolder('events'))))), '\\');
-            $event = $this->laravel->getNamespace() . 'Modules\\' . Str::studly($this->option('module')) . '\\' . $relativePart . '\\' . $event;
-        }
-
-        $stub = $this->files->get($this->getStub());
-        $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
-
-        return str_replace([ 'DummyFullEvent', 'DummyEvent' ], [ trim($event, '\\'), class_basename($event) ], $stub);
-    }
+    /**
+     * The class name beginnings of unrelated components.
+     * Will be used in ReplacesRelatedDataInStub trait
+     */
+    const UNRELATED_COMPONENT_BEGINNINGS = [ 'Illuminate', '\\' ];
 }
