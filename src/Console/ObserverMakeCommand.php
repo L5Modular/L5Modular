@@ -62,10 +62,9 @@ class ObserverMakeCommand extends BaseObserverMakeCommand
 
         $model = class_basename(trim($model, '\\'));
 
-        $stub = str_replace('DocDummyModel', Str::snake($model, ' '), $stub);
+        $search = [ 'DocDummyModel', 'DummyModel', 'dummyModel' ];
+        $replace = [ Str::snake($model, ' '), $model, Str::camel($model) ];
 
-        $stub = str_replace('DummyModel', $model, $stub);
-
-        return str_replace('dummyModel', Str::camel($model), $stub);
+        return str_replace($search, $replace, $stub);
     }
 }

@@ -30,6 +30,7 @@ trait ReplacesRelatedDataInStub
 
         $search = [ 'NamespacedDummyModel', 'DummyFullEvent', 'DummyEvent' ];
         $replace = [ trim($component, '\\'), trim($component, '\\'), class_basename($component) ];
-        return str_replace($search, $replace, $stub);
+
+        return str_replace($search, $replace, parent::buildClass($name));
     }
 }
