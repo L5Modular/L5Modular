@@ -32,4 +32,15 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
      * The cli info that will be shown on --help.
      */
     const MODULE_OPTION_INFO = 'Generate a resource in a certain module';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $this->initModuleOption();
+        return $this->module ? parent::handle() : false;
+    }
 }

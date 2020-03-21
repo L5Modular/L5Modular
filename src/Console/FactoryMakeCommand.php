@@ -46,4 +46,15 @@ class FactoryMakeCommand extends BaseFactoryCommand
      * Will be used in ReplacesRelatedDataInStub trait
      */
     const UNRELATED_COMPONENT_BEGINNINGS = [ '\\' ];
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $this->initModuleOption();
+        return $this->module ? parent::handle() : false;
+    }
 }

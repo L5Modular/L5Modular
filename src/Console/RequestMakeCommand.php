@@ -32,4 +32,15 @@ class RequestMakeCommand extends BaseRequestMakeCommand
      * The cli info that will be shown on --help.
      */
     const MODULE_OPTION_INFO = 'Generate a request in a certain module';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $this->initModuleOption();
+        return $this->module ? parent::handle() : false;
+    }
 }

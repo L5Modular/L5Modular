@@ -113,7 +113,7 @@ class ModuleServiceProviderTest extends TestCase
             ->andReturn($configRepository);
 
         $app->shouldReceive('configurationIsCached')
-            ->once()
+            ->zeroOrMoreTimes()
             ->andReturn(false);
 
         $result = $serviceProvider->register();
