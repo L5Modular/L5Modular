@@ -965,5 +965,5 @@ laravel-project/
 
 ## License
 
-L5Modular is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT)
+L5Modular is licensed under the terms of the [MIT License](https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE)
 (See LICENSE file for details).
