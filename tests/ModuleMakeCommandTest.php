@@ -171,7 +171,7 @@ class ModuleMakeCommandTest extends TestCase
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 
-        $file = $this->modulePath . '/resources/views/index.blade.php';
+        $file = $this->modulePath . '/resources/views/welcome.blade.php';
         $this->assertFileExists($file);
     }
 
@@ -185,7 +185,7 @@ class ModuleMakeCommandTest extends TestCase
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 
-        $file = $this->modulePath . '/views/index.blade.php';
+        $file = $this->modulePath . '/views/welcome.blade.php';
         $this->assertFileExists($file);
     }
 
@@ -199,7 +199,7 @@ class ModuleMakeCommandTest extends TestCase
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 
-        $file = $this->modulePath . '/resources/views/index.blade.php';
+        $file = $this->modulePath . '/resources/views/welcome.blade.php';
         $this->assertFileNotExists($file);
 
         $dir = $this->modulePath . '/resources/views';

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>DummyUCtitle</title>
+        <title>DummyModuleName</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -47,13 +47,13 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">
-                    DummyUCtitle
+                    DummyModuleName
                 </div>
                 <div class="subtitle">
-                    @if (Lang::has('DummyUCtitle::example.welcome'))
-                        {{ trans('DummyUCtitle::example.welcome') }}
+                    @if (Lang::has('DummyModuleName::example.welcome'))
+                        {{ trans('DummyModuleName::example.welcome') }}
                     @else
-                        Welcome, this is DummyUCtitle module.
+                        Welcome, this is DummyModuleName module.
                     @endif
                 </div>
             </div>

@@ -55,17 +55,19 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
      */
     protected function writeMigration($name, $table, $create)
     {
-        if (!$this->files->isDirectory($this->getMigrationPath())) {
+        if (! $this->files->isDirectory($this->getMigrationPath())) {
             $this->files->makeDirectory($this->getMigrationPath(), 0755, true);
         }
 
         $file = $this->creator->create($name, $this->getMigrationPath(), $table, $create);
 
-        if (!$this->option('fullpath')) {
+        if (! $this->option('fullpath')) {
             $file = pathinfo($file, PATHINFO_FILENAME);
         }
 
-        $this->line("<info>Created Migration:</info> {$file}");
+        if (! $this->option('quiet')) {
+            $this->line("<info>Created Migration:</info> {$file}");
+        }
     }
 
     /**
@@ -77,7 +79,7 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     {
         $migrationPath = $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder('migrations');
 
-        if (!is_null($targetPath = $this->input->getOption('path'))) {
+        if (! is_null($targetPath = $this->input->getOption('path'))) {
             return $migrationPath . '/' . $targetPath;
         }
 

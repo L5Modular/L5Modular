@@ -2,18 +2,14 @@
 
 namespace ArtemSchander\L5Modular\Console;
 
-// use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
-use ArtemSchander\L5Modular\Traits\MakesController;
-use Illuminate\Support\Str;
+use ArtemSchander\L5Modular\Traits\ConfiguresFolder;
+use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Console\GeneratorCommand;
-// use Illuminate\Console\GeneratorCommand;
-// use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Str;
 
 class ModuleMakeCommand extends GeneratorCommand
 {
-    // use ConfiguresFolder;
-
-    use MakesController;
+    use ConfiguresFolder;
 
     /**
      * The console command name.
@@ -60,7 +56,8 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->generateModule();
 
-        $this->info('Module created successfully.');
+        // $this->info('Module created successfully.');
+        $this->line('<info>Module</info>' . " \"{$this->module}\" " . '<info>created successfully.</info>');
     }
 
     protected function generateModule()
@@ -69,112 +66,93 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $components = config('modules.generate', []);
         foreach ($components as $component => $active) {
-            $method = "generate" . ucfirst($component);
-            if ($active && method_exists($this, $method)) {
-                $this->$method();
-
-                // switch ($component) {
-                //     case 'controller':
-                //     case 'model':
-                //     case 'view':
-                //     case 'translation':
-                //     case 'routes':
-                //     case 'migration':
-                //     case 'seeder':
-                //     case 'factory':
-                //     case 'helpers':
-                //         $method = "generate" . ucfirst($component);
-                //         $this->$method();
-                //         break;
-                // }
+            if ($active) {
+                $method = "generate" . ucfirst($component);
+                if (method_exists($this, $method)) {
+                    $this->$method();
+                } else {
+                    $this->generateComponent($component);
+                }
             }
         }
     }
 
-    // protected function generateController()
-    // {
-    //     $path = $this->prepareStubGeneration('controllers', 'controller.stub');
-    //     $name = "{$this->module}Controller";
-    //     $this->saveFile("Controller", $name, [ 'class' =>  "Modules/{$this->module}/{$path}/{$name}" ]);
-    // }
+    /**
+     * Generate a component by executing
+     * the corresponding artisan make command
+     *
+     * @param  string  $component
+     *
+     * @return void
+     */
+    protected function generateComponent(string $component)
+    {
+        $name = $this->module;
+        $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
 
-    // protected function generateModel()
-    // {
-    //     $path = $this->prepareStubGeneration('models', 'model.stub');
-    //     $this->saveFile("Model", $this->module, [ 'class' => "Modules/{$this->module}/{$path}/{$this->module}" ]);
-    // }
-    //
-    // protected function generateView()
-    // {
-    //     $path = $this->prepareStubGeneration('views', 'resources/view.stub');
-    //     $this->saveFile("View", 'index.blade', [ 'file' => "Modules/{$this->module}/{$path}/index.blade.php" ]);
-    // }
-    //
-    // protected function generateTranslation()
-    // {
-    //     $path = $this->prepareStubGeneration('translations', 'resources/translation.stub');
-    //     $this->saveFile("Translation", 'en', [ 'file' => "Modules/{$this->module}/{$path}/en.php" ]);
-    // }
-    //
-    // protected function generateRoutes()
-    // {
-    //     $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
-    //     foreach ($types as $type) {
-    //         $this->generateRoute($type);
-    //     }
-    // }
-    //
-    // protected function generateRoute(string $type)
-    // {
-    //     if ($type === 'simple') $file = 'routes.php';
-    //     else $file = "{$type}.php";
-    //
-    //     $allowed = [ 'web', 'api', 'simple' ];
-    //     if (in_array($type, $allowed)) {
-    //         $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
-    //         $file = "Modules/{$this->module}/{$path}/{$file}";
-    //         $this->saveFile("Routes", $type, compact('file'));
-    //     }
-    // }
-    //
-    // protected function generateMigration()
-    // {
-    //     $path = $this->getConfiguredFolder('migrations');
-    //     $path = str_replace('//', '/', "Modules/{$this->module}/{$path}");
-    //
-    //     // needs the temp name to generate the folder
-    //     $this->makeDirectory(app_path($path) . '/migration.php');
-    //
-    //     $table = Str::plural(Str::snake($this->module));
-    //     $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table, '--path' => "app/{$path}"]);
-    // }
-    //
-    // protected function generateSeeder()
-    // {
-    //     $path = $this->prepareStubGeneration('seeds', 'database/seeder.stub');
-    //     $this->saveFile("Seeder", $this->module, [ 'class' =>  "Modules/{$this->module}/{$path}/{$this->module}Seeder" ]);
-    // }
-    //
-    // protected function generateFactory()
-    // {
-    //     $path = $this->prepareStubGeneration('factories', 'database/factory.stub');
-    //
-    //     $modelPath = $this->getConfiguredFolder('models');
-    //     $fullModelClass = $this->qualifyClass(str_replace('//', '/', "Modules/{$this->module}/{$modelPath}/{$this->module}"));
-    //     $content = str_replace(['DummyFullModelClass', 'DummyModelClass'], [ $fullModelClass, $this->module ], $this->stub);
-    //
-    //     $this->saveFile("Factory", $this->module, [
-    //         'class' =>  "Modules/{$this->module}/{$path}/{$this->module}Factory",
-    //         'content' => $content,
-    //     ]);
-    // }
-    //
-    // protected function generateHelpers()
-    // {
-    //     $path = $this->prepareStubGeneration('helpers', 'helpers.stub');
-    //     $this->saveFile("Helpers", 'helpers', [ 'file' => "Modules/{$this->module}/{$path}/helpers.php" ]);
-    // }
-    //
+        if ($component === 'controller') {
+            $options['name'] = "{$this->module}Controller";
+            $options['--welcome'] = true;
+        } elseif ($component === 'seeder') {
+            $options['name'] = "{$this->module}Seeder";
+        } elseif ($component === 'factory') {
+            $options['name'] = "{$this->module}Factory";
+            $options['--model'] = $this->module;
+        } elseif ($component === 'migration') {
+            $table = Str::plural(Str::snake($this->module));
+            $options['name'] = "create_{$table}_table";
+            $options['--create'] = $table;
+        }
+
+        $this->call("make:module:{$component}", $options);
+
+        if ($component === 'migration') {
+            $this->info("Migration created successfully.");
+        }
+    }
+
+    protected function generateView()
+    {
+        $path = $this->prepareStubGeneration('views', 'resources/view.stub');
+        $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
+    }
+
+    protected function generateTranslation()
+    {
+        $path = $this->prepareStubGeneration('translations', 'resources/translation.stub');
+        $this->saveFile('Translation', [ 'file' => "Modules/{$this->module}/{$path}/en.php" ]);
+    }
+
+    protected function generateRoutes()
+    {
+        $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
+        foreach ($types as $type) {
+            $this->generateRoute($type);
+        }
+        $this->info("Routes created successfully.");
+    }
+
+    protected function generateRoute(string $type)
+    {
+        if ($type === 'simple') $file = 'routes.php';
+        else $file = "{$type}.php";
+
+        $allowed = [ 'web', 'api', 'simple' ];
+        if (in_array($type, $allowed)) {
+            $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
+            $file = "Modules/{$this->module}/{$path}/{$file}";
+
+            $quiet = true;
+            $this->saveFile('Routes', compact('file', 'quiet'));
+        }
+    }
+
+    protected function generateHelpers()
+    {
+        $path = $this->prepareStubGeneration('helpers', 'helpers.stub');
+        $this->saveFile('Helpers', [ 'file' => "Modules/{$this->module}/{$path}/helpers.php" ]);
+    }
+
     /**
      * Prepare stub content to be saved
      *
@@ -182,83 +160,48 @@ class ModuleMakeCommand extends GeneratorCommand
      * @param  string  $stub
      * @return string
      */
-    // protected function prepareStubGeneration(string $component, string $stub)
-    // {
-    //     $path = $this->getConfiguredFolder($component);
-    //
-    //     $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
-    //     $this->stub = str_replace([ 'DummyTitle', 'DummyUCtitle' ], [ $this->getNameInput(), $this->module ], $stub);
-    //
-    //     return $path;
-    // }
-    //
+    protected function prepareStubGeneration(string $component, string $stub)
+    {
+        $path = $this->getConfiguredFolder($component);
+
+        $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
+        $this->stub = str_replace([ 'DummyTitle', 'DummyModuleName' ], [ $this->getNameInput(), $this->module ], $stub);
+
+        return $path;
+    }
+
     /**
      * Save stub content to file
      *
      * @param  string  $type
-     * @param  string  $name
      * @param  array   $options
      * @return string
      */
-    // protected function saveFile(string $type, string $name, array $options)
-    // {
-    //     if (isset($options['class'])) {
-    //         $class = $this->qualifyClass(str_replace('//', '/', $options['class']));
-    //         $content = $this->replaceNamespace($this->stub, $class)->replaceClass($this->stub, $class);
-    //
-    //         $file = $this->getPath($class);
-    //     } elseif (isset($options['file'])) {
-    //         $file = app_path(str_replace('//', '/', $options['file']));
-    //         $content = $this->stub;
-    //     }
-    //
-    //     if (isset($options['content'])) {
-    //         $content = $options['content'];
-    //     }
-    //
-    //     if (isset($file) && isset($content)) {
-    //         $this->makeDirectory($file);
-    //         $this->files->put($file, $content);
-    //         $this->line("<fg=green>Created {$type}:</> {$name}");
-    //     }
-    // }
-    //
-    /**
-     * Get the full namespace name for a given class.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    // protected function getNamespace($name)
-    // {
-    //     $name = str_replace('\\routes\\', '\\', $name);
-    //     return trim(implode('\\', array_map('ucfirst', array_slice(explode('\\', Str::studly($name)), 0, -1))), '\\');
-    // }
-    //
-    /**
-     * Replace the class name for the given stub.
-     *
-     * @param  string  $stub
-     * @param  string  $name
-     * @return string
-     */
-    // protected function replaceClass($stub, $name)
-    // {
-    //     $class = class_basename($name);
-    //     return str_replace('DummyClass', $class, $stub);
-    // }
-    //
+    protected function saveFile(string $type, array $options)
+    {
+        $file = app_path(str_replace('//', '/', $options['file']));
+        $content = $this->stub;
+
+        if (isset($file) && isset($content)) {
+            $this->makeDirectory($file);
+            $this->files->put($file, $content);
+            if (! isset($options['quiet']) || $options['quiet'] === false) {
+                $this->info("{$type} created successfully.");
+            }
+        }
+    }
+
     /**
      * Get the console command arguments.
      *
      * @return array
      */
-    // protected function getArguments()
-    // {
-    //     return array(
-    //         ['name', InputArgument::REQUIRED, 'Module name.'],
-    //     );
-    // }
+    protected function getArguments()
+    {
+        return array(
+            ['name', InputArgument::REQUIRED, 'Module name.'],
+        );
+    }
 
     /**
      * Get the stub file for the generator.

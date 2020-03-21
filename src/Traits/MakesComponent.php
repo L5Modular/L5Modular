@@ -80,15 +80,16 @@ trait MakesComponent
      */
     private function initModuleOption()
     {
-        if (!$this->module = $this->option('module')) {
+        if (! $this->module = $this->option('module')) {
             $this->module = $this->ask('In what module would you like to generate?');
         }
 
-        $this->line(app_path('Modules/'.$this->module));
+        if (! $this->option('quiet')) {
+            $this->line('app/Modules/' . $this->module);
+        }
 
-        if (!$this->files->isDirectory(app_path('Modules/'.$this->module))) {
+        if (!$this->files->isDirectory(app_path('Modules/' . $this->module))) {
             $this->error('Module doesn\'t exist.');
-
             $this->module = false;
         }
     }
