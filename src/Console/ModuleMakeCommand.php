@@ -88,8 +88,27 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function generateComponent(string $component)
     {
         $name = $this->module;
-        $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
 
+        $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
+        $this->getComponentGenerationOptions($component, $options);
+
+        $this->call("make:module:{$component}", $options);
+
+        if ($component === 'migration') {
+            $this->info("Migration created successfully.");
+        }
+    }
+
+    /**
+     * Individual options for the make commands
+     * Reduce the cognitive complexity of generateComponent method
+     *
+     * @param  string  $component
+     *
+     * @return array
+     */
+    protected function getComponentGenerationOptions(string $component, array &$options)
+    {
         switch ($component) {
             case 'controller':
                 $options['name'] = "{$this->module}Controller";
@@ -124,11 +143,7 @@ class ModuleMakeCommand extends GeneratorCommand
                 break;
         }
 
-        $this->call("make:module:{$component}", $options);
-
-        if ($component === 'migration') {
-            $this->info("Migration created successfully.");
-        }
+        return $options;
     }
 
     protected function generateRoutes()

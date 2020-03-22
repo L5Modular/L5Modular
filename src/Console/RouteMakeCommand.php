@@ -62,19 +62,47 @@ class RouteMakeCommand extends GeneratorCommand
             // generate all requested route types
             // or at least the simple route
 
-            if ((! $this->option('web') && ! $this->option('api')) || $this->option('simple')) {
-                parent::handle();
-            }
+            $this->generateSimpleRoute();
+            $this->generateWebRoute();
+            $this->generateApiRoute();
+        }
+    }
 
-            if ($this->option('web')) {
-                $this->stub = 'web';
-                parent::handle();
-            }
+    /**
+     * Generate the simple route file
+     *
+     * @return void
+     */
+    protected function generateSimpleRoute()
+    {
+        if ((! $this->option('web') && ! $this->option('api')) || $this->option('simple')) {
+            parent::handle();
+        }
+    }
 
-            if ($this->option('api')) {
-                $this->stub = 'api';
-                parent::handle();
-            }
+    /**
+     * Generate the web route file
+     *
+     * @return void
+     */
+    protected function generateWebRoute()
+    {
+        if ($this->option('web')) {
+            $this->stub = 'web';
+            parent::handle();
+        }
+    }
+
+    /**
+     * Generate the api route file
+     *
+     * @return void
+     */
+    protected function generateApiRoute()
+    {
+        if ($this->option('api')) {
+            $this->stub = 'api';
+            parent::handle();
         }
     }
 
