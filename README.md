@@ -37,6 +37,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
         * [make job](#php-artisan-makemodulejob)
         * [make view](#php-artisan-makemoduleview)
         * [make translation](#php-artisan-makemoduletranslation)
+        * [make routes](#php-artisan-makemoduleroutes)
         * [make migration](#php-artisan-makemodulemigration)
         * [make seeder](#php-artisan-makemoduleseeder)
         * [make factory](#php-artisan-makemodulefactory)
@@ -551,6 +552,40 @@ Options:
   -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 ```
 </details>
+
+<br>
+
+##### `php artisan make:module:route`
+This command generates route files into a module.  
+By passing in the corresponding option you can define in which module the route files should be generated.
+By passing in options you can define in which module and what kind of route files should be generated.
+<details>
+    <summary>Description / Usage / Options</summary>
+
+```
+Description:
+  Create a new route file in a module
+
+Usage:
+  make:module:route [options]
+
+Options:
+      --simple           Generate a simple routes.php file
+      --web              Generate a web route file
+      --api              Generate an api route file
+      --module[=MODULE]  Generate a route file in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
 
 <br>
 

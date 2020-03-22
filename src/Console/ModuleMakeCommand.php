@@ -131,72 +131,20 @@ class ModuleMakeCommand extends GeneratorCommand
         }
     }
 
-    // protected function generateView()
-    // {
-    //     $path = $this->prepareStubGeneration('views', 'resources/view.stub');
-    //     $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
-    // }
-
     protected function generateRoutes()
     {
         $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
-        foreach ($types as $type) {
-            $this->generateRoute($type);
-        }
-        $this->info("Routes created successfully.");
-    }
-
-    protected function generateRoute(string $type)
-    {
-        if ($type === 'simple') $file = 'routes.php';
-        else $file = "{$type}.php";
+        $options = ['--module' => $this->module, '--quiet' => true];
 
         $allowed = [ 'web', 'api', 'simple' ];
-        if (in_array($type, $allowed)) {
-            $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
-            $file = "Modules/{$this->module}/{$path}/{$file}";
-
-            $quiet = true;
-            $this->saveFile('Routes', compact('file', 'quiet'));
-        }
-    }
-
-    /**
-     * Prepare stub content to be saved
-     *
-     * @param  string  $component
-     * @param  string  $stub
-     * @return string
-     */
-    protected function prepareStubGeneration(string $component, string $stub)
-    {
-        $path = $this->getConfiguredFolder($component);
-
-        $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
-        $this->stub = str_replace([ 'DummyTitle', 'DummyModuleName' ], [ $this->getNameInput(), $this->module ], $stub);
-
-        return $path;
-    }
-
-    /**
-     * Save stub content to file
-     *
-     * @param  string  $type
-     * @param  array   $options
-     * @return string
-     */
-    protected function saveFile(string $type, array $options)
-    {
-        $file = app_path(str_replace('//', '/', $options['file']));
-        $content = $this->stub;
-
-        if (isset($file) && isset($content)) {
-            $this->makeDirectory($file);
-            $this->files->put($file, $content);
-            if (! isset($options['quiet']) || $options['quiet'] === false) {
-                $this->info("{$type} created successfully.");
+        foreach ($types as $type) {
+            if (in_array($type, $allowed)) {
+                $options["--{$type}"] = true;
             }
         }
+
+        $this->call("make:module:route", $options);
+        $this->info("Routes created successfully.");
     }
 
     /**

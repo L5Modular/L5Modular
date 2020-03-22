@@ -53,8 +53,7 @@ class ViewMakeCommand extends GeneratorCommand
     }
 
     /**
-     * This generator does not accept a name input
-     * therefor this method returns a hardcoded value
+     * Get the desired name from the input.
      *
      * @return string
      */

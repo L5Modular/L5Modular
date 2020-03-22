@@ -21,6 +21,7 @@ trait RegisteresCommands
         'JobMake' => 'command.module.job.make',
         'ViewMake' => 'command.module.view.make',
         'TranslationMake' => 'command.module.translation.make',
+        'RouteMake' => 'command.module.route.make',
         'ListenerMake' => 'command.module.listener.make',
         'MailMake' => 'command.module.mail.make',
         'ModelMake' => 'command.module.model.make',
@@ -149,6 +150,19 @@ trait RegisteresCommands
         $this->app->singleton('command.module.translation.make', function ($app) {
             $files = $app['files'];
             return new Console\TranslationMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:route" command.
+     *
+     * @return void
+     */
+    protected function registerRouteMakeCommand()
+    {
+        $this->app->singleton('command.module.route.make', function ($app) {
+            $files = $app['files'];
+            return new Console\RouteMakeCommand($files);
         });
     }
 
