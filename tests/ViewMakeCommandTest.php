@@ -10,7 +10,7 @@ class ViewMakeCommandTest extends MakeCommandTestCase
 
     private $componentName = 'test';
 
-    private $configStructureKey = 'view';
+    private $configStructureKey = 'views';
 
     /** @test */
     public function Should_NotGenerate_When_ModuleDontExists()
