@@ -1,4 +1,7 @@
 <p align="center"><img width="200" src="http://artekk.de/resources/images/l5modular-logo.png" alt="L5Modular logo"></p>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <h3 align="center">L5Modular</h3>
 <p align="center">Keep Your Laravel App Organized</p>
 <br>
@@ -54,6 +57,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
     * [Generate](#generate)
     * [Default](#default)
     * [Specific](#specific)
+* [Contributors](#contributors)
 * [License](#license)
 
 <br>
@@ -1084,6 +1088,28 @@ laravel-project/
             ├── helpers.php
             └── routes.php
 ```
+
+<br>
+<br>
+
+---
+
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/juliomotol">
+        <img src="https://avatars0.githubusercontent.com/u/21353103?v=4" width="100px;" alt=""/>
+        <br>
+        <sub><b>Julio Motol</b></sub>
+        <br>
+        <a href="https://github.com/Artem-Schander/L5Modular/commits?author=juliomotol" title="Code">💻</a>
+    </td>
+  </tr>
+</table>
 
 <br>
 <br>
