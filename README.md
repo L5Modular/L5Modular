@@ -925,7 +925,7 @@ The default settings consists of `routing` and `structure`.
 
 <br>
 
-#### `'routing'`
+#### `'default.routing'`
 
 Here you can define which type of route files will be generated and loaded. The possible options are: `web` `api` `simple`
 
@@ -945,7 +945,7 @@ The service provider will load the file if it exists and apply the "controllers"
 
 <br>
 
-#### `'structure'`
+#### `'default.structure'`
 
 The structure config accepts an associative array, while the values represent the path to the component stated in the key.
 
