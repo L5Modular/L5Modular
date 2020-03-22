@@ -29,5 +29,6 @@
   "projectOwner": "Artem-Schander",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
