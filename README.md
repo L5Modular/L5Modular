@@ -8,6 +8,9 @@
     <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular" alt="Code Climate maintainability"></a>
     <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="Code Climate coverage"></a>
     <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="Downloads"></a>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<a href='#contributors'><img src='https://img.shields.io/badge/contributors-6-orange.svg' alt='All Contributors'></a>
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
     <a href="https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="License"></a>
 </p>
 
@@ -15,8 +18,6 @@
 
 This package allows you to organize your Laravel project in a modular manner.  
 You can simply drop or generate modules with their own controllers, models, views, routes, etc. into the `app/Modules` folder and go on working with them.
-
-Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
 
 ## Documentation
 
@@ -1085,6 +1086,34 @@ laravel-project/
             ├── helpers.php
             └── routes.php
 ```
+
+<br>
+<br>
+
+---
+
+## Contributors
+
+Thanks goes to these wonderful people:
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/juliomotol"><img src="https://avatars0.githubusercontent.com/u/21353103?v=4" width="100px;" alt=""/><br /><sub><b>Julio Motol</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=juliomotol" title="Code">💻</a> <a href="https://github.com/Artem-Schander/L5Modular/commits?author=juliomotol" title="Tests">⚠️</a> <a href="#tool-juliomotol" title="Tools">🔧</a></td>
+    <td align="center"><a href="http://alpin11.at"><img src="https://avatars3.githubusercontent.com/u/24294584?v=4" width="100px;" alt=""/><br /><sub><b>David Höck </b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=davidhoeck" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mrpamacs"><img src="https://avatars0.githubusercontent.com/u/1251025?v=4" width="100px;" alt=""/><br /><sub><b>Kis Viktor</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=mrpamacs" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/AkramBerkawy"><img src="https://avatars1.githubusercontent.com/u/3511510?v=4" width="100px;" alt=""/><br /><sub><b>Akram Berkawy</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=AkramBerkawy" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.cideator.com"><img src="https://avatars0.githubusercontent.com/u/241825?v=4" width="100px;" alt=""/><br /><sub><b>Farhan Wazir</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=farhanwazir" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tombombadilll"><img src="https://avatars2.githubusercontent.com/u/1056064?v=4" width="100px;" alt=""/><br /><sub><b>Thomas Eriksson</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/issues?q=author%3Atombombadilll" title="Bug reports">🐛</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+Also thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
 
 <br>
 <br>
