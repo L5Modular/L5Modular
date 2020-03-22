@@ -37,7 +37,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
         * [make job](#php-artisan-makemodulejob)
         * [make view](#php-artisan-makemoduleview)
         * [make translation](#php-artisan-makemoduletranslation)
-        * [make routes](#php-artisan-makemoduleroutes)
+        * [make routes](#php-artisan-makemoduleroute)
         * [make migration](#php-artisan-makemodulemigration)
         * [make seeder](#php-artisan-makemoduleseeder)
         * [make factory](#php-artisan-makemodulefactory)
@@ -557,7 +557,6 @@ Options:
 
 ##### `php artisan make:module:route`
 This command generates route files into a module.  
-By passing in the corresponding option you can define in which module the route files should be generated.
 By passing in options you can define in which module and what kind of route files should be generated.
 <details>
     <summary>Description / Usage / Options</summary>

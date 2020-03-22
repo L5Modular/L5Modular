@@ -136,15 +136,19 @@ class ModuleMakeCommand extends GeneratorCommand
         $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
         $options = ['--module' => $this->module, '--quiet' => true];
 
+        $skip = true;
         $allowed = [ 'web', 'api', 'simple' ];
         foreach ($types as $type) {
             if (in_array($type, $allowed)) {
                 $options["--{$type}"] = true;
+                $skip = false;
             }
         }
 
-        $this->call("make:module:route", $options);
-        $this->info("Routes created successfully.");
+        if (! $skip) {
+            $this->call("make:module:route", $options);
+            $this->info("Routes created successfully.");
+        }
     }
 
     /**
