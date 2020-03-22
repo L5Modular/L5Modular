@@ -29,7 +29,7 @@ return [
         'migration' => false,
         'seeder' => false,
         'factory' => false,
-        'helpers' => false,
+        'helpers' => true,
     ],
 
     /*

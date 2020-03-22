@@ -58,7 +58,8 @@ trait MakesComponent
     protected function getPath($name)
     {
         $name = $this->getNameInput();
-        return $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder() . '/' . $name . '.php';
+        $path = $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder() . '/' . $name . '.php';
+        return str_replace('//', '/', $path);
     }
 
     /**

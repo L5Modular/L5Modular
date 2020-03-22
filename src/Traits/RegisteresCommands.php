@@ -28,6 +28,8 @@ trait RegisteresCommands
         'RequestMake' => 'command.module.request.make',
         'ResourceMake' => 'command.module.resource.make',
         'SeederMake' => 'command.module.seeder.make',
+
+        'HelpersMake' => 'command.module.helpers.make',
     ];
 
     /**
@@ -244,6 +246,19 @@ trait RegisteresCommands
             $files = $app['files'];
             $composer = $app['composer'];
             return new Console\SeederMakeCommand($files, $composer);
+        });
+    }
+
+    /**
+     * Register the "make:module:helpers" command.
+     *
+     * @return void
+     */
+    protected function registerHelpersMakeCommand()
+    {
+        $this->app->singleton('command.module.helpers.make', function ($app) {
+            $files = $app['files'];
+            return new Console\HelpersMakeCommand($files);
         });
     }
 }

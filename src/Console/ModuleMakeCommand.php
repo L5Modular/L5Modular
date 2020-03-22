@@ -90,18 +90,30 @@ class ModuleMakeCommand extends GeneratorCommand
         $name = $this->module;
         $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
 
-        if ($component === 'controller') {
-            $options['name'] = "{$this->module}Controller";
-            $options['--welcome'] = true;
-        } elseif ($component === 'seeder') {
-            $options['name'] = "{$this->module}Seeder";
-        } elseif ($component === 'factory') {
-            $options['name'] = "{$this->module}Factory";
-            $options['--model'] = $this->module;
-        } elseif ($component === 'migration') {
-            $table = Str::plural(Str::snake($this->module));
-            $options['name'] = "create_{$table}_table";
-            $options['--create'] = $table;
+        switch ($component) {
+            case 'controller':
+                $options['name'] = "{$this->module}Controller";
+                $options['--welcome'] = true;
+                break;
+
+            case 'seeder':
+                $options['name'] = "{$this->module}Seeder";
+                break;
+
+            case 'factory':
+                $options['name'] = "{$this->module}Factory";
+                $options['--model'] = $this->module;
+                break;
+
+            case 'migration':
+                $table = Str::plural(Str::snake($this->module));
+                $options['name'] = "create_{$table}_table";
+                $options['--create'] = $table;
+                break;
+
+            case 'helpers':
+                unset($options['name']);
+                break;
         }
 
         $this->call("make:module:{$component}", $options);
@@ -145,12 +157,6 @@ class ModuleMakeCommand extends GeneratorCommand
             $quiet = true;
             $this->saveFile('Routes', compact('file', 'quiet'));
         }
-    }
-
-    protected function generateHelpers()
-    {
-        $path = $this->prepareStubGeneration('helpers', 'helpers.stub');
-        $this->saveFile('Helpers', [ 'file' => "Modules/{$this->module}/{$path}/helpers.php" ]);
     }
 
     /**
