@@ -88,21 +88,9 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function generateComponent(string $component)
     {
         $name = $this->module;
-        $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
 
-        if ($component === 'controller') {
-            $options['name'] = "{$this->module}Controller";
-            $options['--welcome'] = true;
-        } elseif ($component === 'seeder') {
-            $options['name'] = "{$this->module}Seeder";
-        } elseif ($component === 'factory') {
-            $options['name'] = "{$this->module}Factory";
-            $options['--model'] = $this->module;
-        } elseif ($component === 'migration') {
-            $table = Str::plural(Str::snake($this->module));
-            $options['name'] = "create_{$table}_table";
-            $options['--create'] = $table;
-        }
+        $options = ['name' => $name, '--module' => $this->module, '--quiet' => true];
+        $this->getComponentGenerationOptions($component, $options);
 
         $this->call("make:module:{$component}", $options);
 
@@ -111,83 +99,70 @@ class ModuleMakeCommand extends GeneratorCommand
         }
     }
 
-    protected function generateView()
+    /**
+     * Individual options for the make commands
+     * Reduce the cognitive complexity of generateComponent method
+     *
+     * @param  string  $component
+     *
+     * @return array
+     */
+    protected function getComponentGenerationOptions(string $component, array &$options)
     {
-        $path = $this->prepareStubGeneration('views', 'resources/view.stub');
-        $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
-    }
+        switch ($component) {
+            case 'controller':
+                $options['name'] = "{$this->module}Controller";
+                $options['--welcome'] = true;
+                break;
 
-    protected function generateTranslation()
-    {
-        $path = $this->prepareStubGeneration('translations', 'resources/translation.stub');
-        $this->saveFile('Translation', [ 'file' => "Modules/{$this->module}/{$path}/en.php" ]);
+            case 'view':
+                $options['name'] = 'welcome';
+                break;
+
+            case 'translation':
+                $options['name'] = 'en';
+                break;
+
+            case 'seeder':
+                $options['name'] = "{$this->module}Seeder";
+                break;
+
+            case 'factory':
+                $options['name'] = "{$this->module}Factory";
+                $options['--model'] = $this->module;
+                break;
+
+            case 'migration':
+                $table = Str::plural(Str::snake($this->module));
+                $options['name'] = "create_{$table}_table";
+                $options['--create'] = $table;
+                break;
+
+            case 'helpers':
+                unset($options['name']);
+                break;
+        }
+
+        return $options;
     }
 
     protected function generateRoutes()
     {
         $types = config("modules.specific.{$this->module}.routing", config('modules.default.routing'));
-        foreach ($types as $type) {
-            $this->generateRoute($type);
-        }
-        $this->info("Routes created successfully.");
-    }
+        $options = ['--module' => $this->module, '--quiet' => true];
 
-    protected function generateRoute(string $type)
-    {
-        if ($type === 'simple') $file = 'routes.php';
-        else $file = "{$type}.php";
-
+        $skip = true;
         $allowed = [ 'web', 'api', 'simple' ];
-        if (in_array($type, $allowed)) {
-            $path = $this->prepareStubGeneration('routes', "routes/{$type}.stub");
-            $file = "Modules/{$this->module}/{$path}/{$file}";
-
-            $quiet = true;
-            $this->saveFile('Routes', compact('file', 'quiet'));
-        }
-    }
-
-    protected function generateHelpers()
-    {
-        $path = $this->prepareStubGeneration('helpers', 'helpers.stub');
-        $this->saveFile('Helpers', [ 'file' => "Modules/{$this->module}/{$path}/helpers.php" ]);
-    }
-
-    /**
-     * Prepare stub content to be saved
-     *
-     * @param  string  $component
-     * @param  string  $stub
-     * @return string
-     */
-    protected function prepareStubGeneration(string $component, string $stub)
-    {
-        $path = $this->getConfiguredFolder($component);
-
-        $stub = $this->files->get(__DIR__ . "/stubs/{$stub}");
-        $this->stub = str_replace([ 'DummyTitle', 'DummyModuleName' ], [ $this->getNameInput(), $this->module ], $stub);
-
-        return $path;
-    }
-
-    /**
-     * Save stub content to file
-     *
-     * @param  string  $type
-     * @param  array   $options
-     * @return string
-     */
-    protected function saveFile(string $type, array $options)
-    {
-        $file = app_path(str_replace('//', '/', $options['file']));
-        $content = $this->stub;
-
-        if (isset($file) && isset($content)) {
-            $this->makeDirectory($file);
-            $this->files->put($file, $content);
-            if (! isset($options['quiet']) || $options['quiet'] === false) {
-                $this->info("{$type} created successfully.");
+        foreach ($types as $type) {
+            if (in_array($type, $allowed)) {
+                $options["--{$type}"] = true;
+                $skip = false;
             }
+        }
+
+        if (! $skip) {
+            $this->call("make:module:route", $options);
+            $this->info("Routes created successfully.");
         }
     }
 

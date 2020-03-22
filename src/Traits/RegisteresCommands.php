@@ -19,6 +19,9 @@ trait RegisteresCommands
         'EventMake' => 'command.module.event.make',
         'FactoryMake' => 'command.module.factory.make',
         'JobMake' => 'command.module.job.make',
+        'ViewMake' => 'command.module.view.make',
+        'TranslationMake' => 'command.module.translation.make',
+        'RouteMake' => 'command.module.route.make',
         'ListenerMake' => 'command.module.listener.make',
         'MailMake' => 'command.module.mail.make',
         'ModelMake' => 'command.module.model.make',
@@ -28,6 +31,7 @@ trait RegisteresCommands
         'RequestMake' => 'command.module.request.make',
         'ResourceMake' => 'command.module.resource.make',
         'SeederMake' => 'command.module.seeder.make',
+        'HelpersMake' => 'command.module.helpers.make',
     ];
 
     /**
@@ -120,6 +124,45 @@ trait RegisteresCommands
         $this->app->singleton('command.module.job.make', function ($app) {
             $files = $app['files'];
             return new Console\JobMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:view" command.
+     *
+     * @return void
+     */
+    protected function registerViewMakeCommand()
+    {
+        $this->app->singleton('command.module.view.make', function ($app) {
+            $files = $app['files'];
+            return new Console\ViewMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:translation" command.
+     *
+     * @return void
+     */
+    protected function registerTranslationMakeCommand()
+    {
+        $this->app->singleton('command.module.translation.make', function ($app) {
+            $files = $app['files'];
+            return new Console\TranslationMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:route" command.
+     *
+     * @return void
+     */
+    protected function registerRouteMakeCommand()
+    {
+        $this->app->singleton('command.module.route.make', function ($app) {
+            $files = $app['files'];
+            return new Console\RouteMakeCommand($files);
         });
     }
 
@@ -244,6 +287,19 @@ trait RegisteresCommands
             $files = $app['files'];
             $composer = $app['composer'];
             return new Console\SeederMakeCommand($files, $composer);
+        });
+    }
+
+    /**
+     * Register the "make:module:helpers" command.
+     *
+     * @return void
+     */
+    protected function registerHelpersMakeCommand()
+    {
+        $this->app->singleton('command.module.helpers.make', function ($app) {
+            $files = $app['files'];
+            return new Console\HelpersMakeCommand($files);
         });
     }
 }

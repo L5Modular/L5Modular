@@ -35,9 +35,13 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
         * [make listener](#php-artisan-makemodulelistener)
         * [make observer](#php-artisan-makemoduleobserver)
         * [make job](#php-artisan-makemodulejob)
+        * [make view](#php-artisan-makemoduleview)
+        * [make translation](#php-artisan-makemoduletranslation)
+        * [make routes](#php-artisan-makemoduleroute)
         * [make migration](#php-artisan-makemodulemigration)
         * [make seeder](#php-artisan-makemoduleseeder)
         * [make factory](#php-artisan-makemodulefactory)
+        * [make helpers](#php-artisan-makemodulehelpers)
         * [module list](#php-artisan-modulelist)
     * [Views](#views)
     * [Translations](#translations)
@@ -489,6 +493,101 @@ Options:
 
 <br>
 
+##### `php artisan make:module:view`
+This command generates a blade view into a module.  
+By passing in the corresponding option you can define in which module the view should be generated.
+<details>
+    <summary>Description / Usage / Arguments / Options</summary>
+
+```
+Description:
+  Create a new blade view file in a module
+
+Usage:
+  make:module:view [options] [--] <name>
+
+Arguments:
+  name                   The name for the blade view
+
+Options:
+      --module[=MODULE]  Generate a view file in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+##### `php artisan make:module:translation`
+This command generates a translation into a module.  
+By passing in the corresponding option you can define in which module the translation should be generated.
+<details>
+    <summary>Description / Usage / Arguments / Options</summary>
+
+```
+Description:
+  Create a new translation file in a module
+
+Usage:
+  make:module:translation [options] [--] <name>
+
+Arguments:
+  name                   The language short code of the translation
+
+Options:
+      --module[=MODULE]  Generate a translation file in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+##### `php artisan make:module:route`
+This command generates route files into a module.  
+By passing in options you can define in which module and what kind of route files should be generated.
+<details>
+    <summary>Description / Usage / Options</summary>
+
+```
+Description:
+  Create a new route file in a module
+
+Usage:
+  make:module:route [options]
+
+Options:
+      --simple           Generate a simple routes.php file
+      --web              Generate a web route file
+      --api              Generate an api route file
+      --module[=MODULE]  Generate a route file in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+<br>
+
 ##### `php artisan make:module:migration`
 This command generates a migration into a module.  
 By passing in options you can define in which module it should be generated, also amongst others the table to be created.
@@ -574,6 +673,34 @@ Arguments:
 Options:
   -m, --model[=MODEL]    The name of the model
       --module[=MODULE]  Generate a factory in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+##### `php artisan make:module:helpers`
+This command generates a helpers file into a module.  
+By passing in the corresponding option you can define in which module the helpers file should be generated.
+<details>
+    <summary>Description / Usage / Options</summary>
+
+```
+Description:
+  Create a new helpers file in a module
+
+Usage:
+  make:module:helpers [options]
+
+Options:
+      --module[=MODULE]  Generate a helpers file in a certain module
   -h, --help             Display this help message
   -q, --quiet            Do not output any message
   -V, --version          Display this application version
