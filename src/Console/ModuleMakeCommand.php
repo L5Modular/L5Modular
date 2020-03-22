@@ -96,6 +96,10 @@ class ModuleMakeCommand extends GeneratorCommand
                 $options['--welcome'] = true;
                 break;
 
+            case 'view':
+                $options['name'] = 'welcome';
+                break;
+
             case 'translation':
                 $options['name'] = 'en';
                 break;
@@ -127,11 +131,11 @@ class ModuleMakeCommand extends GeneratorCommand
         }
     }
 
-    protected function generateView()
-    {
-        $path = $this->prepareStubGeneration('views', 'resources/view.stub');
-        $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
-    }
+    // protected function generateView()
+    // {
+    //     $path = $this->prepareStubGeneration('views', 'resources/view.stub');
+    //     $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
+    // }
 
     protected function generateRoutes()
     {

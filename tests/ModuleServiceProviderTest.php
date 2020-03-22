@@ -91,7 +91,7 @@ class ModuleServiceProviderTest extends TestCase
         $serviceProvider = new ModuleServiceProvider($app);
 
         $app->shouldReceive('singleton')
-            ->times(17)
+            ->times(18)
             ->andReturnNull();
 
         $app->shouldReceive('configPath')

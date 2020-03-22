@@ -35,6 +35,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
         * [make listener](#php-artisan-makemodulelistener)
         * [make observer](#php-artisan-makemoduleobserver)
         * [make job](#php-artisan-makemodulejob)
+        * [make view](#php-artisan-makemoduleview)
         * [make translation](#php-artisan-makemoduletranslation)
         * [make migration](#php-artisan-makemodulemigration)
         * [make seeder](#php-artisan-makemoduleseeder)
@@ -478,6 +479,37 @@ Arguments:
 Options:
       --sync             Indicates that job should be synchronous
       --module[=MODULE]  Generate a job in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+##### `php artisan make:module:view`
+This command generates a blade view into a module.  
+By passing in the corresponding option you can define in which module the view should be generated.
+<details>
+    <summary>Description / Usage / Arguments / Options</summary>
+
+```
+Description:
+  Create a new blade view file in a module
+
+Usage:
+  make:module:view [options] [--] <name>
+
+Arguments:
+  name                   The name for the blade view
+
+Options:
+      --module[=MODULE]  Generate a view file in a certain module
   -h, --help             Display this help message
   -q, --quiet            Do not output any message
   -V, --version          Display this application version

@@ -19,6 +19,7 @@ trait RegisteresCommands
         'EventMake' => 'command.module.event.make',
         'FactoryMake' => 'command.module.factory.make',
         'JobMake' => 'command.module.job.make',
+        'ViewMake' => 'command.module.view.make',
         'TranslationMake' => 'command.module.translation.make',
         'ListenerMake' => 'command.module.listener.make',
         'MailMake' => 'command.module.mail.make',
@@ -122,6 +123,19 @@ trait RegisteresCommands
         $this->app->singleton('command.module.job.make', function ($app) {
             $files = $app['files'];
             return new Console\JobMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:view" command.
+     *
+     * @return void
+     */
+    protected function registerViewMakeCommand()
+    {
+        $this->app->singleton('command.module.view.make', function ($app) {
+            $files = $app['files'];
+            return new Console\ViewMakeCommand($files);
         });
     }
 
