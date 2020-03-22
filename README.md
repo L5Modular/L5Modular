@@ -492,7 +492,7 @@ Options:
 <br>
 
 ##### `php artisan make:module:translation`
-This command generates a job into a module.  
+This command generates a translation into a module.  
 By passing in the corresponding option you can define in which module the translation should be generated.
 <details>
     <summary>Description / Usage / Arguments / Options</summary>
@@ -505,7 +505,7 @@ Usage:
   make:module:translation [options] [--] <name>
 
 Arguments:
-  name                   The name of the class
+  name                   The language short code of the translation
 
 Options:
       --module[=MODULE]  Generate a translation file in a certain module

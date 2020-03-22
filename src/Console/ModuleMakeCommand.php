@@ -96,6 +96,10 @@ class ModuleMakeCommand extends GeneratorCommand
                 $options['--welcome'] = true;
                 break;
 
+            case 'translation':
+                $options['name'] = 'en';
+                break;
+
             case 'seeder':
                 $options['name'] = "{$this->module}Seeder";
                 break;
@@ -127,12 +131,6 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         $path = $this->prepareStubGeneration('views', 'resources/view.stub');
         $this->saveFile('View', [ 'file' => "Modules/{$this->module}/{$path}/welcome.blade.php" ]);
-    }
-
-    protected function generateTranslation()
-    {
-        $path = $this->prepareStubGeneration('translations', 'resources/translation.stub');
-        $this->saveFile('Translation', [ 'file' => "Modules/{$this->module}/{$path}/en.php" ]);
     }
 
     protected function generateRoutes()

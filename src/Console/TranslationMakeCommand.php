@@ -3,6 +3,7 @@
 namespace ArtemSchander\L5Modular\Console;
 
 use ArtemSchander\L5Modular\Traits\MakesComponent;
+use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Console\GeneratorCommand;
 
 class TranslationMakeCommand extends GeneratorCommand
@@ -60,5 +61,17 @@ class TranslationMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         return __DIR__.'/stubs/resources/translation.stub';
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The language short code of the translation'],
+        ];
     }
 }
