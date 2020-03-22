@@ -19,6 +19,7 @@ trait RegisteresCommands
         'EventMake' => 'command.module.event.make',
         'FactoryMake' => 'command.module.factory.make',
         'JobMake' => 'command.module.job.make',
+        'TranslationMake' => 'command.module.translation.make',
         'ListenerMake' => 'command.module.listener.make',
         'MailMake' => 'command.module.mail.make',
         'ModelMake' => 'command.module.model.make',
@@ -28,7 +29,6 @@ trait RegisteresCommands
         'RequestMake' => 'command.module.request.make',
         'ResourceMake' => 'command.module.resource.make',
         'SeederMake' => 'command.module.seeder.make',
-
         'HelpersMake' => 'command.module.helpers.make',
     ];
 
@@ -122,6 +122,19 @@ trait RegisteresCommands
         $this->app->singleton('command.module.job.make', function ($app) {
             $files = $app['files'];
             return new Console\JobMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:translation" command.
+     *
+     * @return void
+     */
+    protected function registerTranslationMakeCommand()
+    {
+        $this->app->singleton('command.module.translation.make', function ($app) {
+            $files = $app['files'];
+            return new Console\TranslationMakeCommand($files);
         });
     }
 
