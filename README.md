@@ -38,6 +38,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
         * [make migration](#php-artisan-makemodulemigration)
         * [make seeder](#php-artisan-makemoduleseeder)
         * [make factory](#php-artisan-makemodulefactory)
+        * [make helpers](#php-artisan-makemodulehelpers)
         * [module list](#php-artisan-modulelist)
     * [Views](#views)
     * [Translations](#translations)
@@ -574,6 +575,34 @@ Arguments:
 Options:
   -m, --model[=MODEL]    The name of the model
       --module[=MODULE]  Generate a factory in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
+##### `php artisan make:module:helpers`
+This command generates a helpers file into a module.  
+By passing in the corresponding option you can define in which module the helpers file should be generated.
+<details>
+    <summary>Description / Usage / Options</summary>
+
+```
+Description:
+  Create a new helpers file in a module
+
+Usage:
+  make:module:helpers [options]
+
+Options:
+      --module[=MODULE]  Generate a helpers file in a certain module
   -h, --help             Display this help message
   -q, --quiet            Do not output any message
   -V, --version          Display this application version
