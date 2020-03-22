@@ -57,6 +57,7 @@ Thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyaha
     * [Generate](#generate)
     * [Default](#default)
     * [Specific](#specific)
+* [Contributors](#contributors)
 * [License](#license)
 
 <br>
@@ -1093,26 +1094,29 @@ laravel-project/
 
 ---
 
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/juliomotol">
+        <img src="https://avatars0.githubusercontent.com/u/21353103?v=4" width="100px;" alt=""/>
+        <br>
+        <sub><b>Julio Motol</b></sub>
+        <br>
+        <a href="https://github.com/Artem-Schander/L5Modular/commits?author=juliomotol" title="Code">💻</a>
+    </td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+---
+
 ## License
 
 L5Modular is licensed under the terms of the [MIT License](https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE)
 (See LICENSE file for details).
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/juliomotol"><img src="https://avatars0.githubusercontent.com/u/21353103?v=4" width="100px;" alt=""/><br /><sub><b>Julio Motol</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=juliomotol" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
