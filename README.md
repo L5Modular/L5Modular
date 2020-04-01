@@ -3,15 +3,15 @@
 <p align="center">Keep Your Laravel App Organized</p>
 <br>
 <p align="center">
-    <a href="https://github.com/Artem-Schander/L5Modular/releases"><img src="https://img.shields.io/github/v/release/artem-schander/L5Modular" alt="GitHub release (latest by date)"></a>
-    <a href="https://travis-ci.com/Artem-Schander/L5Modular"><img src="https://img.shields.io/travis/com/Artem-Schander/L5Modular/master" alt="Travis"></a>
-    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular" alt="Code Climate maintainability"></a>
-    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="Code Climate coverage"></a>
-    <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="Downloads"></a>
+    <a href="https://github.com/Artem-Schander/L5Modular/releases"><img src="https://img.shields.io/github/v/release/artem-schander/L5Modular" alt="latest release"></a>
+    <a href="https://travis-ci.com/Artem-Schander/L5Modular"><img src="https://img.shields.io/travis/com/Artem-Schander/L5Modular/master" alt="build"></a>
+    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular" alt="maintainability"></a>
+    <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="code coverage"></a>
+    <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="downloads"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors'><img src='https://img.shields.io/badge/contributors-6-orange.svg' alt='All Contributors'></a>
+<a href='#contributors'><img src='https://img.shields.io/badge/contributors-6-orange.svg' alt='contributors'></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-    <a href="https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="License"></a>
+    <a href="https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="license"></a>
 </p>
 
 <hr>
