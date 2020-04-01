@@ -588,8 +588,6 @@ Options:
 
 <br>
 
-<br>
-
 ##### `php artisan make:module:migration`
 This command generates a migration into a module.  
 By passing in options you can define in which module it should be generated, also amongst others the table to be created.
