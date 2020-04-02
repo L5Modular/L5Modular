@@ -23,7 +23,7 @@ return [
         'listener' => false,
         'observer' => false,
         'job' => false,
-        'rules' => false,
+        'rule' => false,
         'view' => true,
         'translation' => true,
         'routes' => true,
@@ -31,7 +31,7 @@ return [
         'seeder' => false,
         'factory' => false,
         'config' => false,
-        'helpers' => true,
+        'helpers' => false,
     ],
 
     /*

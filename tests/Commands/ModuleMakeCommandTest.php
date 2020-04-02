@@ -545,7 +545,7 @@ class ModuleMakeCommandTest extends TestCase
 
         $content = file_get_contents($file);
         $this->assertNotFalse(strpos($content, 'namespace App\\Modules\\FooBar\\Rules;'));
-        $this->assertNotFalse(strpos($content, 'class FooBar extends Rule'));
+        $this->assertNotFalse(strpos($content, 'class FooBar implements Rule'));
     }
 
     /** @test */

@@ -48,6 +48,7 @@ class ModuleServiceProviderTest extends TestCase
                 'seeder' => true,
                 'factory' => true,
                 'helpers' => true,
+                'config' => true,
             ],
             'default' => [
                 'routing' => [ 'web', 'api', 'simple' ],
@@ -91,7 +92,7 @@ class ModuleServiceProviderTest extends TestCase
         $serviceProvider = new ModuleServiceProvider($app);
 
         $app->shouldReceive('singleton')
-            ->times(20)
+            ->times(21)
             ->andReturnNull();
 
         $app->shouldReceive('configPath')
@@ -133,6 +134,7 @@ class ModuleServiceProviderTest extends TestCase
         $configRepository = Mockery::mock(ConfigRepository::class);
 
         $configRepository->shouldReceive('get')
+            ->with('modules.specific.FooBar', [])
             ->once()
             ->andReturn([]);
 
@@ -144,10 +146,45 @@ class ModuleServiceProviderTest extends TestCase
         $fileSystem->shouldReceive('exists')
             ->once()
             ->with($basePath . '/app/Modules/FooBar/config.php')
-            ->andReturn(false); // TODO: test if custom config file exists
+            ->andReturn(true);
 
-        // $configRepository->shouldReceive('set')
-        //     ->once();
+        $config = [
+            'enabled' => true,
+            'routing' => [ 'web', 'api' ],
+            'structure' => [
+                'controllers' => 'Http/Controllers',
+                'resources' => 'Http/Resources',
+                'requests' => 'Http/Requests',
+                'models' => 'Models',
+                'mails' => 'Mail',
+                'notifications' => 'Notifications',
+                'events' => 'Events',
+                'listeners' => 'Listeners',
+                'observers' => 'Observers',
+                'jobs' => 'Jobs',
+                'rules' => 'Rules',
+                'views' => 'resources/views',
+                'translations' => 'resources/lang',
+                'routes' => 'routes',
+                'migrations' => 'database/migrations',
+                'seeds' => 'database/seeds',
+                'factories' => 'database/factories',
+                'helpers' => '',
+            ],
+        ];
+
+        $configRepository->shouldReceive('set')
+            ->withArgs(['modules.specific.FooBar', $config])
+            ->once();
+
+        $configRepository->shouldReceive('get')
+            ->with('FooBar')
+            ->once()
+            ->andReturn(false);
+
+        $configRepository->shouldReceive('set')
+            ->withArgs(['FooBar', $config])
+            ->once();
 
         $fileSystem->shouldReceive('directories')
             ->once()
