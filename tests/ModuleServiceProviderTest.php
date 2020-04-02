@@ -130,6 +130,25 @@ class ModuleServiceProviderTest extends TestCase
         $fileSystem = Mockery::mock(FileSystem::class);
         $serviceProvider = new ModuleServiceProvider($app);
 
+        $configRepository = Mockery::mock(ConfigRepository::class);
+
+        $configRepository->shouldReceive('get')
+            ->once()
+            ->andReturn([]);
+
+        $app->shouldReceive('offsetGet')
+            ->zeroOrMoreTimes()
+            ->with('config')
+            ->andReturn($configRepository);
+
+        $fileSystem->shouldReceive('exists')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/config.php')
+            ->andReturn(false); // TODO: test if custom config file exists
+
+        // $configRepository->shouldReceive('set')
+        //     ->once();
+
         $fileSystem->shouldReceive('directories')
             ->once()
             ->andReturn([ 'FooBar' ]);
@@ -216,6 +235,22 @@ class ModuleServiceProviderTest extends TestCase
         $app = Mockery::mock(ArrayAccess::class);
         $fileSystem = Mockery::mock(FileSystem::class);
         $serviceProvider = new ModuleServiceProvider($app);
+
+        $configRepository = Mockery::mock(ConfigRepository::class);
+
+        $configRepository->shouldReceive('get')
+            ->once()
+            ->andReturn([]);
+
+        $app->shouldReceive('offsetGet')
+            ->zeroOrMoreTimes()
+            ->with('config')
+            ->andReturn($configRepository);
+
+        $fileSystem->shouldReceive('exists')
+            ->once()
+            ->with($basePath . '/app/Modules/FooBar/config.php')
+            ->andReturn(false);
 
         $fileSystem->shouldReceive('directories')
             ->once()
