@@ -9,7 +9,7 @@
     <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="code coverage"></a>
     <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="downloads"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors'><img src='https://img.shields.io/badge/contributors-6-orange.svg' alt='contributors'></a>
+<a href='#contributors'><img src='https://img.shields.io/badge/contributors-7-orange.svg' alt='All Contributors'></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     <a href="https://github.com/Artem-Schander/L5Modular/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/artem-schander/l5-modular" alt="license"></a>
 </p>
@@ -1139,6 +1139,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/AkramBerkawy"><img src="https://avatars1.githubusercontent.com/u/3511510?v=4" width="100px;" alt=""/><br /><sub><b>Akram Berkawy</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=AkramBerkawy" title="Code">💻</a></td>
     <td align="center"><a href="https://www.cideator.com"><img src="https://avatars0.githubusercontent.com/u/241825?v=4" width="100px;" alt=""/><br /><sub><b>Farhan Wazir</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=farhanwazir" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/tombombadilll"><img src="https://avatars2.githubusercontent.com/u/1056064?v=4" width="100px;" alt=""/><br /><sub><b>Thomas Eriksson</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/issues?q=author%3Atombombadilll" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/husseinferas"><img src="https://avatars1.githubusercontent.com/u/27640691?v=4" width="100px;" alt=""/><br /><sub><b>husseinferas</b></sub></a><br /><a href="https://github.com/Artem-Schander/L5Modular/commits?author=husseinferas" title="Code">💻</a></td>
   </tr>
 </table>
 
