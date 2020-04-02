@@ -42,7 +42,9 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerModule(string $name)
     {
-        $enabled = config("modules.specific.{$name}.enabled", true);
+        $this->registerConfig($name);
+
+        $enabled = config("{$name}.enabled", config("modules.specific.{$name}.enabled", true));
         if ($enabled) {
             $this->registerRoutes($name);
             $this->registerHelpers($name);
@@ -50,6 +52,31 @@ class ModuleServiceProvider extends ServiceProvider
             $this->registerTranslations($name);
             $this->registerMigrations($name);
             $this->registerFactories($name);
+        }
+    }
+
+    /**
+     * Register the config file for a module by its name
+     *
+     * @param  string $module
+     *
+     * @return void
+     */
+    protected function registerConfig(string $module)
+    {
+        $key = "modules.specific.{$module}";
+        $config = $this->app['config']->get($key, []);
+
+        $file = app_path("Modules/{$module}/config.php");
+        if ($this->files->exists($file)) {
+            $config = array_merge(require $file, $config);
+        }
+
+        if ($config) {
+            $this->app['config']->set($key, $config);
+            if (! $this->app['config']->get($module)) {
+                $this->app['config']->set($module, $config);
+            }
         }
     }
 
