@@ -31,6 +31,7 @@ trait RegisteresCommands
         'RequestMake' => 'command.module.request.make',
         'ResourceMake' => 'command.module.resource.make',
         'SeederMake' => 'command.module.seeder.make',
+        'ConfigMake' => 'command.module.config.make',
         'HelpersMake' => 'command.module.helpers.make',
         'RuleMake'  => 'command.module.rule.make',
     ];
@@ -288,6 +289,19 @@ trait RegisteresCommands
             $files = $app['files'];
             $composer = $app['composer'];
             return new Console\SeederMakeCommand($files, $composer);
+        });
+    }
+
+    /**
+     * Register the "make:module:config" command.
+     *
+     * @return void
+     */
+    protected function registerConfigMakeCommand()
+    {
+        $this->app->singleton('command.module.config.make', function ($app) {
+            $files = $app['files'];
+            return new Console\ConfigMakeCommand($files);
         });
     }
 

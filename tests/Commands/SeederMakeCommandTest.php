@@ -1,20 +1,19 @@
 <?php
 
-namespace ArtemSchander\L5Modular\Tests;
+namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-class RuleMakeCommandTest extends MakeCommandTestCase
+class SeederMakeCommandTest extends MakeCommandTestCase
 {
+    private $command = 'make:module:seeder';
 
-    private $command = 'make:module:rule';
+    private $componentName = 'FooSeeder';
 
-    private $componentName = 'FooRule';
-
-    private $configStructureKey = 'rules';
+    private $configStructureKey = 'seeds';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -23,7 +22,7 @@ class RuleMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -37,7 +36,7 @@ class RuleMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

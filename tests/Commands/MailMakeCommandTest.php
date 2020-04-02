@@ -15,7 +15,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
     private $configStructureKey = 'mails';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -24,7 +24,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -38,7 +38,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -51,7 +51,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithMarkdown_When_MarkdownGiven()
+    public function should_generate_with_markdown_when_markdown_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -67,7 +67,7 @@ class MailMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithMarkdown_When_MarkdownGivenAndViewDirectoryMissing()
+    public function should_generate_with_markdown_when_markdown_given_and_view_directory_missing()
     {
         $this->app['config']->set('modules.generate.view', false);
 

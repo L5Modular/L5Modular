@@ -13,7 +13,7 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
     private $configStructureKey = 'migrations';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -21,7 +21,7 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
         ])->assertExitCode(false);
     }
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -35,7 +35,7 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -48,7 +48,7 @@ class MigrateMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateInGivenPath_When_PathOptionGiven()
+    public function should_generate_in_given_path_when_path_option_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

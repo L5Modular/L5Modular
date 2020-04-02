@@ -4,16 +4,16 @@ namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-class TranslationMakeCommandTest extends MakeCommandTestCase
+class EventMakeCommandTest extends MakeCommandTestCase
 {
-    private $command = 'make:module:translation';
+    private $command = 'make:module:event';
 
-    private $componentName = 'de';
+    private $componentName = 'FooEvent';
 
-    private $configStructureKey = 'translations';
+    private $configStructureKey = 'events';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -22,7 +22,7 @@ class TranslationMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -36,7 +36,7 @@ class TranslationMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

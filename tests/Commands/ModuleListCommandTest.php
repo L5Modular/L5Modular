@@ -23,7 +23,7 @@ class ModuleListCommandTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function Should_ShowListOfModule()
+    public function should_show_list_of_module()
     {
         $this->artisan('make:module', ['name' => 'Foo'])
             ->assertExitCode(0);
@@ -37,7 +37,7 @@ class ModuleListCommandTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function Should_NotShowListOfModule_When_NoModuleExists()
+    public function should_not_show_list_of_module_when_no_module_exists()
     {
         $this->app['config']->set('modules.specific.Bar.enabled', false);
 

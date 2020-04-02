@@ -83,7 +83,7 @@ class ModuleServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_registeres_the_package()
+    public function should_register_the_package()
     {
         $this->app->setBasePath(__DIR__ . '/..');
 
@@ -121,7 +121,7 @@ class ModuleServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_bootes_a_full_module()
+    public function should_boot_a_full_module()
     {
         $basePath = realpath($this->app['path.base']);
         $this->artisan('make:module', ['name' => 'foo-bar']);
@@ -221,7 +221,7 @@ class ModuleServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_bootes_a_module_with_a_simple_route_file_only()
+    public function should_boot_a_module_with_a_simple_route_file_only()
     {
         $this->app['config']->set('modules.default.structure.routes', '');
         $this->app['config']->set('modules.default.routing', [ 'simple' ]);

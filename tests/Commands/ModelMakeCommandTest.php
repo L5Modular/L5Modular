@@ -13,7 +13,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     private $configStructureKey = 'models';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -22,7 +22,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -36,7 +36,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -49,7 +49,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithController_When_ControllerOptionGiven()
+    public function should_generate_with_controller_when_controller_option_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -65,7 +65,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithFactory_When_FactoryOptionGiven()
+    public function should_generate_with_factory_when_factory_option_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -81,7 +81,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithMigration_When_MigrationOptionGiven()
+    public function should_generate_with_migration_when_migration_option_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -95,9 +95,9 @@ class ModelMakeCommandTest extends MakeCommandTestCase
         $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
         $this->assertDirectoryExists($this->modulePath . '/' . $this->getConfiguredFolder('migrations'));
     }
-    
+
     /** @test */
-    public function Should_GenerateWithPivotMigration_When_MigrationOptionGivenAndIsPivot()
+    public function should_generate_with_pivot_migration_when_migration_option_given_and_is_pivot()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -114,7 +114,7 @@ class ModelMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithSeeder_When_SeederOptionGiven()
+    public function should_generate_with_seeder_when_seeder_option_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

@@ -3,18 +3,19 @@
 namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
-use InvalidArgumentException;
 
-class ControllerMakeCommandTest extends MakeCommandTestCase
+class NotificationMakeCommandTest extends MakeCommandTestCase
 {
-    private $command = 'make:module:controller';
+    private $command = 'make:module:notification';
 
-    private $componentName = 'FooController';
+    private $componentName = 'FooNotification';
 
-    private $configStructureKey = 'controllers';
+    private $markdownName = 'foo-notification-markdown';
+
+    private $configStructureKey = 'notifications';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
@@ -23,7 +24,7 @@ class ControllerMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -37,7 +38,7 @@ class ControllerMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -50,39 +51,36 @@ class ControllerMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_GenerateWithModel_When_ModelOptionGiven()
+    public function should_generate_with_markdown_when_markdown_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
 
         $this->artisan($this->command, [
             'name' => $this->componentName,
-            '--model' => 'Test',
-            '--module' => $this->moduleName
-        ])
-            ->expectsQuestion('A App\Modules\FooBar\Models\Test model does not exist. Do you want to generate it?', 'yes')
-            ->assertExitCode(0);
+            '--module' => $this->moduleName,
+            '--markdown' => $this->markdownName,
+        ])->assertExitCode(0);
 
         $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
-        $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder('models') . '/Test.php');
+        $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder('views') . '/' . $this->markdownName . '.blade.php');
     }
 
     /** @test */
-    public function Should_Not_GenerateWithModel_When_ModelOption_Has_InvalidName()
+    public function should_generate_with_markdown_when_markdown_given_and_view_directory_missing()
     {
+        $this->app['config']->set('modules.generate.view', false);
+
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
 
-        $this->expectException(InvalidArgumentException::class);
-
         $this->artisan($this->command, [
             'name' => $this->componentName,
-            '--model' => 'Inavalid Name',
-            '--module' => $this->moduleName
-        ])
-            ->assertExitCode(0);
+            '--module' => $this->moduleName,
+            '--markdown' => $this->markdownName,
+        ])->assertExitCode(0);
 
-        $this->assertFileNotExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
-        $this->assertFileNotExists($this->modulePath . '/' . $this->getConfiguredFolder('models') . '/Test.php');
+        $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder($this->configStructureKey) . '/' . $this->componentName . '.php');
+        $this->assertFileExists($this->modulePath . '/' . $this->getConfiguredFolder('views') . '/' . $this->markdownName . '.blade.php');
     }
 }

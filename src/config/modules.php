@@ -30,6 +30,7 @@ return [
         'migration' => false,
         'seeder' => false,
         'factory' => false,
+        'config' => false,
         'helpers' => true,
     ],
 

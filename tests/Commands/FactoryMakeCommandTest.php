@@ -4,25 +4,24 @@ namespace ArtemSchander\L5Modular\Tests\Commands;
 
 use ArtemSchander\L5Modular\Tests\MakeCommandTestCase;
 
-class ListenerMakeCommandTest extends MakeCommandTestCase
+class FactoryMakeCommandTest extends MakeCommandTestCase
 {
-    private $command = 'make:module:listener';
+    private $command = 'make:module:factory';
 
-    private $componentName = 'FooListener';
+    private $componentName = 'FooFactory';
 
-    private $configStructureKey = 'listeners';
+    private $configStructureKey = 'factories';
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [
             'name' => $this->componentName,
             '--module' => $this->moduleName
         ])->assertExitCode(false);
     }
-
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -36,7 +35,7 @@ class ListenerMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

@@ -5,7 +5,7 @@ namespace ArtemSchander\L5Modular\Console;
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Illuminate\Console\GeneratorCommand;
 
-class HelpersMakeCommand extends GeneratorCommand
+class ConfigMakeCommand extends GeneratorCommand
 {
     use MakesComponent;
 
@@ -14,31 +14,26 @@ class HelpersMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:module:helpers';
+    protected $name = 'make:module:config';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new helpers file in a module';
+    protected $description = 'Create a new config file in a module';
 
     /**
      * The type of component being generated.
      *
      * @var string
      */
-    protected $type = 'Helpers file';
-
-    /**
-     * The key of the component to be generated.
-     */
-    const KEY = 'helpers';
+    protected $type = 'Config file';
 
     /**
      * The cli info that will be shown on --help.
      */
-    const MODULE_OPTION_INFO = 'Generate a helpers file in a certain module';
+    const MODULE_OPTION_INFO = 'Generate a config file in a certain module';
 
     /**
      * Build the class with the given name.
@@ -59,7 +54,18 @@ class HelpersMakeCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        return 'helpers';
+        return 'config';
+    }
+
+    /**
+     * Get the configured path for the current component.
+     *
+     * @param  string  $key
+     * @return string
+     */
+    protected function getConfiguredFolder($key = null)
+    {
+        return '';
     }
 
     /**
@@ -70,7 +76,7 @@ class HelpersMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/helpers.stub';
+        return __DIR__.'/stubs/config.stub';
     }
 
     /**

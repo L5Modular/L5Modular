@@ -17,13 +17,13 @@ class RouteMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_NotGenerate_When_ModuleDontExists()
+    public function should_not_generate_when_module_dont_exists()
     {
         $this->artisan($this->command, [ '--module' => $this->moduleName ])->assertExitCode(false);
     }
 
     /** @test */
-    public function Should_Generate_When_ModuleExists()
+    public function should_generate_when_module_exists()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -36,7 +36,7 @@ class RouteMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_AskForModule_When_NoModuleGiven()
+    public function should_ask_for_module_when_no_module_given()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -49,7 +49,7 @@ class RouteMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_The_Api_Route_File()
+    public function should_generate_the_api_route_file()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -66,7 +66,7 @@ class RouteMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_The_Web_Route_File()
+    public function should_generate_the_web_route_file()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);
@@ -83,7 +83,7 @@ class RouteMakeCommandTest extends MakeCommandTestCase
     }
 
     /** @test */
-    public function Should_Generate_Api_And_Web_Route_Files()
+    public function should_generate_api_and_web_route_files()
     {
         $this->artisan('make:module', ['name' => $this->moduleName])
             ->assertExitCode(0);

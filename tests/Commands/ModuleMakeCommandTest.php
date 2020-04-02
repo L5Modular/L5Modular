@@ -28,7 +28,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module()
+    public function should_generate_a_module()
     {
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
@@ -37,7 +37,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_generate_a_module_with_duplicate_name()
+    public function should_not_generate_a_module_with_duplicate_name()
     {
         mkdir($this->modulePath);
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
@@ -47,7 +47,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_using_kebap_case()
+    public function should_generate_a_module_using_kebap_case()
     {
         $code = $this->artisan('make:module', ['name' => 'foo-bar']);
         $this->assertSame(0, $code);
@@ -56,7 +56,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_controller()
+    public function should_generate_a_module_with_controller()
     {
         $this->app['config']->set('modules.default.structure.controllers', 'Controllers');
         $this->app['config']->set('modules.generate', [
@@ -74,7 +74,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_controller_in_custom_location()
+    public function should_generate_a_module_with_controller_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.controllers', 'Http/Controllers');
         $this->app['config']->set('modules.generate', [
@@ -92,7 +92,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_controller()
+    public function should_generate_a_module_without_controller()
     {
         $this->app['config']->set('modules.default.structure.controllers', 'Controllers');
         $this->app['config']->set('modules.generate', [
@@ -109,7 +109,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_model()
+    public function should_generate_a_module_with_model()
     {
         $this->app['config']->set('modules.default.structure.models', 'Models');
         $this->app['config']->set('modules.generate', [
@@ -127,7 +127,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_model_in_custom_location()
+    public function should_generate_a_module_with_model_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.models', 'Entities');
         $this->app['config']->set('modules.generate', [
@@ -145,7 +145,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_model()
+    public function should_generate_a_module_without_model()
     {
         $this->app['config']->set('modules.default.structure.models', 'Models');
         $this->app['config']->set('modules.generate', [
@@ -162,7 +162,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_view()
+    public function should_generate_a_module_with_view()
     {
         $this->app['config']->set('modules.default.structure.views', 'resources/views');
         $this->app['config']->set('modules.generate', [
@@ -176,7 +176,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_view_in_custom_location()
+    public function should_generate_a_module_with_view_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.views', 'views');
         $this->app['config']->set('modules.generate', [
@@ -190,7 +190,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_view()
+    public function should_generate_a_module_without_view()
     {
         $this->app['config']->set('modules.default.structure.views', 'resources/views');
         $this->app['config']->set('modules.generate', [
@@ -207,7 +207,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_translation()
+    public function should_generate_a_module_with_translation()
     {
         $this->app['config']->set('modules.default.structure.translations', 'resources/lang');
         $this->app['config']->set('modules.generate', [
@@ -222,7 +222,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_translation_in_custom_location()
+    public function should_generate_a_module_with_translation_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.translations', 'translations');
         $this->app['config']->set('modules.generate', [
@@ -237,7 +237,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_translation()
+    public function should_generate_a_module_without_translation()
     {
         $this->app['config']->set('modules.default.structure.translations', 'resources/lang');
         $this->app['config']->set('modules.generate', [
@@ -255,7 +255,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_routes()
+    public function should_generate_a_module_with_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.generate', [
@@ -270,7 +270,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_routes_in_custom_location()
+    public function should_generate_a_module_with_routes_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routing');
         $this->app['config']->set('modules.generate', [
@@ -285,7 +285,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_routes()
+    public function should_generate_a_module_without_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.generate', [
@@ -300,7 +300,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_web_routes()
+    public function should_generate_a_module_with_web_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.default.routing', [ 'web' ]);
@@ -316,7 +316,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_web_routes()
+    public function should_generate_a_module_without_web_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.default.routing', [ 'invalid' ]);
@@ -332,7 +332,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_api_routes()
+    public function should_generate_a_module_with_api_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.default.routing', [ 'api' ]);
@@ -348,7 +348,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_api_routes()
+    public function should_generate_a_module_without_api_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', 'routes');
         $this->app['config']->set('modules.default.routing', [ 'invalid' ]);
@@ -364,7 +364,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_simple_routes()
+    public function should_generate_a_module_with_simple_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', '');
         $this->app['config']->set('modules.default.routing', [ 'simple' ]);
@@ -380,7 +380,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_simple_routes()
+    public function should_generate_a_module_without_simple_routes()
     {
         $this->app['config']->set('modules.default.structure.routes', '');
         $this->app['config']->set('modules.default.routing', [ 'invalid' ]);
@@ -396,7 +396,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_migration()
+    public function should_generate_a_module_with_migration()
     {
         $this->app['config']->set('modules.default.structure.migrations', 'database/migrations');
         $this->app['config']->set('modules.generate', [
@@ -411,7 +411,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_migration_in_custom_location()
+    public function should_generate_a_module_with_migration_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.migrations', 'migrations');
         $this->app['config']->set('modules.generate', [
@@ -426,7 +426,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_migration()
+    public function should_generate_a_module_without_migration()
     {
         $this->app['config']->set('modules.default.structure.migrations', 'database/migrations');
         $this->app['config']->set('modules.generate', [
@@ -441,7 +441,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_seeder()
+    public function should_generate_a_module_with_seeder()
     {
         $this->app['config']->set('modules.default.structure.seeds', 'database/seeds');
         $this->app['config']->set('modules.generate', [
@@ -455,7 +455,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_seeder_in_custom_location()
+    public function should_generate_a_module_with_seeder_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.seeds', 'seeds');
         $this->app['config']->set('modules.generate', [
@@ -469,7 +469,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_seeder()
+    public function should_generate_a_module_without_seeder()
     {
         $this->app['config']->set('modules.default.structure.seeds', 'database/seeds');
         $this->app['config']->set('modules.generate', [
@@ -486,7 +486,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_factory()
+    public function should_generate_a_module_with_factory()
     {
         $this->app['config']->set('modules.default.structure.factories', 'database/factories');
         $this->app['config']->set('modules.generate', [
@@ -500,7 +500,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_factory_in_custom_location()
+    public function should_generate_a_module_with_factory_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.factories', 'factories');
         $this->app['config']->set('modules.generate', [
@@ -514,7 +514,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_factory()
+    public function should_generate_a_module_without_factory()
     {
         $this->app['config']->set('modules.default.structure.factories', 'database/factories');
         $this->app['config']->set('modules.generate', [
@@ -531,7 +531,86 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_helpers()
+    public function should_generate_a_module_with_rule()
+    {
+        $this->app['config']->set('modules.default.structure.rules', 'Rules');
+        $this->app['config']->set('modules.generate', [
+            'rule' => true,
+        ]);
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $file = $this->modulePath . '/Rules/FooBar.php';
+        $this->assertFileExists($file);
+
+        $content = file_get_contents($file);
+        $this->assertNotFalse(strpos($content, 'namespace App\\Modules\\FooBar\\Rules;'));
+        $this->assertNotFalse(strpos($content, 'class FooBar extends Rule'));
+    }
+
+    /** @test */
+    public function should_generate_a_module_with_rule_in_custom_location()
+    {
+        $this->app['config']->set('modules.default.structure.rules', 'Validation/Rules');
+        $this->app['config']->set('modules.generate', [
+            'rule' => true,
+        ]);
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $file = $this->modulePath . '/Validation/Rules/FooBar.php';
+        $this->assertFileExists($file);
+
+        $content = file_get_contents($file);
+        $this->assertNotFalse(strpos($content, 'namespace App\\Modules\\FooBar\\Validation\\Rules;'));
+        $this->assertNotFalse(strpos($content, 'class FooBar implements Rule'));
+    }
+
+    /** @test */
+    public function should_generate_a_module_without_rule()
+    {
+        $this->app['config']->set('modules.default.structure.rules', 'Rules');
+        $this->app['config']->set('modules.generate', [
+            'rule' => false,
+        ]);
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $file = $this->modulePath . '/Rules/FooBar.php';
+        $this->assertFileNotExists($file);
+
+        $dir = $this->modulePath . '/Rules';
+        $this->assertDirectoryNotExists($dir);
+    }
+
+    /** @test */
+    public function should_generate_a_module_with_config()
+    {
+        $this->app['config']->set('modules.generate', [
+            'config' => true,
+        ]);
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $file = $this->modulePath . '/config.php';
+        $this->assertFileExists($file);
+    }
+
+    /** @test */
+    public function should_generate_a_module_without_config()
+    {
+        $this->app['config']->set('modules.generate', [
+            'config' => false,
+        ]);
+        $code = $this->artisan('make:module', ['name' => 'FooBar']);
+        $this->assertSame(0, $code);
+
+        $file = $this->modulePath . '/config.php';
+        $this->assertFileNotExists($file);
+    }
+
+    /** @test */
+    public function should_generate_a_module_with_helpers()
     {
         $this->app['config']->set('modules.default.structure.helpers', '');
         $this->app['config']->set('modules.generate', [
@@ -545,7 +624,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_with_helpers_in_custom_location()
+    public function should_generate_a_module_with_helpers_in_custom_location()
     {
         $this->app['config']->set('modules.default.structure.helpers', 'misc');
         $this->app['config']->set('modules.generate', [
@@ -559,7 +638,7 @@ class ModuleMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_generates_module_without_helpers()
+    public function should_generate_a_module_without_helpers()
     {
         $this->app['config']->set('modules.default.structure.helpers', 'misc');
         $this->app['config']->set('modules.generate', [

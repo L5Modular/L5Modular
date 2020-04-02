@@ -138,6 +138,7 @@ class ModuleMakeCommand extends GeneratorCommand
                 $options['--create'] = $table;
                 break;
 
+            case 'config':
             case 'helpers':
                 unset($options['name']);
                 break;
