@@ -32,6 +32,7 @@ trait RegisteresCommands
         'ResourceMake' => 'command.module.resource.make',
         'SeederMake' => 'command.module.seeder.make',
         'HelpersMake' => 'command.module.helpers.make',
+        'RuleMake'  => 'command.module.rule.make',
     ];
 
     /**
@@ -300,6 +301,19 @@ trait RegisteresCommands
         $this->app->singleton('command.module.helpers.make', function ($app) {
             $files = $app['files'];
             return new Console\HelpersMakeCommand($files);
+        });
+    }
+
+    /**
+     * Register the "make:module:rule" command.
+     *
+     * @return void
+     */
+    protected function registerRuleMakeCommand()
+    {
+        $this->app->singleton('command.module.rule.make', function ($app) {
+            $files = $app['files'];
+            return new Console\RuleMakeCommand($files);
         });
     }
 }

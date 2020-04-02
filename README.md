@@ -36,6 +36,7 @@ You can simply drop or generate modules with their own controllers, models, view
         * [make listener](#php-artisan-makemodulelistener)
         * [make observer](#php-artisan-makemoduleobserver)
         * [make job](#php-artisan-makemodulejob)
+        * [make rule](#php-artisan-makemodulerule)
         * [make view](#php-artisan-makemoduleview)
         * [make translation](#php-artisan-makemoduletranslation)
         * [make routes](#php-artisan-makemoduleroute)
@@ -495,6 +496,37 @@ Options:
 
 <br>
 
+
+##### `php artisan make:module:rule`
+This command generates a validation rule into a module.  
+<details>
+    <summary>Description / Usage / Arguments / Options</summary>
+
+```
+Description:
+  Create a new rule class in a module
+
+Usage:
+  make:module:rule [options] [--] <name>
+
+Arguments:
+  name                   The name of the class
+
+Options:
+      --module[=MODULE]  Generate a rule in a certain module
+  -h, --help             Display this help message
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi             Force ANSI output
+      --no-ansi          Disable ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+</details>
+
+<br>
+
 ##### `php artisan make:module:view`
 This command generates a blade view into a module.  
 By passing in the corresponding option you can define in which module the view should be generated.
@@ -854,6 +886,7 @@ The `generate` array accepts boolean values to enable / disable the generation o
     'listener' => false,
     'observer' => false,
     'job' => false,
+    'rules' => false,
     'view' => true,
     'translation' => true,
     'routes' => true,
@@ -910,6 +943,7 @@ The default settings consists of `routing` and `structure`.
         'listeners' => 'Listeners',
         'observers' => 'Observers',
         'jobs' => 'Jobs',
+        'rules' => 'Rules',
         'views' => 'resources/views',
         'translations' => 'resources/lang',
         'routes' => 'routes',
@@ -959,6 +993,7 @@ The structure config accepts an associative array, while the values represent th
     'listeners' => 'Listeners',
     'observers' => 'Observers',
     'jobs' => 'Jobs',
+    'rules' => 'Rules',
     'views' => 'resources/views',
     'translations' => 'resources/lang',
     'routes' => 'routes',
