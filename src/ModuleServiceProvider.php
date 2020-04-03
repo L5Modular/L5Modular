@@ -44,7 +44,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->registerConfig($name);
 
-        $enabled = config("{$name}.enabled", config("modules.specific.{$name}.enabled", true));
+        $enabled = config("{$name}.enabled", true);
         if ($enabled) {
             $this->registerRoutes($name);
             $this->registerHelpers($name);
@@ -131,10 +131,10 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function getRoutingConfig(string $module)
     {
-        $types = config("modules.specific.{$module}.routing", config('modules.default.routing'));
-        $path = config("modules.specific.{$module}.structure.routes", config('modules.default.structure.routes'));
+        $types = config("{$module}.routing", config('modules.default.routing'));
+        $path = config("{$module}.structure.routes", config('modules.default.structure.routes'));
 
-        $cp = config("modules.specific.{$module}.structure.controllers", config('modules.default.structure.controllers'));
+        $cp = config("{$module}.structure.controllers", config('modules.default.structure.controllers'));
         $namespace = $this->app->getNamespace() . trim("Modules\\{$module}\\" . implode('\\', explode('/', $cp)), '\\');
 
         return compact('types', 'path', 'namespace');
@@ -221,7 +221,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function prepareComponent(string $module, string $component, string $file = '')
     {
-        $path = config("modules.specific.{$module}.structure.{$component}", config("modules.default.structure.{$component}"));
+        $path = config("{$module}.structure.{$component}", config("modules.default.structure.{$component}"));
         $resource = rtrim(str_replace('//', '/', app_path("Modules/{$module}/{$path}/{$file}")), '/');
 
         if (! ($file && $this->files->exists($resource)) && ! (!$file && $this->files->isDirectory($resource))) {

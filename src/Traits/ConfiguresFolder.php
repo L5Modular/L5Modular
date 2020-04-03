@@ -19,6 +19,6 @@ trait ConfiguresFolder
      */
     protected function getConfiguredFolder(string $component)
     {
-        return config("modules.specific.{$this->module}.structure.{$component}", config("modules.default.structure.{$component}"));
+        return config("{$this->module}.structure.{$component}", config("modules.default.structure.{$component}"));
     }
 }

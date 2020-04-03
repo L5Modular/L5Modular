@@ -34,7 +34,7 @@ trait MakesComponent
     protected function getConfiguredFolder($key = null)
     {
         if (! $key) $key = self::KEY;
-        return config("modules.specific.{$this->module}.structure.{$key}", config("modules.default.structure.{$key}"));
+        return config("{$this->module}.structure.{$key}", config("modules.default.structure.{$key}"));
     }
 
     /**
