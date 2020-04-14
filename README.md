@@ -52,12 +52,13 @@ You can simply drop or generate modules with their own controllers, models, view
     * [Migrations](#migrations)
     * [Factories](#factories)
     * [Loading additional classes](#loading-additional-classes)
-* [Configuration](#configuration)
+	* [Configuration](#configuration)
     * [Publish config file](#publish-config-file)
     * [Generate](#generate)
     * [Default](#default)
     * [Specific](#specific)
 * [Contributors](#contributors)
+* [Contact](#contact)
 * [License](#license)
 
 <br>
@@ -1221,6 +1222,15 @@ Thanks goes to these wonderful people:
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 Also thanks to zyhn for the ["Modular Structure in Laravel 5" tutorial](http://ziyahanalbeniz.blogspot.com.tr/2015/03/modular-structure-in-laravel-5.html). Well explained and helped a lot.
+
+<br>
+<br>
+
+---
+
+## Contact
+
+Feel free to join the [Slack](https://join.slack.com/t/l5modular/shared_invite/zt-dd53wpkn-pqT~2IWtTA8vWxQVWz4AHg) chat.
 
 <br>
 <br>
