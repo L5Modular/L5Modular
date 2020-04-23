@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtemSchander\L5Modular\Tests\Commands;
+namespace ArtemSchander\L5Modular\Tests;
 
 // use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Config\Repository as ConfigRepository;
@@ -17,6 +17,7 @@ use ArtemSchander\L5Modular\ModuleServiceProvider;
  */
 class ModuleServiceProviderTest extends TestCase
 {
+    private $finder;
     private $serviceProvider;
 
     protected function setUp(): void
@@ -92,7 +93,7 @@ class ModuleServiceProviderTest extends TestCase
         $serviceProvider = new ModuleServiceProvider($app);
 
         $app->shouldReceive('singleton')
-            ->times(21)
+            ->times(22)
             ->andReturnNull();
 
         $app->shouldReceive('configPath')

@@ -48,7 +48,7 @@ class L5Modular
     public function enabled(string $module)
     {
         $key = $this->getConfigStatusPath($module);
-        return $this->exists($module) && $this->config->get($key, true);
+        return $this->exists($module) && $this->config->get($key, true) && $this->config->get("{$module}.enabled", true);
     }
 
     /**
