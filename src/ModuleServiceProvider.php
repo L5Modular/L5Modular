@@ -18,7 +18,7 @@ class ModuleServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  \Illuminate\Filesystem\Filesystem  $files
      *
      * @return void
      */
@@ -265,8 +265,8 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerService()
     {
-        $this->app->singleton('l5modular', function() {
-            return new L5Modular();
+        $this->app->singleton('l5modular', function($app) {
+            return new L5Modular($app['config'], $app['files']);
         });
     }
 }
