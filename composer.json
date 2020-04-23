@@ -30,7 +30,10 @@
          "laravel": {
               "providers": [
                    "ArtemSchander\\L5Modular\\ModuleServiceProvider"
-              ]
+              ],
+              "aliases": {
+                  "L5Modular": "ArtemSchander\\L5Modular\\Facades\\L5Modular"
+              }
          }
     },
     "minimum-stability": "dev",

@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Factory;
 
+use ArtemSchander\L5Modular\Services\L5Modular;
+
 class ModuleServiceProvider extends ServiceProvider
 {
     use Traits\RegisteresCommands;
@@ -239,10 +241,11 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->registerPublishConfig();
         $this->registerCommands();
+        $this->registerService();
     }
 
     /**
-     * undocumented function
+     * register config
      *
      * @return void
      */
@@ -253,5 +256,17 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom($configPath, 'modules');
         $this->publishes([ $configPath => $publishPath ], 'config');
+    }
+
+    /**
+     * register service
+     *
+     * @return void
+     */
+    protected function registerService()
+    {
+        $this->app->singleton('l5modular', function() {
+            return new L5Modular();
+        });
     }
 }
