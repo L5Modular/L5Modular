@@ -1,3 +1,5 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('DummyTitle', 'DummyModuleNameController@welcome');
