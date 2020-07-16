@@ -2,7 +2,7 @@
 
 namespace ArtemSchander\L5Modular\Tests;
 
-// use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Filesystem\Filesystem;
@@ -102,6 +102,13 @@ class ModuleServiceProviderTest extends TestCase
             ->andReturn('config/modules.php');
 
         $configRepository = Mockery::mock(ConfigRepository::class);
+
+        if (version_compare(Application::VERSION, '7.19.0', '>=')) {
+            $app->shouldReceive('make')
+                ->once()
+                ->with('config')
+                ->andReturn($configRepository);
+        }
 
         $configRepository->shouldReceive('set')
             ->once();
