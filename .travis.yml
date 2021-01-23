@@ -6,9 +6,9 @@ env:
 language: php
 
 php:
-  - 7.2
-  - 7.3
-  - 7.4
+  # - 7.2
+  - 7.3.24
+  # - 7.4
 
 before_script:
   - travis_retry composer update --no-interaction --prefer-source
@@ -17,7 +17,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - phpunit --coverage-text --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 
 branches:
