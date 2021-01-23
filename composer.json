@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=7.2",
-        "laravel/framework": ">=6.20.12"
+        "laravel/framework": ">=5.7"
     },
     "autoload": {
         "psr-4": {
