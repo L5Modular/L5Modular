@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ArtemSchander\\L5Modular\\": "src/"
+            "ArtemSchander\\L5Modular\\": "src"
         }
     },
     "scripts": {
@@ -31,12 +31,12 @@
     },
     "extra": {
          "laravel": {
-              "providers": [
-                   "ArtemSchander\\L5Modular\\ModuleServiceProvider"
-              ],
-              "aliases": {
-                  "L5Modular": "ArtemSchander\\L5Modular\\Facades\\L5Modular"
-              }
+            "providers": [
+                "ArtemSchander\\L5Modular\\ModuleServiceProvider"
+            ],
+            "aliases": {
+                "L5Modular": "ArtemSchander\\L5Modular\\Facades\\L5Modular"
+            }
          }
     },
     "minimum-stability": "dev",
