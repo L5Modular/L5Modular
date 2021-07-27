@@ -1,10 +1,22 @@
 {
     "name": "artem-schander/l5-modular",
     "description": "Modular pattern generator for Laravel",
-    "keywords": ["laravel", "modular", "modules", "module", "structure", "pattern", "Artem", "Schander", "l5modular", "artisan", "generator"],
+    "keywords": [
+        "laravel",
+        "modular",
+        "modules",
+        "module",
+        "structure",
+        "pattern",
+        "Artem",
+        "Schander",
+        "l5modular",
+        "artisan",
+        "generator"
+    ],
     "homepage": "https://l5modular.com",
     "license": "MIT",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "authors": [
         {
             "name": "Artem Schander",
@@ -30,14 +42,12 @@
         }
     },
     "extra": {
-         "laravel": {
-            "providers": [
-                "ArtemSchander\\L5Modular\\ModuleServiceProvider"
-            ],
+        "laravel": {
+            "providers": ["ArtemSchander\\L5Modular\\ModuleServiceProvider"],
             "aliases": {
                 "L5Modular": "ArtemSchander\\L5Modular\\Facades\\L5Modular"
             }
-         }
+        }
     },
     "minimum-stability": "dev",
     "require-dev": {
