@@ -79,7 +79,7 @@ trait MakesComponent
      *
      * @return void
      */
-    private function initModuleOption()
+    protected function initModuleOption()
     {
         if (! $this->module = $this->option('module')) {
             $this->module = $this->ask('In what module would you like to generate?');

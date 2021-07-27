@@ -4,7 +4,9 @@ namespace ArtemSchander\L5Modular\Console;
 
 use ArtemSchander\L5Modular\Traits\MakesComponent;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class TranslationMakeCommand extends GeneratorCommand
 {
@@ -30,6 +32,13 @@ class TranslationMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Translation';
+
+    /**
+     * The language short code of the translation
+     *
+     * @var string
+     */
+    protected $language = 'en';
 
     /**
      * The key of the component to be generated.
@@ -64,6 +73,19 @@ class TranslationMakeCommand extends GeneratorCommand
     }
 
     /**
+     * Get the destination class path.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = $this->getNameInput();
+        $path = $this->laravel['path'] . '/Modules/' . Str::studly($this->module) . '/' . $this->getConfiguredFolder() .  '/' . $this->language . '/' . $name . '.php';
+        return str_replace('//', '/', $path);
+    }
+
+    /**
      * Get the console command arguments.
      *
      * @return array
@@ -71,7 +93,44 @@ class TranslationMakeCommand extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The language short code of the translation'],
+            ['name', InputArgument::REQUIRED, 'The translation file name'],
         ];
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        $options[] = ['module', null, InputOption::VALUE_OPTIONAL, self::MODULE_OPTION_INFO];
+        $options[] = ['language', null, InputOption::VALUE_OPTIONAL, 'The language short code of the translation'];
+        return $options;
+    }
+
+    /**
+     * Initialize --module flag
+     *
+     * @return void
+     */
+    protected function initModuleOption()
+    {
+        if (! $this->module = $this->option('module')) {
+            $this->module = $this->ask('In what module would you like to generate?');
+        }
+
+        if (! $this->language = $this->option('language')) {
+            $this->language = $this->ask('In which language would you like to generate the translation?', 'en');
+        }
+
+        if (! $this->option('quiet')) {
+            $this->line('app/Modules/' . $this->module);
+        }
+
+        if (!$this->files->isDirectory(app_path('Modules/' . $this->module))) {
+            $this->error('Module doesn\'t exist.');
+            $this->module = false;
+        }
     }
 }

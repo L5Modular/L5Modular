@@ -217,7 +217,7 @@ class ModuleMakeCommandTest extends TestCase
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 
-        $file = $this->modulePath . '/resources/lang/en.php';
+        $file = $this->modulePath . '/resources/lang/en/example.php';
         $this->assertFileExists($file);
     }
 
@@ -232,7 +232,7 @@ class ModuleMakeCommandTest extends TestCase
         $code = $this->artisan('make:module', ['name' => 'FooBar']);
         $this->assertSame(0, $code);
 
-        $file = $this->modulePath . '/translations/en.php';
+        $file = $this->modulePath . '/translations/en/example.php';
         $this->assertFileExists($file);
     }
 
