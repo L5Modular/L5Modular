@@ -1,4 +1,4 @@
-<p align="center"><img width="200" src="https://l5modular.com/assets/logo-no-borders-bicolor-vibrant.svg" alt="L5Modular logo"></p>
+<p align="center"><img width="200" src="https://l5modular.github.io/assets/logo-no-borders-bicolor-vibrant.svg" alt="L5Modular logo"></p>
 <h3 align="center">L5Modular</h3>
 <p align="center">Keep Your Laravel App Organized</p>
 <br>
@@ -23,7 +23,7 @@ You can simply drop or generate modules with their own controllers, models, view
 
 ## Documentation
 
-Check out the full documentation at [l5modular.com](https://l5modular.com)
+Check out the full documentation at [l5modular.github.io](https://l5modular.github.io)
 
 ---
 
