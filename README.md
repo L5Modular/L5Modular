@@ -4,7 +4,7 @@
 <br>
 <p align="center">
     <a href="https://github.com/Artem-Schander/L5Modular/releases"><img src="https://img.shields.io/github/v/release/artem-schander/L5Modular" alt="latest release"></a>
-    <a href="https://travis-ci.com/Artem-Schander/L5Modular"><img src="https://img.shields.io/travis/com/Artem-Schander/L5Modular/master" alt="build"></a>
+    <a href="https://app.buddy.works/schanderartem/l5modular/pipelines/pipeline/377455"><img src="https://app.buddy.works/schanderartem/l5modular/pipelines/pipeline/377455/badge.svg?token=4b7b3c4d7519e9539b3182b6ab83a51aa0e08f1ff562c4b8a8a393c266a4ba67" alt="build"></a>
     <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/maintainability-percentage/Artem-Schander/L5Modular" alt="maintainability"></a>
     <a href="https://codeclimate.com/github/Artem-Schander/L5Modular"><img src="https://img.shields.io/codeclimate/coverage/Artem-Schander/L5Modular" alt="code coverage"></a>
     <a href="https://packagist.org/packages/artem-schander/l5-modular"><img src="https://img.shields.io/packagist/dt/artem-schander/l5-modular.svg" alt="downloads"></a>
