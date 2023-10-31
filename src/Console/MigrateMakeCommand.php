@@ -33,6 +33,13 @@ class MigrateMakeCommand extends BaseMigrateMakeCommand
     protected $description = 'Create a new migration file in a module';
 
     /**
+     * The filesystem instance.
+     *
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected Filesystem $files;    
+
+    /**
      * Create a new migration install command instance.
      *
      * @param  \Illuminate\Database\Migrations\MigrationCreator  $creator
